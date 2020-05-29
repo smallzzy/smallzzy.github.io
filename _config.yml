@@ -1,0 +1,24 @@
+# Site settings
+title: Work and Note
+email: smallzzy8@gmail.com
+description: >-
+  Record the details for my work.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "smallzzy.github.io"
+img_url: "https://media.githubusercontent.com/media/smallzzy/smallzzy.github.io/master/assets/img"
+github_username:  smallzzy
+
+# Build settings
+highlighter: rouge
+permalink: /:year/:y_day/:title:output_ext
+plugins:
+  - jekyll-feed
+
+# Exclude from processing.
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - .gitignore
+  - .gitattributes
+  - assets/
+  - files/
