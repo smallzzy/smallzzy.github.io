@@ -64,3 +64,6 @@ https://easings.net/
   * multiply to make a grid
 * Faceforward, Reflect, Refract
 * matrix math: translate, rotate, scale
+
+http://www-cs-students.stanford.edu/~amitp/game-programming/polygon-map-generation/#polygons
+http://www.extremeoptimization.com/Documentation/Default.aspx
