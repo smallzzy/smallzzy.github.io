@@ -139,9 +139,21 @@ func test(a interface{}) {}
 ```go
 p, err := plugin.Open("test.so") // load so
 v, err := p.Lookup("V") // lookup symbol
-tmp, ok = value.(typeName) // type cast
-switch str := value.(type) { } // type switch
 ```
+
+## type
+
+```go
+v.(func(int)) // cast to function
+tmp, ok = value.(typeName) // type cast
+switch str := value.(type) {
+  case typeName: 
+} // type switch
+```
+
+https://stackoverflow.com/questions/32393460/convert-function-type-in-golang
+https://golang.org/pkg/reflect/#MakeFunc
+https://golang.org/doc/faq#stack_or_heap
 
 ## three dots
 
