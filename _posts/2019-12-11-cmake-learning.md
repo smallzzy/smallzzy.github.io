@@ -4,7 +4,7 @@ title:
 date: 2019-12-11 11:51
 category: 
 author: 
-tags: [compile]
+tags: [compile, lang]
 summary: 
 ---
 
