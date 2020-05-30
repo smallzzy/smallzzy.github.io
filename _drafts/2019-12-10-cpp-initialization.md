@@ -8,7 +8,7 @@ tags: [cpp]
 summary: 
 ---
 
-![]({{site.asset_url}}/imgs/cpp_init_forest.gif)
+![]({{site.img_url}}/cpp_init_forest.gif)
 
 ## initialization
 
