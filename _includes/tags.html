@@ -9,13 +9,12 @@
       {% if post.tags contains t %}
       <li>
         <a href="{{ post.url }}">{{ post.title }}</a>
-        <span class="date">{{ post.date | date: "%B %-d, %Y"  }}</span>
+        <span class="date">{{ post.date | date: "%D" }}</span>
       </li>
       {% endif %}
       {% endfor %}
     </ul>
-  </div>
-  </li>
+  </div></li>
   {% endfor %}
 </ul>
 
@@ -31,7 +30,7 @@
 
   .active,
   .collapsible:hover {
-    background-color: #555;
+    color: #2268b2;
   }
 
   .content {
