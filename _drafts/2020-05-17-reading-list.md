@@ -8,6 +8,9 @@ tags: []
 summary: 
 ---
 
+battery
+https://batteryuniversity.com/learn/article/charging_with_a_power_supply
+
 reading notes on many books
 https://notes.shichao.io/
 
