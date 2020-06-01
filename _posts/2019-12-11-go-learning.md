@@ -84,11 +84,16 @@ func main() {}
 
 The `package` must be the first line
 
+## loop
+
 ```go
 for init; condition; post {}
 for condition {}
 for {}
 ```
+
+`break` breaks from innermost `for, switch, select`
+even when `switch, select` has a default break
 
 ## struct vs interface
 
@@ -96,6 +101,10 @@ for {}
 type Android struct {
   Person // anonymous field -> is-a relation
   Model string // -> has-a relation
+}
+
+func (a *Android) () {
+  // define function for struct
 }
 ```
 
@@ -115,7 +124,9 @@ func test(a interface{}) {}
 `go func`
 
 * limit the amount of go routine
+* channel could block if there is no receiver
 * `close(chan)` will retain its remaining values
+  * write to a closed chan will panic
 * `range` will wait on channel forever if not closed
 * `select` can used to wait on multiple channels
   * and to avoid waiting with `default`
@@ -131,6 +142,24 @@ func test(a interface{}) {}
 
 * array are values, so it is always copied
 * size of array is part of its type
+* slice hold a reference to its content
+  * internal changes are visible through copy
+  * if slice is reallocated, the reference is lost
+
+```go
+func main() {
+	slice:=[]string{"a","a"}
+	func(slice []string) {
+		slice[0] = "b"
+		slice[1] = "b"
+		slice = append(slice, "a")
+		fmt.Print(slice) // bba
+	}(slice)
+	fmt.Print(cap(slice))
+	fmt.Print(len(slice))
+	fmt.Print(slice) // bb
+}
+```
 
 ## plugin
 
