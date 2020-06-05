@@ -153,6 +153,7 @@ Lookup the complexity [here](https://www.bigocheatsheet.com/).
       1. repeat distance update for every edges for a total of V - 1 times
       i.e. let the weight propagate to all vertex
       2. check negative weight cycle by update once more, see if any path can be improved
+   3. Floyd / SPFA
 4. minimal spanning tree
    1. a sub-graph that connects all the vertices together
    2. Kruskal -> pick V - 1 edges with minimal weights that does not form a cycle
@@ -171,6 +172,7 @@ Lookup the complexity [here](https://www.bigocheatsheet.com/).
 
 1. regex
 2. KMP / Boyer-Moore
+3. Rabin-Karp
 
 ## b tree side note
 
@@ -200,6 +202,7 @@ Which leads to the following advantage:
    only leaf nodes need to hold the data corresponding to the separator.
 2. Thus, more keys can be fit on a page of memory. Helps with search speed.
 3. The leaf node can be linked together to help with range query.
+   1. ie tree branches are interconnected
 
 ## tail call optimization
 
@@ -215,3 +218,11 @@ left = 2 * i + 1;
 right = 2 * i + 2;
 parent = (i - 1) / 2; -> use integer division
 ```
+
+##
+
+Topological sorting
+Morris
+Manacher / suffix array
+Shell Sort
+Union Find

@@ -195,6 +195,22 @@ https://golang.org/doc/faq#stack_or_heap
 
 [cheatsheet](https://yourbasic.org/golang/fmt-printf-reference-cheat-sheet/)
 
+## test and benchmark
+
+https://blog.golang.org/pprof
+https://golang.org/doc/diagnostics.html
+
+```
+go test -run=xxx # run all test matching xxx
+go test -bench=. # run all tests + benchmarks
+```
+
+* benchmark is run for a minimum of 1s. `-benchtime`
+* benchmark is run until stable
+  * changing runtime is not acceptable
+* compiler might eliminate function
+  * always retrieve result to a package level variable
+
 ## misc
 
 * A `defer` statement defers the execution of a function until the surrounding function returns 

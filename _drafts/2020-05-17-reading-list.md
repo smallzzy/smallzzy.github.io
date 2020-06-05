@@ -44,3 +44,10 @@ api
 http://blog.fanout.io/2015/04/02/realtime-api-design-guide/
 https://realtimeapi.io/hub/http-long-polling/
 https://realtimeapi.io/hub/http-streaming/
+
+grating
+https://www.horiba.com/en_en/diffraction-gratings-ruled-holographic/
+reflex vs Holographic
+
+rocket
+https://www.n2yo.com/database/
