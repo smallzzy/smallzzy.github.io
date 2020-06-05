@@ -19,7 +19,7 @@ summary:
   * rectangle `int[,]` vs jagged `int[][]`
 * tuple: create with `()`
 * anonymous tye: create with `new {}`
-* `=>` expression-bodied member syntax
+* `=>` expression-bodied member syntax?
   * lambda function
   * `()` can be used for void parameter.
 * `const`: inherently `static`
@@ -28,6 +28,7 @@ summary:
   * `is` check if type match. 
     * c#7 `tmp is Salesman s` -> avoid double cast
   * `as` return null if type does not match
+  * `a ?? b` operator: if a is null, evaluate b.
 * `?` suffix
   * when used with value type: short cut for `Nullable`
   * when used with variable: check for not null before use.
@@ -36,11 +37,11 @@ summary:
 ### class
 
 * `partial`: separate class definition into multiple files
-* `sealed`
+* `sealed`: disallow further 
 * `abstract`, `interface`
 * `this`, `base`
 
-`object` define the following virtual
+`object` define the following virtual function
 
 * `Equals`: check if the same reference in memory
   * `GetHashCode`: override at the same time.
@@ -51,12 +52,11 @@ summary:
 
 ### function
 
-* function type
+* argument type
   * `out`: imply `ref`, must be assigned
   * `ref`
   * `params`: used on the last arg.
   Allow multiple parameters to be passed as comma delimited list.
-  * optional parameter is specified with `:`
 * `virtual`, `override`, `sealed`
 * `abstract`: force override in child class
 * `new`: shadow implementation before this one.
@@ -88,7 +88,7 @@ A object become value type whenever inherit from System.ValueType
 * reference type = object pointer in c++?
 * `ref` means reference in c++
   * must be used wherever we want pass by reference
-  * including type name, function call, return type, return call
+  * including type name, function call, return type, return call?
 
 * string, arrays, ValueType, System.Enum are reference types
 * non-nullable value type can also be boxed with `object`
@@ -99,6 +99,10 @@ object y = x;
 ```
 
 ## enum
+
+* enum is defined outside of a class.
+* cannot define method inside of a enum
+  * except with extension
 
 `Enum.GetUnderlyingType`
 `Enum.GetValues`
@@ -112,17 +116,15 @@ object y = x;
 * use interface to safely contain null value data type
 * `Value`: fail if no value exist
 * `HasValue`: check if not `null`
-* lifted operators
+* lifted operators?
   * variable is not lifted so check must be performed before use
   * qualified op is changed to its nullable equivalent automatically
-* `as` operator: convert data type. Works on nullable. Null if does not match
-* `a ?? b` operator: if a is null, evaluate b.
 
 ## property
 
 * auto property: the private variable is auto-gen
-* auto property default value
-* object initialization
+* auto property default value?
+* object initialization?
 
 ```c#
 class Garage {
@@ -186,9 +188,6 @@ Garage test2 = new Garage{Car = ...};
   * Constructor `where T: new()`: default constructable
   * Conversion `where T: SomeType`
   * cannot put constraint on operator support.
-* reflection:
-  * typeof can return `closed, constructed type`, or generic container without any types
-  * In the form `List'1`
 
 ## delegate
 
@@ -227,7 +226,7 @@ public event Handler Func;
   * a class derived rom `System.EventArgs`: the custom information (parameter)
 * which become `EventHandler<>`
 
-## operator overload
+## operator overload??
 
 * `this[]`: indexer
 * `operator`
@@ -238,10 +237,16 @@ public event Handler Func;
 
 * defined within a static class
 * using `this` on the first (and only the first) parameter
-  * this specifies the object to be extended
+  * `this` specifies the object to be extended
   * the additional parameters are treated as normal incoming parameters.
   * extends the parent class?
 * usually isolated within namespace and class libraries
+
+## reflection
+
+* reflection of generic:
+  * typeof can return `closed, constructed type`, or generic container without any types
+  * In the form `List'1`
 * `object.GetType().GetMethod(methodName) != null`
 
 ## 
