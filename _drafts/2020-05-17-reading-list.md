@@ -49,5 +49,12 @@ grating
 https://www.horiba.com/en_en/diffraction-gratings-ruled-holographic/
 reflex vs Holographic
 
+tesla
+https://teslatap.com/undocumented/
+https://blog.lookout.com/hacking-a-tesla
+https://www.pentestpartners.com/security-blog/reverse-engineering-tesla-hardware/
+https://jeelabs.org/2018/canbus-intro/
+
 rocket
 https://www.n2yo.com/database/
+https://www.reddit.com/r/Starlink/comments/9sxr3c/starlink_network_topology_simulation_predictions/

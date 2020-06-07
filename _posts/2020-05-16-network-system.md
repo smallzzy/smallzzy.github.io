@@ -13,10 +13,25 @@ summary:
 IP suite (OSI)
 
 1. (physical)
-2. link (data link)
+2. link (data link): mac
 3. internet (network): ip
+  * ipv4 broadcast through the all one address
+  * ipv6 does not have broadcast
 4. transport (transport): tcp/udp
 5. application (session, presentation, application): sockets, ssl/tls
+
+### protocol
+
+1. Shared media / Repeater: 
+  * CSMA/CD
+2. Switch
+  * Address Resolution Protocol: knowing ip, broadcast request for a mac address
+  * Spanning Tree Protocol / Shortest Path Bridging
+  * https://en.wikipedia.org/wiki/IPv6_address
+3. Router
+  * QoS:
+  * UPnP
+  * NAT
 
 ## REST
 
