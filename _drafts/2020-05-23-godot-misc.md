@@ -67,3 +67,9 @@ https://easings.net/
 
 http://www-cs-students.stanford.edu/~amitp/game-programming/polygon-map-generation/#polygons
 http://www.extremeoptimization.com/Documentation/Default.aspx
+
+
+https://medium.com/game-dev-daily/four-ways-to-create-a-mesh-for-a-sphere-d7956b825db4
+https://medium.com/@theclassytim/robotic-path-planning-rrt-and-rrt-212319121378
+https://github.com/cnr-isti-vclab/meshlab
+https://github.com/PyMesh/PyMesh
