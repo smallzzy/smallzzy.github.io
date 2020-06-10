@@ -77,12 +77,24 @@ go fmt: format files
 
 The program entry point is:
 
-```
+```go
 package main
 func main() {}
 ```
 
 The `package` must be the first line
+
+```go
+panic()
+// return the argument passed to panic
+recover()
+// each source file can have init() functions
+// init() is evaluated after imported packages
+init()
+// _ is used as a dummy variable
+// can suppress unused import and unused variable
+// import _ "net/http/pprof" for side effect
+```
 
 ## loop
 
@@ -100,6 +112,7 @@ even when `switch, select` has a default break
 ```go
 type Android struct {
   Person // anonymous field -> is-a relation
+  // called embedding in go, can also be used on interface
   Model string // -> has-a relation
 }
 
