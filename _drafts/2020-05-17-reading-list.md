@@ -32,6 +32,7 @@ https://tryhackme.com/room/rpmetasploit
 https://www.cscg.de/cscg/challenge/
 https://senior.2020.cscg.de/tasks/Intro%20to%20Pwning%201
 https://exploit.education/
+https://crackmes.one/
 
 https://overthewire.org/wargames/
 https://ctftime.org/event/list/upcoming

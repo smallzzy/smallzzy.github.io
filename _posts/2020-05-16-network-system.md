@@ -17,8 +17,20 @@ IP suite (OSI)
 3. internet (network): ip
   * ipv4 broadcast through the all one address
   * ipv6 does not have broadcast
+  * maximum transmission unit (MTU) is max size of a ip packet
+  * [fragmentation](https://blog.cloudflare.com/ip-fragmentation-is-broken/)
 4. transport (transport): tcp/udp
-5. application (session, presentation, application): sockets, ssl/tls
+  * Transmission Control Protocol (TCP)
+  * User Datagram Protocol (UDP)
+5. application (session, presentation, application): ssl/tls
+
+### physical
+
+* small form-factor pluggable (SFP)
+* media independent interface (MII)
+  * connect to mac
+* Magnetics?
+  * connect to RJ45
 
 ### protocol
 
@@ -65,3 +77,5 @@ Representational state transfer (REST) is a style to design api.
 * `Connection: Upgrade`
 
 ## quic
+
+## zeroconf
