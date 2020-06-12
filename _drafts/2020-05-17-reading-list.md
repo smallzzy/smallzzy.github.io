@@ -57,3 +57,5 @@ https://www.reddit.com/r/Starlink/comments/9sxr3c/starlink_network_topology_simu
 
 https://github.com/intel-isl/Open3D
 https://www.ansys.com/
+
+https://www.microsoft.com/en-us/research/product/computational-photography-applications/
