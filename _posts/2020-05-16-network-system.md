@@ -31,6 +31,8 @@ IP suite (OSI)
   * connect to mac
 * Magnetics?
   * connect to RJ45
+* T568 A/B
+  * 10 / 100 Mbit use two pairs (1-2, 3-6)
 
 ### protocol
 

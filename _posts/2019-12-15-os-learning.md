@@ -155,8 +155,9 @@ thread:
 * cgroup
 * ipc ? https://sondnm.github.io/blog/2018/09/08/i-just-learnt-about-/dev/shm/
 * https://blog.yadutaf.fr/2013/12/28/introduction-to-linux-namespaces-part-2-ipc/
-* socket?
 * KVM XEN?
 
 * [UEFI](https://uefi.org/specifications): SEC, PEI, DXE
   * during DXE, oprom is loaded -> driver?
+
+* https://refspecs.linuxfoundation.org/

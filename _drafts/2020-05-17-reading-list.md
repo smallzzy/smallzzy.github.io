@@ -26,14 +26,15 @@ https://www.cs.rochester.edu/u/scott/papers/2015_SIGACT_News_TM_today.pdf
 https://en.cppreference.com/w/cpp/language/transactional_memory
 
 pwn
+http://shell-storm.org/shellcode/
 https://wiki.osdev.org/CPU_Bugs
+
 https://zhuanlan.zhihu.com/p/105208139
 https://tryhackme.com/room/rpmetasploit
 https://www.cscg.de/cscg/challenge/
 https://senior.2020.cscg.de/tasks/Intro%20to%20Pwning%201
 https://exploit.education/
 https://crackmes.one/
-
 https://overthewire.org/wargames/
 https://ctftime.org/event/list/upcoming
 
