@@ -150,6 +150,20 @@ thread:
 * but cannot remove files owned by other users
 * `chmod +t`
 
+## attribute
+
+* `A`: do not update atime record
+* `S`: changes are synchronously write to disk
+* `a`: only open in append mode
+* `i`: cannot be modified (no renaming, no symbolic link, no execution)
+* `j`: write journal before content
+* `t`: no tail-merging (multiple tail block can be merged to reduce disk usage)
+
+## reference
+
+[OSTEP](http://pages.cs.wisc.edu/~remzi/OSTEP/)
+[attr](https://en.wikipedia.org/wiki/Chattr)
+
 ## todo
 
 * cgroup
