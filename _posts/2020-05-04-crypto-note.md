@@ -41,9 +41,14 @@ decrypt: `--decrypt <file>`
 show sign keys: ``
 change trust level: `--edit-key <email>`
 
-## code block
+## cipher mode
 
 * electronic codebook (ECB)
   * same input always become the same output: `https://github.com/EiNSTeiN-/chosen-plaintext`
 * cipher block chaining (CBC)
   * padding can leak information on intermediate state: `https://github.com/mwielgoszewski/python-paddingoracle`
+* extended codebook (XCB)
+
+## reference 
+
+[cipher mode](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation)

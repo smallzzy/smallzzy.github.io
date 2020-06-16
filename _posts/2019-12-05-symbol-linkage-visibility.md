@@ -149,9 +149,7 @@ Problematic approach:
 
 `objcopy` can be used to change object symbol visibility
 
-* `--redefine-sym`: change symbol name
-* `--localize-hidden`: change visibility based on setting
-* `--localize-symbol`: change symbol manually
+Op Note -> objcopy
 
 ## symbol confliction
 
@@ -159,7 +157,7 @@ If we have two conflicting symbols, the conflicted symbol might:
 
 * trigger nothing if the symbol is defined in shared library
 * not be included if that object is not included
-* trigger multiple definition if object is imported via another fucntion.
+* trigger multiple definition if object is imported via another function.
 
 Possible solution:
 
