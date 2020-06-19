@@ -12,10 +12,10 @@ summary:
 
 * encrypt-then-MAC
 
-[freq solver](https://quipqiup.com)
-[decode tools](https://www.dcode.fr/tools-list#0)
-[rsactftool](https://github.com/Ganapati/RsaCtfTool)
-[cryptii pipeline](https://cryptii.com/)
+[freq solver](https://quipqiup.com)  
+[decode tools](https://www.dcode.fr/tools-list#0)  
+[rsactftool](https://github.com/Ganapati/RsaCtfTool)  
+[cryptii pipeline](https://cryptii.com/)  
 
 ## ssl / tls
 
@@ -41,10 +41,10 @@ summary:
    2. <- server dh parameter: \\( g^a \\)
 3. client response
    1. -> client dh parameter: \\( g^a \\)
-   2. pre-master secret: \\( g^ab \\)
+   2. generate pre-master secret: \\( g^ab \\)
 4. session key generated
 
-[procedure](https://www.cloudflare.com/learning/ssl/what-happens-in-a-tls-handshake/)
+[procedure](https://www.cloudflare.com/learning/ssl/what-happens-in-a-tls-handshake/)  
 [keyless ssl](https://www.cloudflare.com/learning/ssl/keyless-ssl/)
 
 ### forward secrecy
@@ -63,26 +63,27 @@ dh has fs because pre-master secret is never exchanged.
 encrypt the message with public key and decrypt with private key.
 so that we know that we are talking to the right person.
 
-key server: `pgp.mit.edu`
-generate key: `--full-generate-key`
-generate key file: `--output <file> --armor --export <email>`
-generate Revocation Certificate: `--output <file> --gen-revoke <email>`
-import key file: `--import <file>`
-show fingerprint: `--fingerprint <email>`, as a method to check keys
-retrieve key from server: `--keyserver <server> --search-keys <email>`
-send key to server: `--keyserver <server> --send-keys <fingerprint>`
-sign keys: `--sign-key <email>`, as a method to adopt keys
-encrypt and sign file: `--encrypt --sign --recipient <email> <file>`
-decrypt: `--decrypt <file>`
-show sign keys: ``
+key server: `pgp.mit.edu`  
+generate key: `--full-generate-key`  
+generate key file: `--output <file> --armor --export <email>`  
+generate Revocation Certificate: `--output <file> --gen-revoke <email>`  
+import key file: `--import <file>`  
+show fingerprint: `--fingerprint <email>`, as a method to check keys  
+retrieve key from server: `--keyserver <server> --search-keys <email>`  
+send key to server: `--keyserver <server> --send-keys <fingerprint>`  
+sign keys: `--sign-key <email>`, as a method to adopt keys  
+encrypt and sign file: `--encrypt --sign --recipient <email> <file>`  
+decrypt: `--decrypt <file>`  
+show sign keys: ``  
 change trust level: `--edit-key <email>`
 
 ## cipher suite
 
-rsa
+* rsa
 * Diffie-Hellman (DH)
   * RFC3526: public g and p
   * RFC2412: parameter choosing protocol
+  * \\( (g^a mod p)^b mod p = (g^b mod p)^a mod p \\)
 * Elliptic Curve Diffie-Hellman (ECDHE)
 
 ## cipher mode
