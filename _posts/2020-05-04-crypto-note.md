@@ -20,6 +20,10 @@ summary:
 ## ssl / tls
 
 * Relies on a existing certificate to verify server identity
+  * This certificate can be a weak point in the system
+  * Untrustworthy CA -> injected certificate
+  * certificate pinning only makes it hard to change the certificate
+  * certificate transparency?
 * record pre-master key by export `SSLKEYLOGFILE`
 
 ### rsa 
@@ -40,7 +44,7 @@ summary:
    1. <- server random + certificate (pub key)
    2. <- server dh parameter: \\( g^a \\)
 3. client response
-   1. -> client dh parameter: \\( g^a \\)
+   1. -> client dh parameter: \\( g^b \\)
    2. generate pre-master secret: \\( g^ab \\)
 4. session key generated
 
@@ -79,7 +83,14 @@ change trust level: `--edit-key <email>`
 
 ## cipher suite
 
-* rsa
+* RSA
+  * PKCS #1
+    * n = p * q, p q are random distinct prime number
+    * l = (p-1)(q-1)
+    * choose 1 < e < l, where e is co prime to l
+    * d = modular multiplicative inverse of e wrt l
+  * \\( c \equiv m^e (mod n), c^d \equiv m (mod n) \\)
+* AES
 * Diffie-Hellman (DH)
   * RFC3526: public g and p
   * RFC2412: parameter choosing protocol
@@ -91,9 +102,41 @@ change trust level: `--edit-key <email>`
 * electronic codebook (ECB)
   * same input always become the same output: `https://github.com/EiNSTeiN-/chosen-plaintext`
 * cipher block chaining (CBC)
-  * padding can leak information on intermediate state: `https://github.com/mwielgoszewski/python-paddingoracle`
+  * during encryption, cipher text is used as input masking for next block
+  * padding can leak information on intermediate state
+    * PKSC7: pad with # added block
+    * \\( I2 = D(C2), P2 = C1 \oplus I2\\)
+    * modify C1 such that P2 has a valid padding -> I2
+    * knowing C1 and I2, the actual P2 is known
+    * `https://robertheaton.com/2013/07/29/padding-oracle-attack/`
+    * `https://github.com/mwielgoszewski/python-paddingoracle`
 * extended codebook (XCB)
 
-## reference 
-
 [cipher mode](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation)
+
+## cryptographic hash
+
+Hash based message authentication code (HMAC): RFC 2104
+
+```
+\\[
+\begin{align*}
+\operatorname{HMAC}(K, m) &= \operatorname{H}\Bigl(\bigl(K' \oplus opad\bigr) \parallel 
+  \operatorname{H} \bigl(\left(K' \oplus ipad\right) \parallel m\bigr)\Bigr) \\
+K' &= \begin{cases}
+  \operatorname{H}\left(K\right) & K\text{ is larger than block size} \\
+  K                              & \text{otherwise}
+\end{cases}
+\end{align*}
+\\]
+```
+
+Normal hash functions starts from a known state, 
+and results with its internal state.
+So, it is easy to modify the message and have the same hash.
+
+Hash
+
+## PRNG
+
+Mersenne twister
