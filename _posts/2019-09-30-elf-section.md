@@ -82,16 +82,45 @@ strip foo -f foo.debug
 patchelf --set-rpath '$ORIGIN/../lib64' <bin>
 ```
 
-## position independent code (PIC)
+## plt & got
 
-shared lib can be loaded anywhere
-symbol relocation via linker and dynamic linker?
+* address of function can change within library
+* ASLR can load library at different position
+* for performance, plt can identify cpu and jump to corresponding got?
 
-* procedure linkage table (PLT)
-  * for function
-* global offset table (GOT)
-  * for data
-* lazy binding: the tables are only filled once
-* LD_PRELOAD: symbols provided by loaded lib will be override later
+### noun
+
+* procedure linkage table: `.plt`
+  * `-fno-plt`
+  * `.got.plt`: used for lazy binding?
+* global offset table: `.got`
+* `.plt.got`?
+* lazy binding: got might not get filled until first use
+* ld-linux: dynamic linker, set in `.interp` section
+  * LD_PRELOAD: symbols provided by loaded lib will be override later loaded ones
+
+### process
+
+* external function points to some address in plt
+  * extern data points to address in got directly
+* plt contains a script that:
+  * jump to got if symbol loaded
+  * otherwise, trigger the linker to load got
+
+### relocation read-only (RELRO)
+
+* partial: force got before bss so that a global variable overflow does not overwrite got
+* full: make got read only. cannot use with lazy loading
 
 ## linker script
+
+## reference
+
+[plt got in static binary](https://reverseengineering.stackexchange.com/questions/2172/why-are-got-and-plt-still-present-in-linux-static-stripped-binaries)
+
+
+## read list
+
+https://www.agner.org/optimize/blog/read.php?i=167
+https://linker.iecc.com/
+https://www.airs.com/blog/archives/38
