@@ -68,6 +68,32 @@ Representational state transfer (REST) is a style to design api.
   * nor in the filesystem namespace?
   * file descriptor passing?
 
+```c
+socket(address family, type, /etc/protocols)
+
+bind(socket_fd, saddr_in struct, struct size)
+// family: AF_INET
+// s_addr address: INADDR_ANY bind to all interface
+// port
+
+// server
+socket
+listen: setup socket to receive connection
+accept: receive the next connection
+
+// client
+socket
+connect: connect to another socket
+
+// op
+recv & send
+read & write
+    
+// byte order
+hton
+ntoh
+```
+
 ## http
 
 * compression: `Accept-Encoding`
@@ -81,3 +107,9 @@ Representational state transfer (REST) is a style to design api.
 ## quic
 
 ## zeroconf
+
+## 
+
+nmap
+tracepath
+traceroute
