@@ -138,8 +138,24 @@ Normal hash functions starts from a known state,
 and results with its internal state.
 So, it is easy to modify the message and have the same hash.
 
-Hash
+SHA 1, 2, 3
+
+https://csrc.nist.gov/projects/cryptographic-algorithm-validation-program/validation-search
 
 ## PRNG
 
 Mersenne twister
+Yarrow
+fortuna
+
+https://www.schneier.com/academic/fortuna/
+
+## error correction?
+
+hamming code
+Reed–Solomon
+Latin Square
+convolutional code
+ldpc
+turbo
+polar

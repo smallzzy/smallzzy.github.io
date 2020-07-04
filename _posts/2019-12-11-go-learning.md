@@ -67,7 +67,8 @@ GOBIN - binary install dir
 ```
 go run: build & run 
  --race: detect data race
-go build - build
+go generate: generate go code
+go build:
 go install - install to $GOBIN
 go get - download package to src
 go fmt: format files
@@ -134,7 +135,7 @@ func test(a interface{}) {}
 
 ## go routine / channel
 
-`go func`
+`go func()`
 
 * limit the amount of go routine
 * channel could block if there is no receiver
@@ -197,6 +198,10 @@ https://stackoverflow.com/questions/32393460/convert-function-type-in-golang
 https://golang.org/pkg/reflect/#MakeFunc
 https://golang.org/doc/faq#stack_or_heap
 
+### reflection
+
+`ValueOf`
+
 ## three dots
 
 * last parameter of variadic function parameter `...T`
@@ -223,6 +228,12 @@ go test -bench=. # run all tests + benchmarks
   * changing runtime is not acceptable
 * compiler might eliminate function
   * always retrieve result to a package level variable
+
+## cgo
+
+`//export Function`: generate c header
+
+https://golang.org/cmd/cgo/
 
 ## misc
 
