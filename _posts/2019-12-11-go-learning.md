@@ -184,7 +184,9 @@ p, err := plugin.Open("test.so") // load so
 v, err := p.Lookup("V") // lookup symbol
 ```
 
-## type
+## type assertion
+
+Only works for interface to get its actual underlying type.
 
 ```go
 v.(func(int)) // cast to function
@@ -245,5 +247,6 @@ https://golang.org/cmd/cgo/
 * loop variable is reused in go
   * if used within the goroutine, the value will change.
   * [iter](https://golang.org/ref/spec#For_statements)
+* type alias `type myInt = int`
 
 [use pointer when in doubt](https://stackoverflow.com/questions/23542989/pointers-vs-values-in-parameters-and-return-values)

@@ -44,11 +44,19 @@ hashcat
 
 wireshark
 ns-3: https://www.nsnam.org/
+swagger
+graphql
+openapi
 
 ## virtualization
 
 virtual box
 qemu
+
+## file sync
+
+mountainduck
+rclone
 
 ## misc
 
@@ -59,3 +67,4 @@ beyond compare
 kicad
 CoolTerm
 dbeaver
+flashrom
