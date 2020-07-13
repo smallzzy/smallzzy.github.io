@@ -89,6 +89,21 @@ For functions, we might have a problem with unnecessary dealloc.
 3. If we pass by const reference, we have the choice of move or copy
 4. However, most classes do not have this re-use pattern. Thus, both patterns can be helpful.
 
+## side note
+
+c++11 ref-qualifiers for member functions
+
+```c++
+template <typename T>
+class optional
+{
+  // ...
+  T&       value() &;
+  T&&      value() &&;
+  T const& value() const&;
+};
+```
+
 ## reference
 
 [Rvalue references in Chromium](https://www.chromium.org/rvalue-references)
