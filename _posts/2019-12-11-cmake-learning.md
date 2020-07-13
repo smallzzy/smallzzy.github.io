@@ -108,3 +108,4 @@ move file into position and substitutes the variables. (`@VAR@` or `${VAR}`)
 ## cmake toolchain file
 
 [ios](https://github.com/leetal/ios-cmake)
+[vcpkg](https://vcpkg.readthedocs.io/en/latest/)
