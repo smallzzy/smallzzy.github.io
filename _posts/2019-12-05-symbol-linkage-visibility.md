@@ -12,24 +12,67 @@ This post aims to help understanding the problem of symbol missing or conflict t
 
 ## basics
 
-A object file can:
+### linkage in c / cpp
 
-* expect symbol from other object
-  * "undefined" for imported symbol
+A translation unit refers to an implementation file (c/cpp) and all included headers.
+
+* If internal linkage, that symbol is only visible to that translation unit.
+* If external linkage, that symbol can used in other translation unit.
+* `static` keyword / anonymous namespace force symbol to have internal linkage.
+* `extern` force symbol to have external linkage.
+
+By default,
+
+* Non-const global variables have external linkage
+* Const global variables have internal linkage
+* Functions have external linkage
+* `inline`
+  * no external linkage in ISO C
+  * external linkage in GNU C & ISO C++
+
+Linkage can affect symbol generation.
+So, it will have an impact on visibility.
+But its capability is limited across multiple sources.
+
+### symbol in elf
+
+* external linkage will become global symbol.
+  * symbol can become strong or weak
+* internal linkage will become local symbol.
+  * usually have HIDDEN visibility
+
+### visibility for linking
+
+global symbol has five level of visibility:
+
+* EXTERNAL: defined elsewhere
+* DEFAULT: can be directly referenced, can be preempted
+* PROTECTED: can be directly referenced, cannot be preempted
+* HIDDEN: cannot directly referenced
+* INTERNAL: cannot be directly or indirectly reference
+
+### compilation
+
+A translation unit will be compiled into one object file.
+Which can:
+
+* expect symbol from other object: `EXTERNAL`
   * ex, function in header, `extern` variable
-* provide symbol for other object
-  * "export" if default visibility
-  * "internal" if hidden visibility
+* provide symbol:
+  * for other object: `DEFAULT`
+  * only for itself: `HIDDEN`
 
 Visibility does not prevent symbol from being generated,
-but instructs the linker that symbol cannot be used externally.
+but instructs the linker if symbol cannot be used externally.
 Note that only linker will care about visibility.
 
 In `nm`:
 
-* "undefined" is `U`.
-* "export" is `T`.
-* "internal" is `t`.
+* `EXTERNAL` is `U`.
+* `DEFAULT` is `T`.
+* `HIDDEN` is `t`.
+
+### static library
 
 A static library is simply a collection of objects.
 And it uses `ar` instead of `ld`.
@@ -55,12 +98,13 @@ When linker encounters a static library, it will go through each object:
 
 Note:
 
-1. By only import necessary object from static library,
-   we can reduce binary size.
+1. Multiple definitions might not always happen if object is not imported
+2. By only import necessary object from static library, we can reduce binary size.
    The standard library even make a object per function to help this.
-2. After linker has looked at a library,
+   `--whole-archive` force import all object in archive
+3. After linker has looked at a library,
    linker will not look at it again even if it contains necessary symbol.
-   This behavior can be overrided by certain flags
+   This behavior can be overridden by certain flags
 
 ## linking shared
 
@@ -87,25 +131,6 @@ Linker will look at all the files from left to right in the command line.
 * by default, the linker will add a DT_NEEDED tag for each dynamic library mentioned on the command line,
   regardless of whether the library is actually needed or not. `--no-as-needed`
 
-## linkage
-
-A translation unit refers to an implementation file (c/cpp) and all included headers.
-
-* If internal linkage, that symbol is only visible to that translation unit.
-* If external linkage, that symbol can used in other translation unit.
-* `static` keyword / anonymous namespace force symbol to have internal linkage.
-* `extern` force symbol to have external linkage.
-
-By default,
-
-* Non-const global variables have external linkage
-* Const global variables have internal linkage
-* Functions have external linkage
-
-Linkage can affect symbol generation.
-So, it will have an impact on visibility.
-But its capability is limited across multiple sources.
-
 ## changing visibility
 
 ### shared
@@ -129,7 +154,7 @@ Note: we need to use `-fvisibility=hidden` during compile to change default visi
 Or using a version script. Which is used to maintain binary compatibility.
 The script can be used degenerately and just choose exposed symbols.
 
-### static
+### static library
 
 Static library does no linking. Thus, we need to modify the symbol.
 
@@ -151,7 +176,7 @@ Problematic approach:
 
 Op Note -> objcopy
 
-## symbol confliction
+## symbol conflict
 
 If we have two conflicting symbols, the conflicted symbol might:
 
@@ -174,8 +199,9 @@ Possible solution:
 * [mac symbol hiding](https://stackoverflow.com/questions/3276474/symbol-hiding-in-static-libraries-built-with-xcode)
 * [How to write shared libraries](https://akkadia.org/drepper/dsohowto.pdf)
 * [Good Practices in Library Design, Implementation, and Maintenance](https://akkadia.org/drepper/goodpractice.pdf)
-* [share libary symbol conflict](https://holtstrom.com/michael/blog/post/437/Shared-Library-Symbol-Conflicts-%28on-Linux%29.html)
+* [share library symbol conflict](https://holtstrom.com/michael/blog/post/437/Shared-Library-Symbol-Conflicts-%28on-Linux%29.html)
 * [Inside story on shared library](https://cseweb.ucsd.edu/~gbournou/CSE131/the_inside_story_on_shared_libraries_and_dynamic_loading.pdf)
+* [visibility](https://scc.ustc.edu.cn/zlsc/chinagrid/intel/compiler_c/main_cls/GUID-1A0B049C-078E-4AD6-8815-07982E4D7735.htm)
 
 ## todo
 
