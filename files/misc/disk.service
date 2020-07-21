@@ -1,0 +1,14 @@
+[Unit]
+Description=Mount System Backups Directory
+
+[Mount]
+What=/dev/disk/by-uuid/86fef3b2-bdc9-47fa-bbb1-4e528a89d222
+Where=/mnt/backups
+Type=ext4
+Options=defaults,noatime,nofail
+
+[Install]
+WantedBy=multi-user.target
+# if depends on network, use the following instead
+# After=network-online.target
+# Wants=network-online.target
