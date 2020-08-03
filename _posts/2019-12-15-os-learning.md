@@ -152,12 +152,33 @@ thread:
 
 ## attribute
 
+`chattr`
+
 * `A`: do not update atime record
 * `S`: changes are synchronously write to disk
 * `a`: only open in append mode
 * `i`: cannot be modified (no renaming, no symbolic link, no execution)
 * `j`: write journal before content
 * `t`: no tail-merging (multiple tail block can be merged to reduce disk usage)
+
+## process id
+
+the kernel starts as a dummy process 0
+the first process to run is `init` as process 1
+`SysV` `systemd`
+
+zombie process: a children process that has finished execution and waits for parent process to read return status, `ps aux | grep Z`
+orphaned process: process which is unintentionally detached `parent PID = 1`
+
+daemon process: process which is intentionally detached. 
+
+* fork
+* umask: set file permission for various syscall
+  * `mode & ~umask`
+  * can be read from `/proc/pid/status` and `/proc/self/status`
+* setsid(): become a new session. become orphan otherwise.
+* chdir(): change working dir
+* close stdin, stdout, stderr
 
 ## reference
 

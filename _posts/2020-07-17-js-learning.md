@@ -8,6 +8,13 @@ tags: []
 summary: 
 ---
 
+## arrow function
+
+* capture `this` in the scope where arrow function is defined
+  * `this` in normal function refers to its own object
+    * the object might not exist at the callback
+    * `.bind()` or closure
+
 ## module
 
 * In node.js, `module` is a plain js object with `exports` property

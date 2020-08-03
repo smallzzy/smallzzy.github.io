@@ -68,3 +68,24 @@ kicad
 CoolTerm
 dbeaver
 flashrom
+
+## ui
+
+electron
+qt
+angular
+chromium embedded framework
+ionic, nativescript, cordova
+
+## media
+
+vlc
+mpv
+mpc-hc
+
+http://u2.dmhy.org/
+http://share.dmhy.org/
+https://skyeysnow.com/login.php
+https://bbs.vcb-s.com/
+
+zmNinja: camera?
