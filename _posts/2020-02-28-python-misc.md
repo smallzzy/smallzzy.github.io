@@ -8,6 +8,10 @@ tags: [python]
 summary: 
 ---
 
+## basic
+
+python float is usually implemented with c double: 64 bit
+
 ## edit conda environment
 
 Create activate and deactivate file as suggested in [document](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#macos-and-linux).
@@ -54,4 +58,4 @@ sound/                        Top-level package
 > modules intended for use as the main module of a Python application must always use absolute imports.
 
 TODO:
-how should a folder be contructed?
+how should a folder be constructed?

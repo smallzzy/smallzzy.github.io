@@ -22,33 +22,7 @@ summary:
 * `.enumerate()` return idx when chained with iterator
 * `(usize, String)` is a tuple
 * `unwrap` ? 
-
-## match keyword
-
-```rust
-let result = match item {
-    42 | 132 => "hit",
-    _ => "miss",
-}
-```
-
-* `Some(T)`
-* `None`
-* `=>` make function call. in case of `()`, do nothing?
-
-## functions
-
-* function return type use `->`
-* functions return the last expression's result (without `;`).
-  * otherwise, will return `()`
-* function can take reference as input.
-  * in which case, explicit lifetime might be necessary
-  * `fn add_with_lifetime<'a, 'b>(i: &'a i32, j:&'b i32) -> i32`
-* generic
-  * capital letters used in place of a type
-  * `fn add(i: T, j: T) -> T`
-  * generic types can traits which place constraints on the type
-  * `fn add<T: Add<Output = T>>(i: T, j: T) -> T`
+* `if cfg!(debug_assertions) { … }`
 
 ## array, slice
 
@@ -71,6 +45,33 @@ for i in 0..a.len() {
     sum += a[i];
 }
 ```
+
+## functions
+
+* function return type use `->`
+* functions return the last expression's result (without `;`).
+  * otherwise, will return `()`
+* function can take reference as input.
+  * in which case, explicit lifetime might be necessary
+  * `fn add_with_lifetime<'a, 'b>(i: &'a i32, j:&'b i32) -> i32`
+* generic
+  * capital letters used in place of a type
+  * `fn add(i: T, j: T) -> T`
+  * generic types can traits which place constraints on the type
+  * `fn add<T: Add<Output = T>>(i: T, j: T) -> T`
+
+## match keyword
+
+```rust
+let result = match item {
+    42 | 132 => "hit",
+    _ => "miss",
+}
+```
+
+* `Some(T)`
+* `None`
+* `=>` make function call. in case of `()`, do nothing?
 
 ## vec
 

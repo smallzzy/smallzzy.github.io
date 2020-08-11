@@ -34,3 +34,36 @@ summary:
 
 Chinese weights 
 weight attached to tail rotor blade grip
+
+## problem
+
+backlash
+stiction
+hydralic anti-backlash split nut
+recirculating ball screws
+Rack_and_pinion
+
+## screw
+
+* acme screw
+* ball screw
+  * pre-loading
+  * double nut: use two nut with opposite loading direction
+  * lead shift: manufacture the loading into the nut
+  * ball select: oversize ball
+* support with thrust bearing
+  * threads on the screw
+
+
+## metal blackening
+
+*  anodizing
+*  bluing
+*  hot chemical bath
+*  copper deposit 
+
+https://www.finishing.com/05/31.shtml
+
+tormach
+dmgmori
+ramset caliber blank

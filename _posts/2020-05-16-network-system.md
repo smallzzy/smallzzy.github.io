@@ -104,11 +104,24 @@ ntoh
   * http 2: multiplex requests over a single TCP connection
 * `Connection: Upgrade`
 
+## socat
+
+connect bitstream between two address
+
+* address
+  * open: file
+  * exec
+  * create
+  * various network protocol
+* options
+* option group
+* split io: `!!`
+
 ## quic
 
 ## zeroconf
 
-## 
+## tools
 
 nmap
 tracepath
