@@ -57,5 +57,18 @@ sound/                        Top-level package
 > Since the name of the main module is always `__main__`,
 > modules intended for use as the main module of a Python application must always use absolute imports.
 
-TODO:
-how should a folder be constructed?
+## setup.py
+
+```python
+setup(
+    name='egg file name',
+    packages=['package name'], # find_packages()
+    # custom building step
+    # listed in distutils.command
+    cmdclass={},
+    # external modules to build 
+    ext_modules=[]
+)
+```
+
+a good example for [cmake+setup.py](https://github.com/pybind/cmake_example/blob/master/setup.py)
