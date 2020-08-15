@@ -137,6 +137,17 @@ This flag will show the shadowing as a warning.
 -Wl,--warn-execstack
 ```
 
+## precompile header
+
+* avoid header being processed multiple times in larger project
+* generate `.gch` file which take precedence over normal header file
+* only one precompile header can be used in one translation unit
+* ASLR can generate not binary identical `.gch` file
+  * gch is a dump of compiler parsing state?
+* any macro must be defined the same way when compiling the header
+  * cannot use compiled header over c / c++
+* debug info must be the same format, but can be ignored
+
 ## todo
 
 ```
