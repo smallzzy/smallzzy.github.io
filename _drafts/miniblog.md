@@ -13,15 +13,6 @@ https://httpie.org/docs
 time +%s%3N
 
 
-## disable aslr
-
-* /proc/sys/kernel/randomize_va_space
-  * echo "kernel.randomize_va_space=2" >> /etc/sysctl.conf
-  * 0 = disable
-  * 1 = random stack & library
-  * 2 = 1 + random heap
-* gdb:
-  * set disable-randomization on
 
 ## file log
 
