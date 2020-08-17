@@ -159,6 +159,10 @@ Lookup the complexity [here](https://www.bigocheatsheet.com/).
    2. Kruskal -> pick V - 1 edges with minimal weights that does not form a cycle
    3. Prim
       1. basically Dijkstra's method and keep tree structure
+5. union-find: group nodes given some criteria
+   1. find: find node's parent
+      1. often involves flatten the tree by setting intermediate's parent directly to root
+   2. union: combine two tree with different parent
 
 ### max flow
 
@@ -174,7 +178,9 @@ Lookup the complexity [here](https://www.bigocheatsheet.com/).
 2. KMP / Boyer-Moore
 3. Rabin-Karp
 
-## b tree side note
+## side note
+
+### b tree
 
 Properties of a B-tree of order m:
 
@@ -193,7 +199,7 @@ we will split the child node and add the separator to parent. (possibly recursiv
 At deletion, we might need to rotate element from siblings.
 Or merged with a sibling.
 
-## b+ tree side note
+### b+ tree
 
 For B + tree, the separator is the first value in the right child node.
 Which leads to the following advantage:
@@ -204,14 +210,14 @@ Which leads to the following advantage:
 3. The leaf node can be linked together to help with range query.
    1. ie tree branches are interconnected
 
-## tail call optimization
+### tail call optimization
 
 Normally, at function end, the stack frame needs to be popped.
 But if we have a function call at the end of stack,
 we can modified the frame directly for that function.
 Thus, reducing the amount of stack used.
 
-## tree stored in array
+### tree stored in array
 
 ```c
 left = 2 * i + 1;
@@ -219,10 +225,9 @@ right = 2 * i + 2;
 parent = (i - 1) / 2; -> use integer division
 ```
 
-##
+## todo
 
 Topological sorting
 Morris
 Manacher / suffix array
 Shell Sort
-Union Find
