@@ -1,13 +1,3 @@
----
-layout: post
-title: 
-date: 2020-05-17 22:07
-category: 
-author: 
-tags: []
-summary: 
----
-
 battery
 https://batteryuniversity.com/learn/article/charging_with_a_power_supply
 
@@ -61,3 +51,23 @@ https://github.com/intel-isl/Open3D
 https://www.ansys.com/
 
 https://www.microsoft.com/en-us/research/product/computational-photography-applications/
+
+## phone repair?
+
+https://phoneboard.co/
+https://www.unionrepair.com/easy-draw-smartphone-schematic-diagrams-zxw-alternative-1-year-active.html
+http://pldaniels.com/flexbv/
+https://www.microsoldering.com/zxw-tools-dongle-download/
+
+## the tools
+
+metabo magdrill
+xantrex: power supply?
+BK precision: electronic load?
+https://www.youtube.com/watch?v=z-50pSc_wg8
+SM200C: spectrum analyzer
+TTR503A: VNA
+noisext: signal generator
+PM6685R: frequency calibrator?
+TSG 4106A RF signal generator: stanford research?
+E5052B: signal source analyzer: phase noise?

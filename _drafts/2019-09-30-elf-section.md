@@ -8,7 +8,7 @@ tags: [compile]
 summary: 
 ---
 
-## display symbol table
+## tools
 
 [nm result](https://sourceware.org/binutils/docs/binutils/nm.html)
 
@@ -19,11 +19,22 @@ nm --print-size --size-sort --radix=d # sort symbol size
 ```
 
 ```bash
-objdump -t # content symbol table
-objdump -T # content of dynamic symbol table
-objdump -x # display all headers
-objdump -s # dump full contents of all sections requested
-objdump -j=NAME # display one specified section
+objdump
+-x # display all headers
+-t # symbol table
+-T # dynamic symbol table
+-D # disassemble all section
+-b # target BFDNAME
+-m # target architecture
+```
+
+```bash
+objcopy
+-I, -O # convert between BFD file format
+--info # list all supported BFD name
+--redefine-sym # change symbol name
+-G, --keep-global-symbol=S # keep only symbol S global
+-L, --localize-symbol=S # change symbol S into a local symbol
 ```
 
 ```bash
@@ -33,13 +44,23 @@ readelf --dyn-syms # dynamic symbol table
 readelf -d # dynamic section # library deps, rpath
 ```
 
+```bash
+# disassemble one function
+gdb -batch -ex 'file <bin>' -ex 'disassemble <func>'
+```
+
+```bash
+strip
+--strip-unneeded
+```
+
 ## c++ demangle
 
 ```bash
 c++filt
 ```
 
-## elf file format
+## elf headers
 
 bss: uninitialized data section (for global or static variable)
 
@@ -50,10 +71,6 @@ bss: uninitialized data section (for global or static variable)
 data: initialized data section (for global or static variable)
 
 * have a pre-defined value
-
-## strip
-
-`--strip-unneeded`
 
 ### debug symbol
 
@@ -67,7 +84,7 @@ objcopy --only-keep-debug $BIN $BIN.debug
 strip -g $BIN
 objcopy --add-gnu-debuglink=$BIN.debug $BIN
 # special strip version required
-strip foo -f foo.debug
+# strip foo -f foo.debug
 ```
 
 ## compile

@@ -180,6 +180,12 @@ daemon process: process which is intentionally detached.
 * chdir(): change working dir
 * close stdin, stdout, stderr
 
+## virtualization
+
+* KVM XEN
+* lxc lxd
+* virtio
+
 ## reference
 
 [OSTEP](http://pages.cs.wisc.edu/~remzi/OSTEP/)
@@ -190,7 +196,6 @@ daemon process: process which is intentionally detached.
 * cgroup
 * ipc ? https://sondnm.github.io/blog/2018/09/08/i-just-learnt-about-/dev/shm/
 * https://blog.yadutaf.fr/2013/12/28/introduction-to-linux-namespaces-part-2-ipc/
-* KVM XEN?
 
 * [UEFI](https://uefi.org/specifications): SEC, PEI, DXE
   * during DXE, oprom is loaded -> driver?

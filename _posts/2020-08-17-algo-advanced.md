@@ -26,8 +26,16 @@ summary:
     * fail if a cover cannot be achieved
 * Algorithm X can be implemented using dancing links:
   * implement the matrix as doubly circular linked list
+    * each nodes are connected to all surounding nodes
     * a special headers are included so that a entire column can be removed
   * when removing nodes, two adjecent nodes are connected
     * the removed nodes still retain the connection information
+* limitation:
+  * all subsets needs to known?
+    * exact?
+  * problem size? for sudoku
+    * col = 9 row * 9 number + 9 col * 9 number + 9 block * 9 number + 9 row * 9 col (cell has one number?)
+    * row = 9 row * 9 col* 9 number
+
 
 ## conjective normal form (CNF)
