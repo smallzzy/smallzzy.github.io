@@ -46,7 +46,7 @@ readelf -d # dynamic section # library deps, rpath
 
 ```bash
 # disassemble one function
-gdb -batch -ex 'file <bin>' -ex 'disassemble <func>'
+gdb -batch -ex 'set disassembly-flavor intel' -ex 'file <bin>' -ex 'disassemble <func>'
 ```
 
 ```bash
