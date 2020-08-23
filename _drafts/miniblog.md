@@ -101,3 +101,20 @@ https://github.com/google/gson
 https://github.com/DrTimothyAldenDavis/SuiteSparse
 https://github.com/DrTimothyAldenDavis/GraphBLAS
 openpd
+
+## go debug
+
+dlv debug --headless --listen=localhost:2345 --api-version=2 -- <args>
+
+```
+{
+    "name": "Remote Debug",
+    "type": "go",
+    "request": "attach",
+    "mode": "remote",
+    "remotePath": "${fileDirname}",
+    "port": 2345,
+    "host": "localhost",
+}
+```
+
