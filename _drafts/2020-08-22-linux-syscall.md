@@ -8,6 +8,10 @@ tags: []
 summary: 
 ---
 
+## intro
+
+https://fedora.juszkiewicz.com.pl/syscalls.html
+
 ## fd
 
 ```

@@ -8,28 +8,6 @@ tags: [lang]
 summary: 
 ---
 
-## workspace
-
-* a go project is kept in one workspace
-* a workspace can include many packages
-  * each package can consists of one or more go source files
-  * all files in the same package must use the same package name.
-  * each package is in a single directory
-    * the directory can be buried deep, as long as you get the import path right
-    * different folder always becomes different package even under one vcs
-
-workspace usually has the following structure.
-
-```
-src - packages sources
-bin - compiled binary will be installed here
-pkg - compiled static lib here (will be platform & arch specific)
-```
-
-Cons:
-
-* require manual version control.
-
 ## go module
 
 Go module is released in go 1.12 to help package control.
@@ -38,8 +16,7 @@ Module can be found at `https://godoc.org/`
 * At the root of go module, we have a `go.mod` file.
   * can be generated via `go mod init`
 * any sub-dir (packages) will be considered part of the module
-* When we import a new module
-  * if it is not found during build, 
+* When we import a new module and it is not found during build, 
     go will fetch it from online and add to go.mod file
 
 ```
@@ -47,12 +24,6 @@ go list -m all # print current module dependency
 go get # update a dependency
 go mod tidy # remove unused dependency
 ```
-
-Side note:
-
-* go module cannot be used inside of `$GOPATH`
-* in some ways, go module is the project we really want to develop for.
-  * I will try and see if we can avoid workspace as a whole.
 
 ## environment variable
 
@@ -92,10 +63,19 @@ recover()
 // each source file can have init() functions
 // init() is evaluated after imported packages
 init()
-// _ is used as a dummy variable
-// can suppress unused import and unused variable
-// import _ "net/http/pprof" for side effect
 ```
+
+* `_`is used as a dummy variable
+  * can suppress unused import and unused variable
+  * `import _ "net/http/pprof"` for side effect
+* A `defer` statement defers the execution of a function until the surrounding function returns 
+  * ie: the surrounding `func`
+* make only works for map, slice, and channel
+  * they hold reference to the underlying data structure, so changes are visible
+  * map element is not addressable -> no pointer to them
+* type alias `type myInt = int`
+
+[use pointer when in doubt](https://stackoverflow.com/questions/23542989/pointers-vs-values-in-parameters-and-return-values)
 
 ## loop
 
@@ -105,8 +85,11 @@ for condition {}
 for {}
 ```
 
-`break` breaks from innermost `for, switch, select`
-even when `switch, select` has a default break
+* `break` breaks from innermost `for, switch, select`
+  * `switch, select` has a default break after each case
+* loop variable is reused in go
+  * if used within the goroutine, the value will change.
+  * [iter](https://golang.org/ref/spec#For_statements)
 
 ## struct vs interface
 
@@ -124,6 +107,7 @@ func (a *Android) () {
 
 ```go
 type Shape interface {
+  // interface is a pointer by itself
   area() float64 // describe the function needed for this interface
 }
 ```
@@ -151,6 +135,8 @@ func test(a interface{}) {}
 * Mutex
 * WaitGroup
 * Cond
+* sync.Pool
+* Context
 
 ## array vs slice
 
@@ -237,16 +223,29 @@ go test -bench=. # run all tests + benchmarks
 
 https://golang.org/cmd/cgo/
 
-## misc
+## import 
 
-* A `defer` statement defers the execution of a function until the surrounding function returns 
-  * ie: the surrounding `func`
-* make only works for map, slice, and channel
-  * they hold reference to the underlying data structure, so changes are visible
-  * map element is not addressable -> no pointer to them
-* loop variable is reused in go
-  * if used within the goroutine, the value will change.
-  * [iter](https://golang.org/ref/spec#For_statements)
-* type alias `type myInt = int`
+* internal:
+  * > importable only by code in the directory tree rooted at the parent of "internal"
+* vendor:
+  * similar import rule as internal
+  * package import check vendor first
+    * package in vendor does not need parent package name
+    * package in vendor can shadow outer package
+  * useful for private package import
+* [limit import url](https://golang.org/cmd/go/#hdr-Import_path_checking)
+  * `package gin // import "github.com/gin-gonic/gin"`
 
-[use pointer when in doubt](https://stackoverflow.com/questions/23542989/pointers-vs-values-in-parameters-and-return-values)
+## workspace - legacy
+
+* a go project is kept in one workspace
+  * $GOPATH should point to this workspace
+* a workspace will include following directory
+  * src: packages sources
+  * bin: compiled binary will be installed here
+  * pkg: compiled static lib here (will be platform & arch specific)
+* src can include many directory
+  * each directory become its own package
+    * one of which is user's project, others can be from `go get`
+    * package version need to be manually controlled
+    * all files in the same package must use the same package name.
