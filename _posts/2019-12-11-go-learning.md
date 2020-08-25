@@ -102,13 +102,17 @@ type Android struct {
 
 func (a *Android) () {
   // define function for struct
+  // there is also func (a Android) () {}
 }
 ```
 
 ```go
+// interface only list functions which are necessary to fullfill the interface
+// interface can held a struct or a pointer to a struct
+// so, a pointer to interface is not necessary
+// https://stackoverflow.com/questions/44370277/type-is-pointer-to-interface-not-interface-confusion
 type Shape interface {
-  // interface is a pointer by itself
-  area() float64 // describe the function needed for this interface
+  area() float64
 }
 ```
 
