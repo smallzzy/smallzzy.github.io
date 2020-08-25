@@ -182,6 +182,7 @@ daemon process: process which is intentionally detached.
 
 ## virtualization
 
+* proxmox, ESXi
 * KVM XEN
 * lxc lxd
 * virtio

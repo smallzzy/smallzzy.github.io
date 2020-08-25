@@ -17,6 +17,7 @@ https://fedora.juszkiewicz.com.pl/syscalls.html
 ```
 open
 memfd_create
+select, poll, epoll?
 ```
 
 MFD_CLOEXEC
@@ -83,6 +84,7 @@ struct in_addr {
 };
 
 // s_addr = INADDR_ANY bind to all interface
+// gethostbyname
 // port needs htons
 
 // 2. listen on socket

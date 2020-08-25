@@ -71,3 +71,13 @@ noisext: signal generator
 PM6685R: frequency calibrator?
 TSG 4106A RF signal generator: stanford research?
 E5052B: signal source analyzer: phase noise?
+
+## server
+
+https://cpugrade.com/articles/cinebench-r15-ipc-comparison-graphs/
+
+https://unixsurplus.com/servers/
+https://www.unixplus.com
+https://www.servermonkey.com/    
+https://www.xbyte.com/    
+https://tekboost.com/
