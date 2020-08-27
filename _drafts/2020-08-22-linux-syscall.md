@@ -11,6 +11,7 @@ summary:
 ## intro
 
 https://fedora.juszkiewicz.com.pl/syscalls.html
+https://chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md
 
 ## fd
 

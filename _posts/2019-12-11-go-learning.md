@@ -35,15 +35,32 @@ GOBIN - binary install dir
 
 ## command
 
-```
-go run: build & run 
- --race: detect data race
-go generate: generate go code
+```bash
+go run # build & run 
+ --race # detect data race
+go generate # generate go code
 go build:
-go install - install to $GOBIN
-go get - download package to src
-go fmt: format files
+go install # install to $GOBIN
+go get # download package to src
+go fmt # format files
+dlv debug --headless --listen localhost:2345 --api-version 2 # debug
+--build-flags '-race'
 ```
+
+### plugin
+
+`go build -buildmode=plugin -o test.so <src>`
+
+```go
+p, err := plugin.Open("test.so") // load so
+v, err := p.Lookup("V") // lookup symbol
+```
+
+### cgo
+
+`//export Function`: generate c header
+
+https://golang.org/cmd/cgo/
 
 ## go language
 
@@ -73,9 +90,8 @@ init()
 * make only works for map, slice, and channel
   * they hold reference to the underlying data structure, so changes are visible
   * map element is not addressable -> no pointer to them
-* type alias `type myInt = int`
-
-[use pointer when in doubt](https://stackoverflow.com/questions/23542989/pointers-vs-values-in-parameters-and-return-values)
+  * [use pointer when in doubt](https://stackoverflow.com/questions/23542989/pointers-vs-values-in-parameters-and-return-values)
+* `:=` will always shadow outer variable
 
 ## loop
 
@@ -114,11 +130,42 @@ func (a *Android) () {
 type Shape interface {
   area() float64
 }
+func test(a interface{}) {}
+// request a empty interface, i.e. any parameter
+```
+
+## array vs slice
+
+* array are values, so it is always copied
+* size of array is part of its type
+* slice hold a reference to its content
+  * internal changes are visible through copy
+  * if slice is reallocated, the reference is changed
+
+```go
+func main() {
+	slice:=[]string{"a","a"}
+	func(slice []string) {
+		slice[0] = "b"
+		slice[1] = "b"
+		slice = append(slice, "a") // reallocate 
+		fmt.Print(slice) // bba
+	}(slice)
+	fmt.Print(cap(slice))
+	fmt.Print(len(slice))
+	fmt.Print(slice) // bb
+}
 ```
 
 ```go
-func test(a interface{}) {}
-// request a empty interface, i.e. any parameter
+func main() {
+	sliceA := make([]byte, 10)
+	sliceC := sliceA[1:]
+  sliceD := sliceA[2:]
+  // sliceC and sliceD share the one backing array
+  // we can check by the following
+	fmt.Println(&sliceC[cap(sliceC)-1] == &sliceD[cap(sliceD)-1]) // true
+}
 ```
 
 ## go routine / channel
@@ -136,54 +183,44 @@ func test(a interface{}) {}
   * a nil channel is never ready for comm
   * select give no priority over order of case 
 
+## sync
+
+### Pool
+
+* memory pool for temporary object
+* since go 1.13, a doubly linked list with used/free section
+* New / Put / Get
+  * New create new object for initial Get
+  * object in pool might be GCed at any time
+
 * Mutex
 * WaitGroup
 * Cond
-* sync.Pool
 * Context
 
-## array vs slice
+## type
 
-* array are values, so it is always copied
-* size of array is part of its type
-* slice hold a reference to its content
-  * internal changes are visible through copy
-  * if slice is reallocated, the reference is lost
-
-```go
-func main() {
-	slice:=[]string{"a","a"}
-	func(slice []string) {
-		slice[0] = "b"
-		slice[1] = "b"
-		slice = append(slice, "a")
-		fmt.Print(slice) // bba
-	}(slice)
-	fmt.Print(cap(slice))
-	fmt.Print(len(slice))
-	fmt.Print(slice) // bb
-}
-```
-
-## plugin
-
-`go build -buildmode=plugin -o test.so <src>`
+* there is only type assertion and type conversion
+  * [assertion](https://golang.org/ref/spec#Type_assertions)
+  * [conversion](https://golang.org/ref/spec#Conversions)
+* assertion only works on interface to get its actual underlying type.
+* [type identity](https://golang.org/ref/spec#Type_identity)
+  * Named type: 
+    * int / string / etc + type declaration
+    * type name must match to be identical
+  * Unnamed type: 
+    * array / slice / map
+    * they are only a description of structure
+    * match as long as underlying type match
+  * Alias: `type myInt = int`
 
 ```go
-p, err := plugin.Open("test.so") // load so
-v, err := p.Lookup("V") // lookup symbol
-```
-
-## type assertion
-
-Only works for interface to get its actual underlying type.
-
-```go
-v.(func(int)) // cast to function
-tmp, ok = value.(typeName) // type cast
+// type assertion
+tmp, ok = value.(typeName)
+// type switch
 switch str := value.(type) {
   case typeName: 
-} // type switch
+}
 ```
 
 https://stackoverflow.com/questions/32393460/convert-function-type-in-golang
@@ -221,12 +258,6 @@ go test -bench=. # run all tests + benchmarks
 * compiler might eliminate function
   * always retrieve result to a package level variable
 
-## cgo
-
-`//export Function`: generate c header
-
-https://golang.org/cmd/cgo/
-
 ## import 
 
 * internal:
@@ -253,3 +284,5 @@ https://golang.org/cmd/cgo/
     * one of which is user's project, others can be from `go get`
     * package version need to be manually controlled
     * all files in the same package must use the same package name.
+
+https://github.com/golang/go/wiki/CodeReviewComments
