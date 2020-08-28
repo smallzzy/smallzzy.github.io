@@ -231,3 +231,4 @@ Topological sorting
 Morris
 Manacher / suffix array
 Shell Sort
+token Bucket

@@ -59,6 +59,7 @@ v, err := p.Lookup("V") // lookup symbol
 ### cgo
 
 `//export Function`: generate c header
+`go:linkname mallocgc runtime.mallocgc`
 
 https://golang.org/cmd/cgo/
 
@@ -92,6 +93,10 @@ init()
   * map element is not addressable -> no pointer to them
   * [use pointer when in doubt](https://stackoverflow.com/questions/23542989/pointers-vs-values-in-parameters-and-return-values)
 * `:=` will always shadow outer variable
+* `switch, select` has a default break after each case
+  * `break`: exit from `for, switch, select`
+  * `continue`: continue from `for` 
+  * `fallthrough`: transfer control to next case, must be last statement in current case
 
 ## loop
 
@@ -102,7 +107,6 @@ for {}
 ```
 
 * `break` breaks from innermost `for, switch, select`
-  * `switch, select` has a default break after each case
 * loop variable is reused in go
   * if used within the goroutine, the value will change.
   * [iter](https://golang.org/ref/spec#For_statements)
@@ -182,6 +186,7 @@ func main() {
   * receive from a closed channel yields zero value
   * a nil channel is never ready for comm
   * select give no priority over order of case 
+* `time.Ticker`
 
 ## sync
 
