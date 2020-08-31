@@ -41,11 +41,25 @@ IP suite (OSI)
 2. Switch
   * Address Resolution Protocol: knowing ip, broadcast request for a mac address
   * Spanning Tree Protocol / Shortest Path Bridging
-  * https://en.wikipedia.org/wiki/IPv6_address
 3. Router
   * QoS:
   * UPnP
   * NAT
+
+## IPv6
+
+* left-most continuous zero octets can be compressed as `::`
+  * otherwise, each octet needs to retain at least one zero
+* wrapped in square bracket for port number
+* address
+  * localhost: `::1`?
+  * unspecified: `::`?
+  * unique local: `fc00::/7`
+* scope?
+  * 
+
+boardcast domain
+vlan
 
 ## REST
 
@@ -90,3 +104,11 @@ connect bitstream between two address
 nmap
 tracepath
 traceroute
+
+## distributed hash table
+
+chord
+Kademlia
+
+https://en.wikipedia.org/wiki/Distributed_hash_table
+https://medium.com/textileio/swapping-bits-and-distributing-hashes-on-the-decentralized-web-5da98a3507

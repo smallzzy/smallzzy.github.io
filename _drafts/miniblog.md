@@ -131,3 +131,10 @@ go protobuf
   * go_opt=paths=source_relative -> generated files are placed in output dir based on source's relative position vs proto_path
     * ignores go_package setting
     * embedded into current directory
+
+## rar
+
+https://www.rarlab.com/technote.htm#arclayout
+https://www.winrar-france.fr/winrar_instructions_for_use/source/html/HELPCmdRR.htm
+rar recover record is calculated per file
+even with multiple volume

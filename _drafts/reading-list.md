@@ -71,6 +71,7 @@ noisext: signal generator
 PM6685R: frequency calibrator?
 TSG 4106A RF signal generator: stanford research?
 E5052B: signal source analyzer: phase noise?
+plastigage
 
 ## server
 
