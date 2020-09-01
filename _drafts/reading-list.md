@@ -82,3 +82,7 @@ https://www.unixplus.com
 https://www.servermonkey.com/    
 https://www.xbyte.com/    
 https://tekboost.com/
+
+## chip reverse
+
+http://www.righto.com/

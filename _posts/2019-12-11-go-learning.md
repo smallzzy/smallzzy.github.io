@@ -97,6 +97,9 @@ init()
   * `break`: exit from `for, switch, select`
   * `continue`: continue from `for` 
   * `fallthrough`: transfer control to next case, must be last statement in current case
+* `fmt` has special handling for some interface
+  * https://godoc.org/fmt
+  * `.error`
 
 ## loop
 
@@ -134,9 +137,15 @@ func (a *Android) () {
 type Shape interface {
   area() float64
 }
-func test(a interface{}) {}
+
 // request a empty interface, i.e. any parameter
+func test(a interface{}) {}
 ```
+
+* [Go Data Structures: Interfaces](https://research.swtch.com/interfaces)
+  * similar to vtable in c++ -> Itab in go?
+  * table computed for concrete type and interface
+  * at runtime, the two tables are bind together
 
 ## array vs slice
 
@@ -171,6 +180,15 @@ func main() {
 	fmt.Println(&sliceC[cap(sliceC)-1] == &sliceD[cap(sliceD)-1]) // true
 }
 ```
+
+### error
+
+* `error` is a interface
+* `fmt.Errorf` returns `error`
+  * `%w` wraps another error in format
+* since go 1.13, error can be chained
+  * error.Unwrap() return the underlying err
+  * `error.Is` and `error.As` will also check underlying err
 
 ## go routine / channel
 
@@ -228,12 +246,10 @@ switch str := value.(type) {
 }
 ```
 
-https://stackoverflow.com/questions/32393460/convert-function-type-in-golang
-https://golang.org/pkg/reflect/#MakeFunc
-https://golang.org/doc/faq#stack_or_heap
+## reflect
 
-### reflection
-
+https://blog.golang.org/laws-of-reflection
+`MakeFunc`
 `ValueOf`
 
 ## three dots
@@ -290,4 +306,7 @@ go test -bench=. # run all tests + benchmarks
     * package version need to be manually controlled
     * all files in the same package must use the same package name.
 
+## todo
+
 https://github.com/golang/go/wiki/CodeReviewComments
+https://blog.golang.org/generics-next-step

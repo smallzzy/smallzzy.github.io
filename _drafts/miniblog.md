@@ -138,3 +138,10 @@ https://www.rarlab.com/technote.htm#arclayout
 https://www.winrar-france.fr/winrar_instructions_for_use/source/html/HELPCmdRR.htm
 rar recover record is calculated per file
 even with multiple volume
+
+## hex editor
+
+okteta
+101 editor
+hex fiend
+hachoir
