@@ -67,3 +67,11 @@ https://www.finishing.com/05/31.shtml
 tormach
 dmgmori
 ramset caliber blank
+
+electrical standard
+nfpa 70
+ground wire should only carry current in the case of a fault condition
+gfci: detect difference between neutral and hot
+
+synthetic graphite foil
+http://www.szdasen.com/en/products/sitecms/

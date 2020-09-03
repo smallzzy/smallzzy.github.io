@@ -12,28 +12,43 @@ summary:
 
 ## initialization
 
-### initializer
-
 1. value initialization
 2. direct initialization
 3. copy initialization
 4. list initialization
 5. aggregate initialization
 6. reference initialization
-7. copy elision
 
 ### static
 
-* zero initialization
-* constant initialization
+1. zero initialization
+2. constant initialization
 
-### dynamic non-local
+## list initialization
 
-### class member
+* all constructors that take initializer_list matched by overload resolution
+  * against a single argument of type initializer_list
+* if no match, all constructors matched by overload resolution 
+  * against the set of arguments that consists of the elements of the braced-init-list
 
 ### std::initializer_list
 
-initializer list treat every element as a const T
+* initializer_list is automatically constructed when
+  * list-initialize
+  * function argument contains initializer_list
+  * ranged for loop
+
+## explicit vs converting constructor
+
+* cannot be used for implicit conversion & copy-initialization
+
+## todo
+
+dynamic non-local
+
+class member
+
+copy elision
 
 ## Reference
 
