@@ -135,6 +135,10 @@ patchelf --set-rpath '$ORIGIN/../lib64' <bin>
 
 [plt got in static binary](https://reverseengineering.stackexchange.com/questions/2172/why-are-got-and-plt-still-present-in-linux-static-stripped-binaries)
 
+## start up process
+
+https://lwn.net/Articles/631631/
+http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html
 
 ## read list
 

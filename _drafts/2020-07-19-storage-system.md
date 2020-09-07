@@ -100,6 +100,11 @@ GlusterFS, Lustre, Spectrum Scale(GPFS), BeeGFS
   * block device, RBD
   * file system
 
+### ceph at cern
+
+CephScaleTestMarch2015
+https://github.com/cernceph/ceph-scripts
+
 NVDIMM
 
 ## mdadm?

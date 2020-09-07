@@ -187,6 +187,20 @@ daemon process: process which is intentionally detached.
 * lxc lxd
 * virtio
 
+### container
+
+* namespace change visibility of services
+  * mnt
+  * pid
+  * net
+  * ipc
+  * UTS
+  * user
+  * cgroup
+  * time
+* cgroup limit resource usage
+* capability: partial ability as root
+
 ## reference
 
 [OSTEP](http://pages.cs.wisc.edu/~remzi/OSTEP/)
@@ -194,8 +208,6 @@ daemon process: process which is intentionally detached.
 
 ## todo
 
-* cgroup
-* ipc ? https://sondnm.github.io/blog/2018/09/08/i-just-learnt-about-/dev/shm/
 * https://blog.yadutaf.fr/2013/12/28/introduction-to-linux-namespaces-part-2-ipc/
 
 * [UEFI](https://uefi.org/specifications): SEC, PEI, DXE

@@ -90,7 +90,7 @@ Some basic [info1](https://www.rohitzambre.com/blog/2018/2/9/for-the-rdma-novice
 
 Exchange data between GPU and disk?
 
-WIP by nvidia
+https://developer.nvidia.com/blog/gpudirect-storage/
 
 ## connection
 

@@ -8,6 +8,16 @@ tags: []
 summary: 
 ---
 
+## motor
+
+* concentrated
+  * one pole formed over one slot
+  * coils turn on sequentially -> square wave
+* distributed
+  * one pole formed over several slot
+  * power distributed over several coil -> sinusoidal wave
+* https://zhuanlan.zhihu.com/p/147659820
+
 ## servo vs stepper
 
 * feedback

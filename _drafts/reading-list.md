@@ -86,3 +86,7 @@ https://tekboost.com/
 ## chip reverse
 
 http://www.righto.com/
+
+## a weird issue on nvme
+
+https://forum.level1techs.com/t/fixing-slow-nvme-raid-performance-on-epyc/151909

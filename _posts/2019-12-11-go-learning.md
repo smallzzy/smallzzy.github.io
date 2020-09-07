@@ -310,3 +310,9 @@ go test -bench=. # run all tests + benchmarks
 
 https://github.com/golang/go/wiki/CodeReviewComments
 https://blog.golang.org/generics-next-step
+
+package:
+
+gob
+wire
+gin
