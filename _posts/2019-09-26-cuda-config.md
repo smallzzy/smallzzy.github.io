@@ -138,6 +138,10 @@ dcgmi topo --gpuid 0
 dcgmi nvlink --link-status
 ```
 
+there seems to be a internal memory test for nvidia card
+`MOdular Diagnostic Suite (MODS)` `NVIDIA Field Diagnostic`
+`MATS?`
+
 ## misc
 
 ### Enable persistence mode on startup
