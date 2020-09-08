@@ -16,28 +16,26 @@ summary:
 If we just `set` the flag, the flag will not appear in cache.
 But it will still be used.
 
-## add_compile_options
+## cmake property
 
-`target_compile_options`
-
-add compile flags to all targets and all languages
-
-However, the flags will not be added into the link flags.
-This is a different behavior vs using flags.
+* `add_<property>`
+  * `target_<property>`
+  * `set_target_properties`
+* COMPILE_DEFINITIONS
+* COMPILE_OPTIONS
+  * options will not be added to linking (different from flags)
+* INCLUDE_DIRECTORIES
+* SYSTEM_INCLUDE_DIRECTORIES
+* LINK_OPTIONS
+* LINK_LIBRARIES
 
 ### affected case
 
 `-fsanitize=address` needs to be added to linking
 
-### INTERFACE_COMPILE_OPTIONS
+### interface
 
-> List of public compile options requirements for a library.
-
-## add_definitions
-
-`add_compile_definitions`, `target_compile_definitions`
-
-Usually used only for pre-processor values
+Property in interface will be inherited by child target.
 
 ## target_link_libraries
 
@@ -55,23 +53,15 @@ The parameter can take:
   * EX. it might not update build rpath correctly if a version number is given
 * The idiomatic way is to use `find_library`
 
-## set_target_properties
-
-set specfic properties for a target.
-
-* this command is replacing instead of appending.
-* I am not sure how to set multiple values to the same property with this command
-
-`COMPILE_OPTIONS` set compile flags
-`LINK_FLAGS` set linking flags
-
 ## generator expression
 
 We can use generator to create settings for a target given different environment.
 
-* `$<condition:variable>`: expand to variable then condition is met
-  * `$<CONFIG:Debug>`: flags for different config
-  * `$<COMPILE_LANGUAGE:lang>`: flags for different language.
+* `$<condition:true_string>`: expand to variable then condition is met
+  * `$<CONFIG:cfg>`: flags for different config
+  * `$<COMPILE_LANGUAGE:languages>`: flags for different language.
+* `$<TARGET_PROPERTY:tgt,prop>`
+  * `$<TARGET_PROPERTY:prop>`
 
 ## external packages
 
@@ -95,7 +85,7 @@ if(NOT googletest_POPULATED)
 endif()
 ```
 
-## set default build type
+## default build type
 
 ```cmake
 set(default_build_type "RelWithDebInfo")
