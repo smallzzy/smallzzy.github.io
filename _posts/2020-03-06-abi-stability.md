@@ -34,6 +34,12 @@ and factory functions (to construct the pimpl type)
 The abi issue is mitigated by `-mmacosx-min-version` which specify the minimal abi version.
 And unsupported feature will trigger a error.
 
+## known abi problem
+
+`_GLIBCXX_USE_CXX11_ABI`
+
+anoy namespace c++?
+
 ## todo
 
 [swift vs rust abi](https://gankra.github.io/blah/swift-abi/)

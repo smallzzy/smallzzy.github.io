@@ -29,6 +29,10 @@ This is a different behavior vs using flags.
 
 `-fsanitize=address` needs to be added to linking
 
+### INTERFACE_COMPILE_OPTIONS
+
+> List of public compile options requirements for a library.
+
 ## add_definitions
 
 `add_compile_definitions`, `target_compile_definitions`
@@ -65,9 +69,9 @@ set specfic properties for a target.
 
 We can use generator to create settings for a target given different environment.
 
-`$<$<CONFIG:Debug>:DEBUG_MODE>`: expands to `DEBUG_MODE` when using debug config. Otherwise, expands to nothing.
-
-`$<COMPILE_LANGUAGE:lang>`: generate different flags for each translation unit in different language.
+* `$<condition:variable>`: expand to variable then condition is met
+  * `$<CONFIG:Debug>`: flags for different config
+  * `$<COMPILE_LANGUAGE:lang>`: flags for different language.
 
 ## external packages
 
