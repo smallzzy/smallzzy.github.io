@@ -8,6 +8,12 @@ tags: [compile, lang]
 summary: 
 ---
 
+## basic
+
+* variable is stored in string
+* list is a semicolon separated string
+  * semicolon is replaced when used in flags
+
 ## flags
 
 `cmake_<LANG>_flags` is used in all build type
@@ -29,9 +35,10 @@ But it will still be used.
 * LINK_OPTIONS
 * LINK_LIBRARIES
 
-### affected case
+### misc
 
-`-fsanitize=address` needs to be added to linking
+* `-fsanitize=address` needs to be added to linking
+* cmake seems to de-duplicate flags in options
 
 ### interface
 

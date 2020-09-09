@@ -142,6 +142,11 @@ there seems to be a internal memory test for nvidia card
 `MOdular Diagnostic Suite (MODS)` `NVIDIA Field Diagnostic`
 `MATS?`
 
+there is a reviewer toolkit
+`Latency & Display Analysis Tool (LDAT)`
+`Power Capture Analysis Tool (PCAT)`
+`FrameView`
+
 ## misc
 
 ### Enable persistence mode on startup
