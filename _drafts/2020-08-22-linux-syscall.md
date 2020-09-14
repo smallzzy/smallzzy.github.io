@@ -18,12 +18,17 @@ https://chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md
 ```
 open
 memfd_create
+fnctl
 select, poll, epoll?
 ```
 
-MFD_CLOEXEC
+* `O_SYNC`:
+  * when fd `close` fail, data is not guaranteed to be written 
+* `FD_CLOEXEC`: if set, fd is closed when `exec()`
+  * prevent fd leak to child process
+* in C11, `fopen()` can have `wx` flag to prevent overwrite
 
-## execve
+## exec
 
 ```
 execve

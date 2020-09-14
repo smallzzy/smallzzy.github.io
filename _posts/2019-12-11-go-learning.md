@@ -306,6 +306,48 @@ go test -bench=. # run all tests + benchmarks
     * package version need to be manually controlled
     * all files in the same package must use the same package name.
 
+## runtime.schedule()
+
+* P - processor
+  * limited by the number of logical processors (GOMAXPROCS)
+  * when wake up a P, a M is created
+* M - os thread
+  * M must have a associated P to **execute**
+  * M > P is possible if M is blocked
+  * M will run G until blocked
+* G - go routine
+
+* When G is spawned, it is pushed onto a runnable queue
+  * if P has a empty queue, it can steal from other P
+* if M makes a blocking syscall
+  * pessimistic, detach P from M
+  * optimistic, sysmon waits until M spends too much time
+    * (some syscalls return quickly)
+    * P can be stolen to run other M
+* if M is making a async syscall
+  * M can block just as a G
+  * the result can be polled on next schedule
+
+* `runtime.schedule()`
+* `go tool trace`
+* work-share vs work-steal
+* local and global runnable queue
+* spinning thread - so that M do not get preemption
+
+## protobuf
+
+* install protoc
+* protoc for golang is a plugin:
+  * `go install google.golang.org/protobuf/cmd/protoc-gen-go`
+* protoc
+  * `proto_path`
+    * if message are defined in several files, all source need to be included in this directory
+  * `go_out` -> all generated file will be relative to this dir
+  * `option go_package "full path";` generated into this path relative to go_out
+    * --go_out=$GOPATH: so that pb file becomes its own package for import 
+  * `go_opt=paths=source_relative` -> generated files are placed in output dir based on source's relative position vs proto_path
+    * ignores go_package setting
+
 ## todo
 
 https://github.com/golang/go/wiki/CodeReviewComments

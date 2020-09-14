@@ -12,18 +12,11 @@ skype security?
 https://httpie.org/docs
 time +%s%3N
 
-
-
 ## file log
 
 lsof: list process that opened a file
 LoggedFS: 
 audit subsystem
-
-fopen c11 wx: do not write if exist
-fopen vs open
-open: fd remains unless FD_CLOEXEC
-
 
 https://www.cs.miami.edu/home/burt/learning/Csc524.032/notes/tcp_nutshell.html
  http.content_type == "application/json"
@@ -101,36 +94,6 @@ https://github.com/google/gson
 https://github.com/DrTimothyAldenDavis/SuiteSparse
 https://github.com/DrTimothyAldenDavis/GraphBLAS
 openpd
-
-## go debug
-
-dlv debug --headless --listen=localhost:2345 --api-version=2 -- <args>
-
-```
-{
-    "name": "Remote Debug",
-    "type": "go",
-    "request": "attach",
-    "mode": "remote",
-    "remotePath": "${workspaceFolder}",
-    "port": 2345,
-    "host": "localhost",
-}
-```
-
-go protobuf
-
-* install protoc
-* go install google.golang.org/protobuf/cmd/protoc-gen-go
-* protoc
-  * proto_path
-    * if message are defined in several files, all source need to be included in this directory
-  * go_out -> all generated file will be relative to this dir
-  * `option go_package "full path";` generated into this path relative to go_out
-    * --go_out=$GOPATH: so that pb file becomes its own package for import 
-  * go_opt=paths=source_relative -> generated files are placed in output dir based on source's relative position vs proto_path
-    * ignores go_package setting
-    * embedded into current directory
 
 ## rar
 
