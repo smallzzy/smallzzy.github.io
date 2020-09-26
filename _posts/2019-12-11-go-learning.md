@@ -16,8 +16,6 @@ Module can be found at `https://godoc.org/`
 * At the root of go module, we have a `go.mod` file.
   * can be generated via `go mod init`
 * any sub-dir (packages) will be considered part of the module
-* When we import a new module and it is not found during build, 
-    go will fetch it from online and add to go.mod file
 
 ```
 go list -m all # print current module dependency
@@ -88,6 +86,7 @@ init()
   * `import _ "net/http/pprof"` for side effect
 * A `defer` statement defers the execution of a function until the surrounding function returns 
   * ie: the surrounding `func`
+  * `defer` runs in LIFO
 * make only works for map, slice, and channel
   * they hold reference to the underlying data structure, so changes are visible
   * map element is not addressable -> no pointer to them
@@ -137,15 +136,25 @@ func (a *Android) () {
 type Shape interface {
   area() float64
 }
-
-// request a empty interface, i.e. any parameter
-func test(a interface{}) {}
 ```
 
+* `interface{}` = any
+* `struct{}` = none
 * [Go Data Structures: Interfaces](https://research.swtch.com/interfaces)
-  * similar to vtable in c++ -> Itab in go?
+  * interface stores type info (T) and concrete data (V) as pointer
+    * similar to vtable in c++ -> Itab in go?
   * table computed for concrete type and interface
   * at runtime, the two tables are bind together
+* when comparing interface, T and V needs to match
+  * data is converted to interface for comparison
+  * nil -> T = nil and V = nil
+  * for nil pointer -> T != nil and V = nil
+
+```go
+// a syntax sugar that ensures a closure function also satifies its interface
+type readerFunc func(p []byte) (n int, err error)
+func (rf readerFunc) Read(p []byte) (n int, err error) { return rf(p) }
+```
 
 ## array vs slice
 
@@ -251,6 +260,7 @@ switch str := value.(type) {
 https://blog.golang.org/laws-of-reflection
 `MakeFunc`
 `ValueOf`
+`DeepEqual`
 
 ## three dots
 
@@ -284,11 +294,14 @@ go test -bench=. # run all tests + benchmarks
 * internal:
   * > importable only by code in the directory tree rooted at the parent of "internal"
 * vendor:
-  * similar import rule as internal
-  * package import check vendor first
-    * package in vendor does not need parent package name
-    * package in vendor can shadow outer package
-  * useful for private package import
+  * `go mod vendor`
+  * vendor with GOPATH?
+    * packages are found in all `vendor` folder
+  * vendor with module
+    * packages are found in the `vendor` at module's root
+    * `-mod=vendor`, `-mod=mod`
+      * since go 1.14, vendor is automatically used
+  * useful for private package import?
 * [limit import url](https://golang.org/cmd/go/#hdr-Import_path_checking)
   * `package gin // import "github.com/gin-gonic/gin"`
 
@@ -352,8 +365,20 @@ go test -bench=. # run all tests + benchmarks
 
 https://github.com/golang/go/wiki/CodeReviewComments
 https://blog.golang.org/generics-next-step
+https://blog.golang.org/normalization
 
-package:
+## package
+
+https://golang.org/pkg/
+https://godoc.org/-/subrepo
+
+### reader
+
+* note that reader stall on empty stdin?
+
+io.ioutil
+bytes.Buffer
+bufio
 
 gob
 wire
