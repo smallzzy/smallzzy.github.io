@@ -213,7 +213,6 @@ func main() {
   * receive from a closed channel yields zero value
   * a nil channel is never ready for comm
   * select give no priority over order of case 
-* `time.Ticker`
 
 ## sync
 
@@ -268,10 +267,6 @@ https://blog.golang.org/laws-of-reflection
 * unpack arguments to variadic function `s...`
 * array literal `[...]string{"Moe", "Larry"}`
 * wildcard symbol in go command
-
-## printf
-
-[cheatsheet](https://yourbasic.org/golang/fmt-printf-reference-cheat-sheet/)
 
 ## test and benchmark
 
@@ -363,6 +358,7 @@ go test -bench=. # run all tests + benchmarks
 
 ## todo
 
+https://go101.org/article/101.html
 https://github.com/golang/go/wiki/CodeReviewComments
 https://blog.golang.org/generics-next-step
 https://blog.golang.org/normalization
@@ -383,3 +379,4 @@ bufio
 gob
 wire
 gin
+tomb

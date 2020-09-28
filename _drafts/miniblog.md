@@ -108,3 +108,11 @@ okteta
 101 editor
 hex fiend
 hachoir
+
+## wsl
+
+* [reference](https://docs.microsoft.com/en-us/windows/wsl/wsl-config)
+* `wsl --shutdown`
+* `/etc/wsl.conf`
+  * appendWindowsPath=false
+* `C:\Users\<yourUserName>\.wslconfig`
