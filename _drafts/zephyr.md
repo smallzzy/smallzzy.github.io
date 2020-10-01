@@ -6,6 +6,16 @@
 * [out of tree definition](https://docs.zephyrproject.org/latest/application/index.html#custom-board-definition)
   * `west ... -- -DBOARD_ROOT=<parent of boards folder>`
 
+### west
+
+* west init take a initial manifest file
+  * [forest topology](https://docs.zephyrproject.org/latest/guides/west/repo-tool.html#t3-forest-topology)
+    * a repo with west.yml controls module install
+    * import manifest from zephyr
+* module: `zephyr/module.yml`
+  * [Reference](https://docs.zephyrproject.org/latest/guides/modules.html)
+  * [kconfig extensions](https://docs.zephyrproject.org/latest/guides/kconfig/extensions.html)
+
 ## Kconfig
 
 * [Reference](https://docs.zephyrproject.org/latest/guides/kconfig/setting.html#the-initial-configuration)
@@ -40,12 +50,13 @@
     * `reg` in child node
   * `interrupts` ?
 * device tree has no contraint over its content
-  * `dts/bindings`: force tree structure
+  * `dts/bindings`: enforce tree structure & parsing requirement.
   * `dt_schema` ?
 
 ### device access
 
 * get node id
+  * cannot assign to variable
   * `DT_PATH()`: from tree path
   * `DT_NODELABEL()`: from node_label
   * `DT_ALIAS()`: from `/aliases`
@@ -59,6 +70,36 @@
 * config: build time configuration
 * data: driver data
 * api: sub system api
+
+### macro
+
+* device tree `compatible` defined a macro
+  * if a matching driver is not found
+    * the compilation still pass
+    * the device is not used
+    * the dt entry can get accessed
+* driver macro defined as `#define DT_DRV_COMPAT ...`
+  * if dt macro is not defined, ie device does not exist
+    * driver compilation failed?
+
+### interrupt
+
+* gpio:
+  * `gpio_pin_configure()`
+    * init gpio struct for read
+  * `gpio_init_callback()` init cb struct
+    * with callback func and pin mask
+  * `gpio_add_callback()` add gpio to callback
+  * `gpio_pin_interrupt_configure()`
+    * enable interrupt for gpio struct
+* callback func:
+  * called with gpio struct + cb struct + pin mask
+  * should trigger worker thread
+* global thread `k_work`
+  * trigger by `k_work_submit`
+  * `k_work.handler` stores the actual work
+* local thread
+  * trigger by semphemore `k_sem_give`
 
 ## todo
 
