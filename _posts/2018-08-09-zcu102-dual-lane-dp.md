@@ -2,7 +2,7 @@
 layout: post
 title:  "Enable dual lane displayport on ZCU102"
 date:   2018-08-09
-tags: [misc]
+tags: [embed]
 ---
 
 I was trying to use dual lane displayport on ZCU102. 
