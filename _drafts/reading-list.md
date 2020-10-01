@@ -90,3 +90,6 @@ http://www.righto.com/
 ## a weird issue on nvme
 
 https://forum.level1techs.com/t/fixing-slow-nvme-raid-performance-on-epyc/151909
+
+## js
+https://exploringjs.com/es6/index.html

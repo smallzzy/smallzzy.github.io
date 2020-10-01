@@ -72,3 +72,11 @@ setup(
 ```
 
 a good example for [cmake+setup.py](https://github.com/pybind/cmake_example/blob/master/setup.py)
+
+## package 
+
+schedule
+queue.work_done() queue.join()
+async
+
+trio?
