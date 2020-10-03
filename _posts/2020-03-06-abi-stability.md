@@ -8,13 +8,24 @@ tags: [compile]
 summary: 
 ---
 
-## pimpl
+## header design 
 
-Implemented in the form of forward declaration and opaque pointer,
-pimpl is useful for hiding symbol and reducing abi changes.
+Even with the right header design, we still need to consider symbol visibility.
 
-Another valid approach is to use version script (to remove symbol)
-and factory functions (to construct the pimpl type)
+### pimpl
+
+Implemented in the form of forward declaration and opaque pointer.
+
+* pimpl hides private symbol
+* class struct is not built into client code
+* pimpl might require additional memory allocation
+
+Pimpl relies on the fact that imcompleted type can be used as pointer.
+
+[pimpl helper](http://oliora.github.io/2015/12/29/pimpl-and-rule-of-zero.html#pimpl-without-special-members-defined)
+[pimpl alloc](https://probablydance.com/2013/10/05/type-safe-pimpl-implementation-without-overhead/)
+
+### abstract interface + factory function
 
 ## some rule to remember
 

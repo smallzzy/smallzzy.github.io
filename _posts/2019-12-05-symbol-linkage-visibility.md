@@ -133,37 +133,35 @@ Linker will look at all the files from left to right in the command line.
 
 ## changing visibility
 
-### shared
+With shared library, we wish to change visibility of symbol so that:
 
-We can toggle symbol visibility in shared library via ths following methods:
+* only necessary function are exposed, reducing the risk of abi problem
+* avoid symbol collison
 
-#### Windows
+### marco on Windows
 
 `__declspec(dllexport)`: export symbol in dll
 `__declspec(dllimport)`: import this symbol from some dll
-We need to toggle this flag between dev and user.
 
-Or using a def file. Where more definitions can be made.
-
-#### Linux
+### macro on Linux
 
 `__attribute__ ((visibility ("default")))`: symbol is visible either for exporting or importing.
 `__attribute__ ((visibility ("hidden")))`: symbol is not visible
-Note: we need to use `-fvisibility=hidden` during compile to change default visibility
+We can use `-fvisibility=hidden` during linking to change default visibility
 
-Or using a version script. Which is used to maintain binary compatibility.
-The script can be used degenerately and just choose exposed symbols.
+### scripts
 
-### static library
+* With version script (Linux) or def file (Windows), we choose what symbol to keep
+* the script can be used degenerately and only choose exposed symbols.
 
-Static library does no linking. Thus, we need to modify the symbol.
+## static lib
 
-* `single object pre-link`: mac only solution. It will enable linking on the static lib.
-And it will to hide library internal symbols
+With static lib, we wish to constraint symbol generation on end result.
+
+* `single object pre-link`: mac only solution.
+  * It will enable linking on the static lib.
+  * And it will hide library internal symbols
 * `--exclude-libs` can be used to hide all symbols in a static library
-
-Problematic approach:
-
 * `strip` the unnecessary symbol if necessary symbols are known
   * might affect internal symbols
 * `ar -x` extract object file from static library
@@ -178,9 +176,10 @@ Op Note -> objcopy
 
 ## symbol conflict
 
-If we have two conflicting symbols, the conflicted symbol might:
+If there are two conflicting symbols, the conflicted symbol might:
 
 * trigger nothing if the symbol is defined in shared library
+  * In which case, you might get unintented behavior
 * not be included if that object is not included
 * trigger multiple definition if object is imported via another function.
 
