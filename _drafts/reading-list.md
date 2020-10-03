@@ -4,9 +4,6 @@ https://batteryuniversity.com/learn/article/charging_with_a_power_supply
 reading notes on many books
 https://notes.shichao.io/
 
-distributed system
-https://pdos.csail.mit.edu/6.824/schedule.html
-
 transactional memory
 https://en.wikipedia.org/wiki/Transactional_Synchronization_Extensions
 https://en.wikipedia.org/wiki/Advanced_Synchronization_Facility

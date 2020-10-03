@@ -104,11 +104,3 @@ connect bitstream between two address
 nmap
 tracepath
 traceroute
-
-## distributed hash table
-
-chord
-Kademlia
-
-https://en.wikipedia.org/wiki/Distributed_hash_table
-https://medium.com/textileio/swapping-bits-and-distributing-hashes-on-the-decentralized-web-5da98a3507
