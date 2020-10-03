@@ -16,6 +16,7 @@ Lookup the complexity [here](https://www.bigocheatsheet.com/).
 
 1. array
 2. linked list
+   1. n integers in range [1, n] can be interpreted as linked list
 3. skip list
    1. In linked list, search will take O(n)
    2. Skip list choose to build indexes list that skip nodes in the list.
@@ -23,6 +24,12 @@ Lookup the complexity [here](https://www.bigocheatsheet.com/).
    4. We improve by effectively reducing search size n.
    5. The layer of indexes is randomly decided when inserting a node.
 4. disjoint-set / union-find / merge-find
+5. Floyd's Algorithm: find a loop in linked list
+   1. hare is two times faster than tortoise
+      1. 2 * (F + a) = F + a + n * C
+      2. F + a = n * C
+   2. After they meet again:
+      1. (F + a) + (C - a) = F
 
 ### stack / queue
 
@@ -139,6 +146,8 @@ Lookup the complexity [here](https://www.bigocheatsheet.com/).
 4. insertion sort
    1. sort by inserting new value into a proper position in the sorted part.
 5. bucket sort
+   1. sort by putting values into buckets
+   2. sort bucket and read
 
 ### graph theory
 
@@ -148,7 +157,7 @@ Lookup the complexity [here](https://www.bigocheatsheet.com/).
    1. Dijkstra's
       1. take the vertex with minimal distance and update its neighbors
       2. normal implementation $ O(V^2) $
-      3. with adjacency list $ O(E \log{V} $
+      3. with adjacency list $ O(E \log{V}) $
    2. Bellman-Ford: works for graph with negative cycle $ O(\abs{V} \abs(E)) $
       1. repeat distance update for every edges for a total of V - 1 times
       i.e. let the weight propagate to all vertex
@@ -179,6 +188,8 @@ Lookup the complexity [here](https://www.bigocheatsheet.com/).
 3. Rabin-Karp
 
 ## side note
+
+* sign bit can be used as a free marker
 
 ### b tree
 
