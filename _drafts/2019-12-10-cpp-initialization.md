@@ -49,6 +49,7 @@ summary:
 
 1. value initialization
 2. direct initialization
+   1. calling the constructor
 3. copy initialization
 4. list initialization
 5. aggregate initialization
@@ -89,10 +90,15 @@ The effects of default initialization are:
 
 ## list initialization
 
-* all constructors that take initializer_list matched by overload resolution
-  * against a single argument of type initializer_list
-* if no match, all constructors matched by overload resolution 
-  * against the set of arguments that consists of the elements of the braced-init-list
+* If T is an aggregate type, **aggregate initialization** is performed.
+* Otherwise, if the **braced-init-list is empty** and T is a class type with a default constructor, value-initialization is performed.
+* Otherwise, if T is a specialization of std::initializer_list, the T object is direct-initialized or copy-initialized, depending on context, 
+  from a prvalue of the same type initialized from (until C++17) the braced-init-list.
+* Otherwise, the constructors of T are considered, in two phases:
+  * All constructors that take std::initializer_list as the only argument, or as the first argument if the remaining arguments have default values, are examined, and **matched by overload resolution against a single argument of type std::initializer_list**
+  * If the previous stage does not produce a match, all constructors of T participate in **overload resolution against the set of arguments that consists of the elements of the braced-init-list**, with the restriction that only non-narrowing conversions are allowed. If this stage produces an explicit constructor as the best match for a copy-list-initialization, compilation fails (note, in simple copy-initialization, explicit constructors are not considered at all).
+
+* elements are copy initialized.
 
 ### std::initializer_list
 
@@ -101,7 +107,29 @@ The effects of default initialization are:
   * function argument contains initializer_list
   * ranged for loop
 * this is different from `constructor initializer list`:
-  * `a(): b() {}`: `b()`
+  * which refers to `b()` in `a(): b() {}` 
+* for `vector<vector<int>> a; a.emplace_back(...)`
+  * `...` != `{1, 2}` fail compilation
+    * forward cannot handle auto initializer_list construction?
+  * `...` == `vector<int>{1, 2}` will trigger a move
+  * `...` == `initializer_list<int>{1, 2}` will contruct inplace
+
+## aggregate
+
+* array type
+* class type (typically, struct or union), that has
+  * no private or protected direct (since C++17)non-static data members
+  * no user-declared or inherited constructors
+  * no virtual, private, or protected (since C++17) base classes
+  * no virtual member functions
+
+### POD?
+
+* PODType
+* TrivialType
+* StandardLayoutType
+
+[aggregate, POD](https://stackoverflow.com/questions/4178175/what-are-aggregates-and-pods-and-how-why-are-they-special)
 
 ## explicit vs converting constructor
 
