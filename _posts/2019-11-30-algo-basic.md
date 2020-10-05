@@ -24,6 +24,7 @@ Lookup the complexity [here](https://www.bigocheatsheet.com/).
    4. We improve by effectively reducing search size n.
    5. The layer of indexes is randomly decided when inserting a node.
 4. disjoint-set / union-find / merge-find
+   1. flatten the tree by setting intermediate node' parent to actual parent during find
 5. Floyd's Algorithm: find a loop in linked list
    1. hare is two times faster than tortoise
       1. 2 * (F + a) = F + a + n * C
@@ -117,7 +118,10 @@ Lookup the complexity [here](https://www.bigocheatsheet.com/).
     2. asymmetric number system
 11. heap property
     1. a tree with parent node larger or equal to child node (max heap)
-    2. std::make_heap, push_heap, pop_heap, sort_heap, is_heap
+    2. easier to maintain when only relative order is required
+    3. insert at child node and push up
+    4. remove at root node, place leaf node at root and push down
+    5. std::make_heap, push_heap, pop_heap, sort_heap, is_heap
 
 ## algorithm
 
@@ -130,8 +134,9 @@ Lookup the complexity [here](https://www.bigocheatsheet.com/).
 3. dynamic programming
    1. design a objective that is recurring
    2. solve the result by gradually solving the objective
-4. two pointers -> useful for find stuff in range
-   1. right pointer for growing, left pointer for shrinking
+4. sliding window: maintain invariant between range
+   1. usually done with two pointers
+   2. useful for finding stuff in range
 
 ### sort
 
