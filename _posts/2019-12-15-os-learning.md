@@ -167,18 +167,34 @@ the kernel starts as a dummy process 0
 the first process to run is `init` as process 1
 `SysV` `systemd`
 
-zombie process: a children process that has finished execution and waits for parent process to read return status, `ps aux | grep Z`
-orphaned process: process which is unintentionally detached `parent PID = 1`
+* if a parent does not read its child process exit state (wait),
+  * the child become zombie after it finished execution
+  * `ps aux | grep Z`
+* if a parent exit before its child process, 
+  * the child is transfered to `init` (orphaned)
+  * `init` will clean up periodically
+  * orphaned process get SIGHUP and SIGCONT
+* daemon process: orphaned but still working?
 
-daemon process: process which is intentionally detached. 
-
-* fork
-* umask: set file permission for various syscall
-  * `mode & ~umask`
-  * can be read from `/proc/pid/status` and `/proc/self/status`
-* setsid(): become a new session. become orphan otherwise.
-* chdir(): change working dir
-* close stdin, stdout, stderr
+* parent process id `ppid`
+* process group `pgid`
+  * `getpgid()` / `setpgid()`
+  * pipelined process can be placed into one group
+* session `sid`
+  * `setsid()` create new session
+    * the process become the session leader
+    * network hang up is sent to session leader
+  * a session can have one controlling terminal
+* controlling terminal: some tty device
+  * `/dev/tty`: current tty device 
+  * foreground / background process group
+    * terminal send signal to the foreground pg `tpgid`
+    * `tcgetpgrp` / `tcsetpgrp`
+    * bg can talk to `/dev/tty`
+* job control
+  * when reading in background, process get SIGTTIN
+    * if orphaned, read gets EIO
+  * when writing in background, process get SIGTTOU if tty disconnected
 
 ## virtualization
 

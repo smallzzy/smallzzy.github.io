@@ -27,6 +27,9 @@ select, poll, epoll?
 * `FD_CLOEXEC`: if set, fd is closed when `exec()`
   * prevent fd leak to child process
 * in C11, `fopen()` can have `wx` flag to prevent overwrite
+* umask: set file permission for various syscall
+  * `mode & ~umask`
+  * can be read from `/proc/pid/status` and `/proc/self/status`
 
 ## exec
 
