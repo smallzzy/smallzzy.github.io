@@ -38,6 +38,34 @@ execve
 execveat
 ```
 
+## signal
+
+~~signal, pause, setjmp, longjmp~~
+
+* signal is reset to default after trigger
+* signal cannot be turned off
+* system call will be interrupted
+  * might auto restart
+* reentrant function: some func cannot be used because their use of global struct
+* SIGCLD:
+  * when ignore, do not generate zombie
+  * if child can be waited, signal is triggered immediately
+    * only set signal after wait
+* errno is shared
+
+sigaction, sigsuspend, sigsetjmp, siglongjmp, 
+
+* sigaction does not reset
+* sigaction allow mask
+  * automatically masked unless SA_NODEFER
+  * mask is inherit through fork so we need to make sure that we only attach handler when necessary
+* sa_flags:
+  * SA_RESTART, SA_INTERRUPT: default to restart
+  * SA_SIGINFO: more info for signal (also, enable signal queue)
+* sigsuspend is atomic:
+  * race between signal set and pause
+* jmp needs to make sure that mask is cleared
+
 ## seccomp
 
 limit syscall
