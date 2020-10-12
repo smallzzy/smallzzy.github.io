@@ -83,9 +83,7 @@ vlc
 mpv
 mpc-hc
 
-http://u2.dmhy.org/
-http://share.dmhy.org/
-https://skyeysnow.com/login.php
-https://bbs.vcb-s.com/
+## render farm
 
-zmNinja: camera?
+deadline
+redshift
