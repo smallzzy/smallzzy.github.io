@@ -169,6 +169,10 @@ the first process to run is `init` as process 1
 
 * if a parent does not read its child process exit state (wait),
   * the child become zombie after it finished execution
+  * if we do not want zombie
+    * we can fork twice so that child is orphaned instead.
+    * if we ignore child state change signal, the terminal state will not be saved
+      * SIG_IGN SIGCLD
   * `ps aux | grep Z`
 * if a parent exit before its child process, 
   * the child is transfered to `init` (orphaned)
@@ -194,7 +198,7 @@ the first process to run is `init` as process 1
 * job control
   * when reading in background, process get SIGTTIN
     * if orphaned, read gets EIO
-  * when writing in background, process get SIGTTOU if tty disconnected
+  * when writing in background, process get SIGTTOU
 
 ## virtualization
 

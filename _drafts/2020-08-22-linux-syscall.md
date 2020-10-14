@@ -8,10 +8,19 @@ tags: []
 summary: 
 ---
 
-## intro
+## basics
 
-https://fedora.juszkiewicz.com.pl/syscalls.html
-https://chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md
+* errno:
+  * thread local
+  * never cleared until actual error
+
+## system limits
+
+```
+<unistd.h> // compile time
+sysconf()
+pathconf() fpathconf()
+```
 
 ## fd
 
@@ -22,11 +31,19 @@ fnctl
 select, poll, epoll?
 ```
 
-* `O_SYNC`:
-  * when fd `close` fail, data is not guaranteed to be written 
-* `FD_CLOEXEC`: if set, fd is closed when `exec()`
-  * prevent fd leak to child process
-* in C11, `fopen()` can have `wx` flag to prevent overwrite
+* file status flags:
+  * `O_SYNC`:
+    * when fd `close` fail, data is not guaranteed to be written 
+  * `O_APPEND`:
+    * cannot lseek -> gurantee that write is sequential
+* fd flags: 
+  * `FD_CLOEXEC`: if set, fd is closed when `exec()`
+    * prevent fd leak to child process
+* shared access:
+  * fd can point to same file -> `dup()`
+  * file can be open multiple times
+  * lseek() + read() / write is not atomic
+  * pread(), pwrite()
 * umask: set file permission for various syscall
   * `mode & ~umask`
   * can be read from `/proc/pid/status` and `/proc/self/status`
@@ -47,11 +64,6 @@ execveat
 * system call will be interrupted
   * might auto restart
 * reentrant function: some func cannot be used because their use of global struct
-* SIGCLD:
-  * when ignore, do not generate zombie
-  * if child can be waited, signal is triggered immediately
-    * only set signal after wait
-* errno is shared
 
 sigaction, sigsuspend, sigsetjmp, siglongjmp, 
 
@@ -65,6 +77,21 @@ sigaction, sigsuspend, sigsetjmp, siglongjmp,
 * sigsuspend is atomic:
   * race between signal set and pause
 * jmp needs to make sure that mask is cleared
+
+### signal note
+
+* async signal safe != thread safe
+  * thread is in band, thread safe can be achieved with mutex
+  * signal is out of band, reentrant cannot have broken global state
+  * handle signal in special thread 
+* when ignoring SIGCLD / SIGCHLD, do not generate zombie
+  * SIGCLD:
+    * if child can be waited, signal is triggered immediately
+      * only set signal after wait
+  * SIGCHLD:
+    * generate when child state actually changes?
+
+## pthread
 
 ## seccomp
 
@@ -140,3 +167,8 @@ connect(): connect to another socket
 recv & send
 read & write
 ```
+
+## search table
+
+https://fedora.juszkiewicz.com.pl/syscalls.html
+https://chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md
