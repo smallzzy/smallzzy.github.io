@@ -87,3 +87,10 @@ mpc-hc
 
 deadline
 redshift
+
+# serialization
+
+thrift
+protobuf
+capnproto
+msgpack

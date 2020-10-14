@@ -90,6 +90,9 @@ so that we know that we are talking to the right person.
 * encrypt and sign file: `--encrypt --sign --recipient <email> <file>`
 * decrypt: `--decrypt <file>`
 
+https://www.passwordstore.org/
+https://www.dyne.org/software/tomb/
+
 ## cipher suite
 
 * RSA
