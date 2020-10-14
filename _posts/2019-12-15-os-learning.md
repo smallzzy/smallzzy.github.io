@@ -4,11 +4,9 @@ title:
 date: 2019-12-15 23:33
 category: 
 author: 
-tags: [misc]
+tags: [os]
 summary: 
 ---
-
-Reading Note for OSTEP
 
 ## virtualization
 
@@ -112,125 +110,6 @@ thread:
 * file system consistence
 * log based vs table based
 
-### files
-
-* hard link: create a file with the same inode number
-  * inode is unique on one device. Thus, hard link does not work across drives.
-  * also, reference counting is necessary
-* symbol link: create a symbolic file that points to another file
-* bind mount: make a folder available at another position
-  * there are possible drawbacks when having the same folder appear twice in the system
-  * rbind: bind recursively
-* loop mount: make a file accessible as a block device
-  * if the file contains an entire file system,
-  it can then be mounted as a disk device
-
-## uid
-
-* RUID (real)
-  * actual owner of a process
-* EUID (effective)
-  * authority of a process is determined according to EUID
-* SUID (set)
-  * When a command with SUID bit is run,
-  its EUID become that of the owner of the file,
-  rather than that of the user who is running it.
-  * `chmod +s`
-  * `rws` for SUID + x, `rwS` for SUID only
-
-* `access` check if RUID has capability
-  * by default, will follow symbolic link
-* suid will not work for things which need a interpreter ex. script
-* `ltrace` does not work because of security
-
-### sticky bit
-
-* used for shared directories
-* can create, read and execute files owned by other users
-* but cannot remove files owned by other users
-* `chmod +t`
-
-## attribute
-
-`chattr`
-
-* `A`: do not update atime record
-* `S`: changes are synchronously write to disk
-* `a`: only open in append mode
-* `i`: cannot be modified (no renaming, no symbolic link, no execution)
-* `j`: write journal before content
-* `t`: no tail-merging (multiple tail block can be merged to reduce disk usage)
-
-## process id
-
-the kernel starts as a dummy process 0
-the first process to run is `init` as process 1
-`SysV` `systemd`
-
-* if a parent does not read its child process exit state (wait),
-  * the child become zombie after it finished execution
-  * if we do not want zombie
-    * we can fork twice so that child is orphaned instead.
-    * if we ignore child state change signal, the terminal state will not be saved
-      * SIG_IGN SIGCLD
-  * `ps aux | grep Z`
-* if a parent exit before its child process, 
-  * the child is transfered to `init` (orphaned)
-  * `init` will clean up periodically
-  * orphaned process get SIGHUP and SIGCONT
-* daemon process: orphaned but still working?
-
-* parent process id `ppid`
-* process group `pgid`
-  * `getpgid()` / `setpgid()`
-  * pipelined process can be placed into one group
-* session `sid`
-  * `setsid()` create new session
-    * the process become the session leader
-    * network hang up is sent to session leader
-  * a session can have one controlling terminal
-* controlling terminal: some tty device
-  * `/dev/tty`: current tty device 
-  * foreground / background process group
-    * terminal send signal to the foreground pg `tpgid`
-    * `tcgetpgrp` / `tcsetpgrp`
-    * bg can talk to `/dev/tty`
-* job control
-  * when reading in background, process get SIGTTIN
-    * if orphaned, read gets EIO
-  * when writing in background, process get SIGTTOU
-
-## virtualization
-
-* proxmox, ESXi
-* KVM XEN
-* lxc lxd
-* virtio
-
-### container
-
-* namespace change visibility of services
-  * mnt
-  * pid
-  * net
-  * ipc
-  * UTS
-  * user
-  * cgroup
-  * time
-* cgroup limit resource usage
-* capability: partial ability as root
-
-## reference
+## Reference
 
 [OSTEP](http://pages.cs.wisc.edu/~remzi/OSTEP/)
-[attr](https://en.wikipedia.org/wiki/Chattr)
-
-## todo
-
-* https://blog.yadutaf.fr/2013/12/28/introduction-to-linux-namespaces-part-2-ipc/
-
-* [UEFI](https://uefi.org/specifications): SEC, PEI, DXE
-  * during DXE, oprom is loaded -> driver?
-
-* https://refspecs.linuxfoundation.org/
