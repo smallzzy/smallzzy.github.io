@@ -65,8 +65,9 @@ To normalize a database, we usually
   * serial attached scsi: sas
   * usb attached scsi: uas
   * iSCSI
-* ACHI (from intel but de facto)
+* ATA
   * SATA
+  * ACHI: host protocol
 * NVMe
   * PCIe
 
@@ -84,6 +85,36 @@ To normalize a database, we usually
   * multiple client has no sync 
     * shared-disk file system
     * SCSI fencing
+
+### JBOD enclosure
+
+* SAS support multiplexing
+  * daisy chain also seems to be possible
+* we can have SAS expander
+  * backplane
+  * JBOD enclousre
+* SFF connector
+  * 8484 can fan out to 4 8482
+
+## ssd trim
+
+* when fs delete a file, it only needs to remove it from dir
+  * the underlying inode is not touched
+* ssd controller has no way of knowing if a block is actually used in fs
+* trim tells ssd controller when a block is disposed
+* [trim not necessary](https://www.spinics.net/lists/raid/msg40916.html)
+  * the block will get reused when fs write again
+  * with proper op, occupied block should not be a big problem
+
+* trim support mode: drat dzat
+* trim support in protocol: https://en.wikipedia.org/wiki/Trim_(computing)
+
+## smr
+
+* higher density but write amplification
+* not suitable to small file write
+
+https://www.ixsystems.com/community/resources/list-of-known-smr-drives.141/
 
 ## distributed file system
 
