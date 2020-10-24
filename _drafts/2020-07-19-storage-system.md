@@ -96,6 +96,27 @@ To normalize a database, we usually
 * SFF connector
   * 8484 can fan out to 4 8482
 
+## mdadm
+
+```
+stride = chunk size / block size
+stripe width = number of data disks * stride
+```
+
+* mdadm tracks the disks by RAID metadata (superblock)
+  * multiple version exist
+  * remove existing superblock by `mdadm --zero-superblock /dev/sdc`
+* `/etc/mdadm/mdadm.conf` stores info to array definition?
+  * `update-initramfs -u` after changing this file
+* `mdadm --create --verbose /dev/md0`
+  * `--level=0`
+  * `--raid-devices=2`
+* `mdadm --detail --scan >> /etc/mdadm.conf`
+* `mdadm --assemble`
+  * `--scan`
+  * `--update=name --name=<>`
+* `mdadm --stop`
+
 ## ssd trim
 
 * when fs delete a file, it only needs to remove it from dir
