@@ -106,7 +106,8 @@ stripe width = number of data disks * stride
 * mdadm tracks the disks by RAID metadata (superblock)
   * multiple version exist
   * remove existing superblock by `mdadm --zero-superblock /dev/sdc`
-* `/etc/mdadm/mdadm.conf` stores info to array definition?
+* `/etc/mdadm/mdadm.conf` automates array assembly
+  * necessary when booting from raid 
   * `update-initramfs -u` after changing this file
 * `mdadm --create --verbose /dev/md0`
   * `--level=0`
@@ -116,6 +117,34 @@ stripe width = number of data disks * stride
   * `--scan`
   * `--update=name --name=<>`
 * `mdadm --stop`
+
+https://help.ubuntu.com/community/Installation/SoftwareRAID
+https://edoceo.com/sys/mdadm-raid1
+https://work-work.work/blog/2018/12/01/ubuntu-1804-btrfs.html
+https://feeding.cloud.geek.nz/posts/setting-up-raid-on-existing/
+
+multipath?
+
+https://discourse.ubuntu.com/t/device-mapper-multipathing-introduction/11316
+
+### raid and partition
+
+* use raid on top of partition instead of raw disk:
+  * some motherboard might fix broken gpt header automatically
+    * seems to be defined in UEFI
+    * `sgdisk --zap`
+  * leave some margin at the end of disk ensures easily replacement
+  * `0xfd` makes it obvious that parition belongs to a raid
+* ~~use raid on raw disk~~
+
+[Reference](https://unix.stackexchange.com/questions/320103/whats-the-difference-between-creating-mdadm-array-using-partitions-or-the-whole)
+
+* ~~partition on top of raid~~:
+  * unless you want further divide the partition
+  * partition fails when raid fails
+
+https://serverfault.com/questions/796460/partition-table-on-one-disk-from-raid-always-equal-to-partition-table-configured
+https://serverfault.com/questions/619862/should-i-partition-a-raid-or-just-create-a-file-system-on-it
 
 ## ssd trim
 
@@ -175,3 +204,5 @@ NVDIMM
     * inherit parent `-O mountpoint`
   * `create -V size` volume as block device
     * `set shareiscsi=on`
+* zvol
+
