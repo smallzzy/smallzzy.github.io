@@ -87,14 +87,12 @@ IP suite (OSI)
   * backward compatible with device w/o vlan
 * l3 switch
   * support cross vlan
-
-### dynamic vlan
-
-* goal: mac based vlan assignment
-* GARP -> MRP
+* instead of configure vlan on every device, configure on one device and propagte
+  * GARP -> MRP
   * GMRP -> MMRP
   * GVRP -> MVRP
-* Cisco: VLAN Member Policy Server
+* dynamic vlan: assign vlan based on mac
+  * Cisco: VLAN Member Policy Server
 
 ## IPv6
 
