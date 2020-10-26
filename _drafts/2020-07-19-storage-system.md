@@ -96,6 +96,13 @@ To normalize a database, we usually
 * SFF connector
   * 8484 can fan out to 4 8482
 
+### storcli
+
+* the x is a placeholder for a number
+  * can use `all`
+* `show all` is present all info
+* use jbod mode: `storcli /c0 show jbod`
+
 ## mdadm
 
 ```
@@ -188,8 +195,6 @@ https://github.com/cernceph/ceph-scripts
 
 NVDIMM
 
-## mdadm?
-
 ## zfs
 
 * zpool: device pool
@@ -206,3 +211,6 @@ NVDIMM
     * `set shareiscsi=on`
 * zvol
 
+##
+
+[disk firmware](https://firmware.hddsurgery.com/index.php)

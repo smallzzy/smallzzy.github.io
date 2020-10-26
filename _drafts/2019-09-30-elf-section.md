@@ -8,6 +8,10 @@ tags: [compile]
 summary: 
 ---
 
+## elf file
+
+[https://docs.oracle.com/cd/E23824_01/html/819-0690/chapter6-46512.html#scrolltoc]
+
 ## tools
 
 [nm result](https://sourceware.org/binutils/docs/binutils/nm.html)
