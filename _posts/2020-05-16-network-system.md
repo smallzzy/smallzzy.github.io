@@ -36,15 +36,65 @@ IP suite (OSI)
 
 ### protocol
 
-1. Shared media / Repeater: 
+1. Shared media / Repeater / Hub (same segment):
   * CSMA/CD
-2. Switch
+2. Switch (different segment)
   * Address Resolution Protocol: knowing ip, broadcast request for a mac address
-  * Spanning Tree Protocol / Shortest Path Bridging
+  * Spanning Tree Protocol / Shortest Path Bridging (802.1d)
+    * bridge protocol data units (BPDU) is constantly being shared between nodes
+    * root bridge
+    * path cost to root bridge
+      * path cost can be determined by admin
+      * root port
+    * best path to specific segment
+      * designated ports
+      * avoid boardcast storm
 3. Router
   * QoS:
   * UPnP
   * NAT
+
+## switch
+
+* switch algorithm:
+  * required because the port can be shared
+  * cut-through: forward the packet after reading the mac
+  * store-and-forward: store and check the packet before forwarding
+  * fragment-free: forward the packet after reading 64 byte
+* switching memory
+  * shared
+  * matrix
+  * bus
+* transparent bridging
+  * learning
+  * flooding (arp)
+  * forwarding
+  * filtering
+    * do not forward packet on same segment
+  * aging
+
+## vlan 
+
+* tag 802.1q 
+  * 1-4094
+* trunk
+  * allow vlan to be transmitted between switch and / or switch
+  * trunk port / tagged port
+  * access port / untagged port
+* native vlan
+  * configured per trunk
+  * a untagged vlan on trunk port get native vlan
+  * backward compatible with device w/o vlan
+* l3 switch
+  * support cross vlan
+
+### dynamic vlan
+
+* goal: mac based vlan assignment
+* GARP -> MRP
+  * GMRP -> MMRP
+  * GVRP -> MVRP
+* Cisco: VLAN Member Policy Server
 
 ## IPv6
 
@@ -59,7 +109,6 @@ IP suite (OSI)
   * 
 
 boardcast domain
-vlan
 
 ## REST
 
@@ -104,3 +153,5 @@ connect bitstream between two address
 nmap
 tracepath
 traceroute
+
+[howstuffworks](https://computer.howstuffworks.com/lan-switch.htm)
