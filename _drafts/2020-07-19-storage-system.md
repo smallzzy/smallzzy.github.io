@@ -95,13 +95,49 @@ To normalize a database, we usually
   * JBOD enclousre
 * SFF connector
   * 8484 can fan out to 4 8482
+  * 8639: U2
 
-### storcli
+## disk
 
-* the x is a placeholder for a number
-  * can use `all`
-* `show all` is present all info
-* use jbod mode: `storcli /c0 show jbod`
+`du -sch .[!.]* *`: show file size including hidden
+`ncdu`: show file size in command line, very quick
+
+### alignment
+
+```
+parted /dev/sda
+align-check opt n
+```
+
+### mount options
+
+* defaults = rw, suid, dev, exec, auto, nouser, aync
+  * dev: interpret char or block device
+  * exec: allow binary execution
+  * suid: allow use of suid and sgid
+* user: allow any user to mount this partition
+  * imply noexec, nosuid, nodev
+  * nouser: root only
+* noatime: do not update last access time
+* auto/noauto: mount automatically at boot
+* nofail: do not block if cannot pass fsck
+  * x-systemd.device-timeout
+* ~~systemd service can used to mount disk~~
+* fsck: 1 for root, 2 for other, 0 to disable
+
+[fstab options](https://wiki.archlinux.org/index.php/Fstab)
+
+### expansion
+
+1. after raid expansion, rescan the disk
+   1. `echo 1>/sys/class/block/sdd/device/rescan`
+2. re-write the GPT backup header at the new end of the disk 
+   1. `gdisk x e`
+3. resize partition
+   1. `gdisk d n`
+   2. `parted resizepart`
+4. resize fs
+   1. `resize2fs`
 
 ## mdadm
 
@@ -133,6 +169,13 @@ https://feeding.cloud.geek.nz/posts/setting-up-raid-on-existing/
 multipath?
 
 https://discourse.ubuntu.com/t/device-mapper-multipathing-introduction/11316
+
+### storcli
+
+* the x is a placeholder for a number
+  * can use `all`
+* `show all` is present all info
+* use jbod mode: `storcli /c0 show jbod`
 
 ### raid and partition
 
