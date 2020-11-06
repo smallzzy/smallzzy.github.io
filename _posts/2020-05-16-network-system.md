@@ -40,15 +40,20 @@ IP suite (OSI)
   * CSMA/CD
 2. Switch (different segment)
   * Address Resolution Protocol: knowing ip, broadcast request for a mac address
-  * Spanning Tree Protocol / Shortest Path Bridging (802.1d)
+  * We want redundant links to achieve high availibity (STP), or high through put (aggregation)
+  * Spanning Tree Protocol / Shortest Path Bridging (802.1d, w, s -> 802.1q)
     * bridge protocol data units (BPDU) is constantly being shared between nodes
-    * root bridge
+    * root bridge: uplink to router?
     * path cost to root bridge
       * path cost can be determined by admin
-      * root port
+      * root port: uplink to root bridge
     * best path to specific segment
-      * designated ports
+      * designated ports: one downlink to one segment
       * avoid boardcast storm
+  * aggregation
+    * link aggregation group, LAG
+    * link aggregation control protocol, LACP(802.1ax)
+      * active, passive
 3. Router
   * QoS:
   * UPnP
@@ -73,10 +78,9 @@ IP suite (OSI)
     * do not forward packet on same segment
   * aging
 
-## vlan 
+## vlan 802.1q 
 
-* tag 802.1q 
-  * 1-4094
+* tag range: 1-4094
 * trunk
   * allow vlan to be transmitted between switch and / or switch
   * trunk port / tagged port
@@ -87,7 +91,7 @@ IP suite (OSI)
   * backward compatible with device w/o vlan
 * l3 switch
   * support cross vlan
-* instead of configure vlan on every device, configure on one device and propagte
+* instead of configure vlan group on every device, configure on one device and propagte
   * GARP -> MRP
   * GMRP -> MMRP
   * GVRP -> MVRP
@@ -129,19 +133,6 @@ Representational state transfer (REST) is a style to design api.
   * http 2: multiplex requests over a single TCP connection
 * `Connection: Upgrade`
 
-## socat
-
-connect bitstream between two address
-
-* address
-  * open: file
-  * exec
-  * create
-  * various network protocol
-* options
-* option group
-* split io: `!!`
-
 ## quic
 
 ## zeroconf
@@ -151,5 +142,8 @@ connect bitstream between two address
 nmap
 tracepath
 traceroute
+
+multi-homed dhcp
+dhcp relay
 
 [howstuffworks](https://computer.howstuffworks.com/lan-switch.htm)
