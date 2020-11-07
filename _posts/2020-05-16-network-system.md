@@ -24,7 +24,7 @@ IP suite (OSI)
   * User Datagram Protocol (UDP)
 5. application (session, presentation, application): ssl/tls
 
-### physical
+## physical
 
 * small form-factor pluggable (SFP)
 * media independent interface (MII)
@@ -34,26 +34,19 @@ IP suite (OSI)
 * T568 A/B
   * 10 / 100 Mbit use two pairs (1-2, 3-6)
 
-### protocol
+## protocol
 
 1. Shared media / Repeater / Hub (same segment):
   * CSMA/CD
 2. Switch (different segment)
   * Address Resolution Protocol: knowing ip, broadcast request for a mac address
-  * We want redundant links to achieve high availibity (STP), or high through put (aggregation)
-  * Spanning Tree Protocol / Shortest Path Bridging (802.1d, w, s -> 802.1q)
-    * bridge protocol data units (BPDU) is constantly being shared between nodes
-    * root bridge: uplink to router?
-    * path cost to root bridge
-      * path cost can be determined by admin
-      * root port: uplink to root bridge
-    * best path to specific segment
-      * designated ports: one downlink to one segment
-      * avoid boardcast storm
+  * redundant links to achieve high availibity (STP)
+  * mutltiple links for high throughput (aggregation)
   * aggregation
     * link aggregation group, LAG
     * link aggregation control protocol, LACP(802.1ax)
       * active, passive
+      * `bonding`, `ifenslave`
 3. Router
   * QoS:
   * UPnP
@@ -77,6 +70,26 @@ IP suite (OSI)
   * filtering
     * do not forward packet on same segment
   * aging
+
+## Spanning Tree Protocol / Shortest Path Bridging
+
+* this tech has evolved several times
+  * STP 802.1d
+  * RSTP 802.1w
+  * MSTP 802.s
+* the goal is to select one root bridge
+  * should select one manually
+  * if root bridge is different from default gateway, uncessary traffic might be generated.
+* bridge protocol data units (BPDU) is constantly being shared between nodes
+  * calculate path cost to root bridge
+  * path cost can be determined by admin
+* based on cost, we determine best path to specific segment
+  * root port: uplink to root bridge
+  * designated ports: one downlink to one segment
+  * avoid boardcast storm
+* MSTP considers all vlan to be the same tree
+  * either enable trunk on all port
+  * or per-vlan RSTP?
 
 ## vlan 802.1q 
 
