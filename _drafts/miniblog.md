@@ -109,10 +109,9 @@ okteta
 hex fiend
 hachoir
 
-## wsl
+jumbo packet?
 
-* [reference](https://docs.microsoft.com/en-us/windows/wsl/wsl-config)
-* `wsl --shutdown`
-* `/etc/wsl.conf`
-  * appendWindowsPath=false
-* `C:\Users\<yourUserName>\.wslconfig`
+volta: node environment
+
+io_uring
+

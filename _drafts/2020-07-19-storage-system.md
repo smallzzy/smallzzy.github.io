@@ -111,16 +111,9 @@ stripe width = number of data disks * stride
 * `mdadm --stop`
 * `--detail`: information about raid
 * `--examine`: look for superblock on device
-* 
 
-https://help.ubuntu.com/community/Installation/SoftwareRAID
-https://edoceo.com/sys/mdadm-raid1
-https://work-work.work/blog/2018/12/01/ubuntu-1804-btrfs.html
-https://feeding.cloud.geek.nz/posts/setting-up-raid-on-existing/
-
-multipath?
-
-https://discourse.ubuntu.com/t/device-mapper-multipathing-introduction/11316
+[raid for existing partition](https://feeding.cloud.geek.nz/posts/setting-up-raid-on-existing/)
+[multipath](https://discourse.ubuntu.com/t/device-mapper-multipathing-introduction/11316)
 
 ### storcli
 
@@ -193,6 +186,10 @@ disk structure?
   * `create -V size` volume as block device
     * `set shareiscsi=on`
 * zvol
+
+### btrfs
+
+https://work-work.work/blog/2018/12/01/ubuntu-1804-btrfs.html
 
 ## distributed file system
 
