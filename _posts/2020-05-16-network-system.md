@@ -125,16 +125,29 @@ IP suite (OSI)
 
 boardcast domain
 
-## REST
+## quic
 
-Representational state transfer (REST) is a style to design api.
+## zeroconf
 
-* Uniform interface
-* client-server architecture
-* statelessness
-* cacheability
-* layered system
-* code on demand
+* traditional dns, unicast
+* multicast dns (mDNS, RFC6762)
+  * resolve on link local network
+  * `.local` domain
+  * boujour, avahi 
+
+### name service switch 
+
+* specify how different services are resolved
+  * `/etc/nsswitch.conf`
+* `nss-mdns`: resolve host name with mdns
+
+## service discover
+
+* DNS-SD
+  * query DNS PTR record
+  * returns SRV and TXT
+
+http://www.dns-sd.org/ServiceTypes.html
 
 ## http
 
@@ -146,9 +159,16 @@ Representational state transfer (REST) is a style to design api.
   * http 2: multiplex requests over a single TCP connection
 * `Connection: Upgrade`
 
-## quic
+## REST
 
-## zeroconf
+Representational state transfer (REST) is a style to design api.
+
+* Uniform interface
+* client-server architecture
+* statelessness
+* cacheability
+* layered system
+* code on demand
 
 ## tools
 
