@@ -63,11 +63,13 @@ rclone
 graphviz
 xming
 Locale Emulator
+textractor
 beyond compare
 kicad
 CoolTerm
 dbeaver
 flashrom
+netbox: infastructure 
 
 ## ui
 
@@ -88,7 +90,7 @@ mpc-hc
 deadline
 redshift
 
-# serialization
+## serialization
 
 thrift
 protobuf

@@ -99,16 +99,19 @@ stripe width = number of data disks * stride
   * multiple version exist
   * remove existing superblock by `mdadm --zero-superblock /dev/sdc`
 * `/etc/mdadm/mdadm.conf` automates array assembly
+  * `mdadm --detail --scan >> /etc/mdadm.conf`
   * necessary when booting from raid 
   * `update-initramfs -u` after changing this file
 * `mdadm --create --verbose /dev/md0`
   * `--level=0`
   * `--raid-devices=2`
-* `mdadm --detail --scan >> /etc/mdadm.conf`
 * `mdadm --assemble`
   * `--scan`
   * `--update=name --name=<>`
 * `mdadm --stop`
+* `--detail`: information about raid
+* `--examine`: look for superblock on device
+* 
 
 https://help.ubuntu.com/community/Installation/SoftwareRAID
 https://edoceo.com/sys/mdadm-raid1
@@ -165,6 +168,32 @@ https://serverfault.com/questions/619862/should-i-partition-a-raid-or-just-creat
 
 https://www.ixsystems.com/community/resources/list-of-known-smr-drives.141/
 
+## file system
+
+https://danluu.com/deconstruct-files/
+https://danluu.com/filesystem-errors/
+
+https://news.ycombinator.com/item?id=24258444
+
+xfs, btrfs, zfs
+disk structure?
+
+### zfs
+
+* zpool: device pool
+  * virtual devices, vdev
+    * mirror / raidz
+      * disk / slice / file
+    * hot spare
+    * intent log
+    * cache devices
+* zfs:
+  * `create` filesystem datasets
+    * inherit parent `-O mountpoint`
+  * `create -V size` volume as block device
+    * `set shareiscsi=on`
+* zvol
+
 ## distributed file system
 
 GlusterFS, Lustre, Spectrum Scale(GPFS), BeeGFS
@@ -186,22 +215,6 @@ CephScaleTestMarch2015
 https://github.com/cernceph/ceph-scripts
 
 NVDIMM
-
-## zfs
-
-* zpool: device pool
-  * virtual devices, vdev
-    * mirror / raidz
-      * disk / slice / file
-    * hot spare
-    * intent log
-    * cache devices
-* zfs:
-  * `create` filesystem datasets
-    * inherit parent `-O mountpoint`
-  * `create -V size` volume as block device
-    * `set shareiscsi=on`
-* zvol
 
 ##
 

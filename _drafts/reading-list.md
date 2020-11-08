@@ -70,6 +70,9 @@ TSG 4106A RF signal generator: stanford research?
 E5052B: signal source analyzer: phase noise?
 plastigage
 
+klein instrument: k10a screen calibration
+astrodesign: screen signal generator
+
 ## server
 
 https://cpugrade.com/articles/cinebench-r15-ipc-comparison-graphs/

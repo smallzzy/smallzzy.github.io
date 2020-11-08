@@ -33,6 +33,7 @@ summary:
 * Done at compile time. Might involve .data, .rodata, .bss
 * static non-local are initialized before main
 * static local or thread local are initialized at first pass through of their decleration
+  * notice that static variables are shared between object
 
 ### zero initiailization
 
