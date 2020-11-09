@@ -70,6 +70,11 @@ IP suite (OSI)
   * filtering
     * do not forward packet on same segment
   * aging
+* architecture
+  * access
+  * core
+
+[howstuffworks](https://computer.howstuffworks.com/lan-switch.htm)
 
 ## Spanning Tree Protocol / Shortest Path Bridging
 
@@ -85,11 +90,21 @@ IP suite (OSI)
   * path cost can be determined by admin
 * based on cost, we determine best path to specific segment
   * root port: uplink to root bridge
-  * designated ports: one downlink to one segment
+  * designated ports: downlink to another segment
   * avoid boardcast storm
 * MSTP considers all vlan to be the same tree
   * either enable trunk on all port
   * or per-vlan RSTP?
+
+### guard
+
+* bpdu guard: disable STP on undesired port
+* root guard: disable STP from changing manually designated root switch
+  * not recommanded
+* loop guard
+  * normally, ports will be disabled based on BPDU
+  * if a unidirectional failure cause BPDU to be lost, switch might choose to forward packet through the port. Which defeats STP
+  * loop guard disable that port with unidirectional failure
 
 ## vlan 802.1q 
 
@@ -134,6 +149,7 @@ boardcast domain
   * resolve on link local network
   * `.local` domain
   * boujour, avahi 
+  * `avahi-browse --all --ignore-local --resolve --terminate`
 
 ### name service switch 
 
@@ -143,6 +159,8 @@ boardcast domain
 
 ## service discover
 
+* SSDP / UPnP
+* WS-Discovery
 * DNS-SD
   * query DNS PTR record
   * returns SRV and TXT
@@ -179,4 +197,4 @@ traceroute
 multi-homed dhcp
 dhcp relay
 
-[howstuffworks](https://computer.howstuffworks.com/lan-switch.htm)
+VRPP
