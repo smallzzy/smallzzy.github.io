@@ -111,6 +111,7 @@ stripe width = number of data disks * stride
 * `mdadm --stop`
 * `--detail`: information about raid
 * `--examine`: look for superblock on device
+* `echo check > /sys/block/md0/md/sync_action`
 
 [raid for existing partition](https://feeding.cloud.geek.nz/posts/setting-up-raid-on-existing/)
 [multipath](https://discourse.ubuntu.com/t/device-mapper-multipathing-introduction/11316)
