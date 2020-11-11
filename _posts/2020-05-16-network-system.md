@@ -15,10 +15,6 @@ IP suite (OSI)
 1. (physical)
 2. link (data link): mac
 3. internet (network): ip
-  * ipv4 broadcast through the all one address
-  * ipv6 does not have broadcast
-  * maximum transmission unit (MTU) is max size of a ip packet
-  * [fragmentation](https://blog.cloudflare.com/ip-fragmentation-is-broken/)
 4. transport (transport): tcp/udp
   * Transmission Control Protocol (TCP)
   * User Datagram Protocol (UDP)
@@ -42,6 +38,7 @@ IP suite (OSI)
   * Address Resolution Protocol: knowing ip, broadcast request for a mac address
   * redundant links to achieve high availibity (STP)
   * mutltiple links for high throughput (aggregation)
+  * LLDP (802.1AB): discovery capability on link
   * aggregation
     * link aggregation group, LAG
     * link aggregation control protocol, LACP(802.1ax)
@@ -126,19 +123,34 @@ IP suite (OSI)
 * dynamic vlan: assign vlan based on mac
   * Cisco: VLAN Member Policy Server
 
-## IPv6
+## IP
+
+* unicast: transmit from point to point
+  * unspecified: `0.0.0.0`, `::`
+  * loopback: `127.0.0.1`, `::1`
+* multicast: transmit to one group of addresses
+  * `224.0.0.0/4` `FF00::/8`
+* boardcast: transmit to a certain domain?
+  * ipv4
+* anycast: transmit to any one in the group
+  * ipv6
+
+### fragmentation
+
+* maximum transmission unit (MTU)
+  * specify the max bytes on one link
+* MSS in tcp?
+* mtu discovery
+  * icmp blocked
+* Do not fragment
+
+[fragmentation](https://blog.cloudflare.com/ip-fragmentation-is-broken/)
+
+### IPv6
 
 * left-most continuous zero octets can be compressed as `::`
   * otherwise, each octet needs to retain at least one zero
-* wrapped in square bracket for port number
-* address
-  * localhost: `::1`?
-  * unspecified: `::`?
-  * unique local: `fc00::/7`
-* scope?
-  * 
-
-boardcast domain
+* wrapped in square bracket so `:` is not confused with port number
 
 ## quic
 
