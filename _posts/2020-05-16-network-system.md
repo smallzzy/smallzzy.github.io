@@ -130,6 +130,7 @@ IP suite (OSI)
   * loopback: `127.0.0.1`, `::1`
 * multicast: transmit to one group of addresses
   * `224.0.0.0/4` `FF00::/8`
+  * [wiki](https://en.wikipedia.org/wiki/Multicast_address)
 * boardcast: transmit to a certain domain?
   * ipv4
 * anycast: transmit to any one in the group
