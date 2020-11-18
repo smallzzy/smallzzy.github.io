@@ -212,8 +212,6 @@ GlusterFS, Lustre, Spectrum Scale(GPFS), BeeGFS
 CephScaleTestMarch2015
 https://github.com/cernceph/ceph-scripts
 
-NVDIMM
-
 ##
 
 [disk firmware](https://firmware.hddsurgery.com/index.php)
