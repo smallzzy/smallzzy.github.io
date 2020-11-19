@@ -102,12 +102,25 @@ https://www.winrar-france.fr/winrar_instructions_for_use/source/html/HELPCmdRR.h
 rar recover record is calculated per file
 even with multiple volume
 
-## hex editor
+## the tools
 
-okteta
-101 editor
-hex fiend
-hachoir
+metabo magdrill
+xantrex: power supply?
+BK precision: electronic load?
+https://www.youtube.com/watch?v=z-50pSc_wg8
+SM200C: spectrum analyzer
+TTR503A: VNA
+noisext: signal generator
+PM6685R: frequency calibrator?
+TSG 4106A RF signal generator: stanford research?
+E5052B: signal source analyzer: phase noise?
+plastigage
+
+klein instrument: k10a screen calibration
+astrodesign: screen signal generator
+
+adjustable current load 
+
 
 jumbo packet?
 

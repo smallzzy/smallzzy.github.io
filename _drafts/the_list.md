@@ -11,11 +11,16 @@ putty
 git
 uncrustify clang-format?
 drmemory
-010editor
+
+## hex editor
+
+okteta
+010 editor
+hex fiend
+hachoir
 
 ### kde
 
-okteta
 heaptrack
 kcachegrind
 
@@ -70,6 +75,7 @@ CoolTerm
 dbeaver
 flashrom
 netbox: infastructure 
+goby?
 
 ## ui
 

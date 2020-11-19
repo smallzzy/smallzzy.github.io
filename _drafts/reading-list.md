@@ -56,23 +56,6 @@ https://www.unionrepair.com/easy-draw-smartphone-schematic-diagrams-zxw-alternat
 http://pldaniels.com/flexbv/
 https://www.microsoldering.com/zxw-tools-dongle-download/
 
-## the tools
-
-metabo magdrill
-xantrex: power supply?
-BK precision: electronic load?
-https://www.youtube.com/watch?v=z-50pSc_wg8
-SM200C: spectrum analyzer
-TTR503A: VNA
-noisext: signal generator
-PM6685R: frequency calibrator?
-TSG 4106A RF signal generator: stanford research?
-E5052B: signal source analyzer: phase noise?
-plastigage
-
-klein instrument: k10a screen calibration
-astrodesign: screen signal generator
-
 ## server
 
 https://cpugrade.com/articles/cinebench-r15-ipc-comparison-graphs/
