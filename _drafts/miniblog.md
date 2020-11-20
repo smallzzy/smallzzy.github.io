@@ -126,5 +126,14 @@ jumbo packet?
 
 volta: node environment
 
-io_uring
+## virtualization
 
+* proxmox, ESXi, xcp-ng
+* KVM XEN
+* lxc lxd
+* virtio
+
+## boot process
+
+* [UEFI](https://uefi.org/specifications): SEC, PEI, DXE
+  * during DXE, oprom is loaded -> driver?
