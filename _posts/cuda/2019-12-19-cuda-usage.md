@@ -75,10 +75,24 @@ cudaStreamAttachMemAsync()
 
 Starting from Kepler, CUDA kernels can be processed concurrently on the same GPU.
 
-### Multi-Process Service (MPS)
+## Multi-Process Service (MPS)
 
 Enable multiple processes to co-operate.
 
 Starting from Volta, MPS client talk to GPU without passing through MPS server.
 
 [Reference](https://docs.nvidia.com/deploy/pdf/CUDA_Multi_Process_Service_Overview.pdf)
+
+## Multi-Instance GPU (MIG)
+
+Supported in A100.
+Let GPU to be partitioned into separate GPU instance.
+I suppose it is best fit for multiple users.
+
+[Reference](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html)
+
+## tensor core
+
+* tensor core has a fixed calculation pipeline
+  * out = A * B + C
+* accessed via `nvcuda::wmma`
