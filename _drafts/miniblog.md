@@ -121,6 +121,10 @@ astrodesign: screen signal generator
 
 adjustable current load 
 
+cable certifier?
+Netally?
+https://www.idealnetworks.net/us/product/signaltek-ct/
+https://www.fluke.com/en-us/product/network-cable-testers/copper/ms-poe
 
 jumbo packet?
 

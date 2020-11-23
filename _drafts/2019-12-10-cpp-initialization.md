@@ -44,13 +44,12 @@ summary:
 > 4) If T is array type, each element is zero-initialized.
 > 5) If T is reference type, nothing is done.
 
-* if we only perform 2), the object will be indeterminate values
+* if we only perform 2), the object is in a unusable state.
 
 ## step 2: Dynamic initialization
 
 1. value initialization
 2. direct initialization
-   1. calling the constructor
 3. copy initialization
 4. list initialization
 5. aggregate initialization
@@ -75,7 +74,7 @@ Note:
 
 ### default initialization
 
-* expanded to value initialization from `C++03`
+* expanded to value initialization from `C++03`?
 * Usually appear in the form of `T`
 
 > 1) when a variable with **automatic, static, or thread-local storage duration** is declared with no initializer;
@@ -132,6 +131,15 @@ The effects of default initialization are:
 
 [aggregate, POD](https://stackoverflow.com/questions/4178175/what-are-aggregates-and-pods-and-how-why-are-they-special)
 
+## aggregate initialization
+
+
+
+## copy elision
+
+RVO
+NRVO
+
 ## explicit vs converting constructor
 
 * cannot be used for implicit conversion & copy-initialization
@@ -139,11 +147,6 @@ The effects of default initialization are:
 ## todo
 
 dynamic non-local
-
-class member
-
-copy elision
-
 ## Reference
 
 [CPP Reference](https://en.cppreference.com/w/cpp/language/initialization)

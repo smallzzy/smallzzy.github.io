@@ -137,6 +137,8 @@ Lookup the complexity [here](https://www.bigocheatsheet.com/).
 4. sliding window: maintain invariant between range
    1. usually done with two pointers
    2. useful for finding stuff in range
+5. converge from both side
+   1. the answer might be the union / intersect of two sub problems.
 
 ### sort
 

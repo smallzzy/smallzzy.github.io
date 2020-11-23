@@ -38,6 +38,8 @@ But it will still be used.
 ### misc
 
 * `-fsanitize=address` needs to be added to linking
+  * if only library is sanitized, libasan is not loaded first
+    * `LD_PRELOAD=$(gcc -print-file-name=libasan.so)`
 * cmake seems to de-duplicate flags in options
 
 ### interface

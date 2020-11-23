@@ -12,7 +12,28 @@ summary:
 
 python float is usually implemented with c double: 64 bit
 
+## pybind
+
+py::object hold reference to pyobject
+py::handle does not reference
+
+_a -> user defined literal
+
+return value policy
+keepalive
+capsule
+https://pybind11.readthedocs.io/en/stable/advanced/functions.html#python-objects-as-arguments
+
+## env
+
+* override python malloc at cmd: `PYTHONMALLOC=malloc`
+  * the regular pymalloc seems to cause false positive for valgrind
+
+https://docs.python.org/3/using/cmdline.html
+
 ## edit conda environment
+
+* install conda with `-p <path>` 
 
 Create activate and deactivate file as suggested in [document](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#macos-and-linux).
 

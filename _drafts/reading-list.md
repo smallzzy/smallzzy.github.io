@@ -78,3 +78,16 @@ https://forum.level1techs.com/t/fixing-slow-nvme-raid-performance-on-epyc/151909
 https://exploringjs.com/es6/index.html
 
 https://freenetproject.org/
+
+pylance
+
+nvram -> available in bios?
+
+virtual machine
+
+* alloc more machine w/o physical deployment
+  * multi tenent
+  * a better machine with multiple user can be used as one when needed
+
+* how to manage the virtual machines
+* gap in the virtualization
