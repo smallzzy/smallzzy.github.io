@@ -60,21 +60,22 @@ align-check opt n
 
 ### mount options
 
-* defaults = rw, suid, dev, exec, auto, nouser, aync
+* `man 8 mount`
+* defaults = rw, suid, dev, exec, auto, nouser, async
   * dev: interpret char or block device
   * exec: allow binary execution
   * suid: allow use of suid and sgid
 * user: allow any user to mount this partition
   * imply noexec, nosuid, nodev
-  * nouser: root only
+  * nouser(default): root only
 * noatime: do not update last access time
 * auto/noauto: mount automatically at boot
-* nofail: do not block if cannot pass fsck
-  * x-systemd.device-timeout
-* ~~systemd service can used to mount disk~~
+* nofail: do not report error if device does not exist
+  * x-systemd.device-timeout:
+* _netdev: only try mount after network is up
 * fsck: 1 for root, 2 for other, 0 to disable
 
-[fstab options](https://wiki.archlinux.org/index.php/Fstab)
+[systemd mount](https://www.freedesktop.org/software/systemd/man/systemd.mount.html)
 
 ### expansion
 
