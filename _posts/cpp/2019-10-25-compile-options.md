@@ -31,7 +31,12 @@ remove rtti `-fno-rtti`
 
 ## performance flags
 
-link time optimization, optimize across compilation unit: `-lto`
+* link time optimization `-lto`
+  * optimize across compilation unit
+* profile guided optimization
+  * hot cold splitting
+
+[function attibute](https://gcc.gnu.org/onlinedocs/gcc/Function-Attributes.html)
 
 ## strict-aliasing
 

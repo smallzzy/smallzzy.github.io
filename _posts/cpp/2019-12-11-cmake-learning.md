@@ -22,6 +22,16 @@ summary:
 If we just `set` the flag, the flag will not appear in cache.
 But it will still be used.
 
+### ccache
+
+* `CMAKE_<LANG>_COMPILER_LAUNCHER=ccache`
+* CCACHE_BASEDIR
+  * rewrite absolute path under the base directory to relative path when construsting hash
+  * typical path:
+    * home directory
+    * parent of build directory
+* CCACHE_DIR: store compiler output
+
 ## cmake property
 
 * `add_<property>`
