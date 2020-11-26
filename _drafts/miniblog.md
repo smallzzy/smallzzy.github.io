@@ -126,6 +126,7 @@ Netally?
 https://www.idealnetworks.net/us/product/signaltek-ct/
 https://www.fluke.com/en-us/product/network-cable-testers/copper/ms-poe
 
+elastic search?
 jumbo packet?
 
 volta: node environment
@@ -136,6 +137,7 @@ volta: node environment
 * KVM XEN
 * lxc lxd
 * virtio
+* libvirt?
 
 ## boot process
 

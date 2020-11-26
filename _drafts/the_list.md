@@ -44,6 +44,10 @@ rawrite
 
 John the Ripper
 hashcat
+virbox
+DnSpy
+ILSpy
+Net Reflector
 
 ## network
 
@@ -102,3 +106,9 @@ thrift
 protobuf
 capnproto
 msgpack
+
+## overclock
+
+hwmonitor
+XTU
+trottle stop
