@@ -13,6 +13,14 @@ summary:
 * variable is stored in string
 * list is a semicolon separated string
   * semicolon is replaced when used in flags
+* generate compilation database
+  * `set(CMAKE_EXPORT_COMPILE_COMMANDS ON)`
+
+## dependency
+
+* generate dependency graph between targets: `--graphviz=`
+* `add_custom_command(OUTPUT <file>)`
+* `add_dependency`
 
 ## flags
 
@@ -37,20 +45,17 @@ But it will still be used.
 * `add_<property>`
   * `target_<property>`
   * `set_target_properties`
-* COMPILE_DEFINITIONS
+
+* COMPILE_DEFINITIONS: preprocessor definition
 * COMPILE_OPTIONS
   * options will not be added to linking (different from flags)
+  * `-fsanitize=address` needs to be added to linking
+    * if only library is sanitized, libasan is not loaded first
+    * `LD_PRELOAD=$(gcc -print-file-name=libasan.so)`
 * INCLUDE_DIRECTORIES
 * SYSTEM_INCLUDE_DIRECTORIES
 * LINK_OPTIONS
 * LINK_LIBRARIES
-
-### misc
-
-* `-fsanitize=address` needs to be added to linking
-  * if only library is sanitized, libasan is not loaded first
-    * `LD_PRELOAD=$(gcc -print-file-name=libasan.so)`
-* cmake seems to de-duplicate flags in options
 
 ### interface
 
@@ -101,16 +106,6 @@ FetchContent_GetProperties(googletest)
 if(NOT googletest_POPULATED)
     FetchContent_Populate(googletest)
     add_subdirectory(${googletest_SOURCE_DIR} EXCLUDE_FROM_ALL)
-endif()
-```
-
-## default build type
-
-```cmake
-set(default_build_type "RelWithDebInfo")
-if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
-    message(STATUS "Setting build type to '${default_build_type}' as none was specified.")
-    set(CMAKE_BUILD_TYPE "${default_build_type}" CACHE STRING "Choose the type of build." FORCE)
 endif()
 ```
 

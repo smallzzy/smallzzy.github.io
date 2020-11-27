@@ -108,15 +108,18 @@ Note:
 
 ## linking shared
 
-Linking a shared library works similar to link a object,
-but the duplicated symbol does not trigger an error.
-
 > When binding symbols at runtime,
 > the dynamic linker searches libraries in the same order
 > as they were specified on the link line
 > and uses the first definition of the symbol encountered.
 > If more than one library happens to define the same symbol,
 > only the first definition applies
+
+* a duplicated symbol does not trigger an error at linking time
+  * function interposition: `malloc`
+* that means a library can call unexpected function from other object
+  * `-symbolic`: force binding to internal function
+    * also disable the use of `extern` variable
 
 ## linking order
 
@@ -136,7 +139,7 @@ Linker will look at all the files from left to right in the command line.
 With shared library, we wish to change visibility of symbol so that:
 
 * only necessary function are exposed, reducing the risk of abi problem
-* avoid symbol collison
+* avoid symbol collision
 
 ### marco on Windows
 

@@ -15,10 +15,8 @@ summary:
 * math: `-Wcast-align -Wfloat-equal -Wsign-compare`
 * use gold linker: `-fuse-ld=gold`
 * build id: `-Wl,--build-id`
-
-## compile options record
-
-`-frecord-gcc-switches`
+* compile options record: `-frecord-gcc-switches`
+* generate compile dependency: `-MM`
 
 ## reduce binary size
 
@@ -142,11 +140,11 @@ This flag will show the shadowing as a warning.
 -Wl,--warn-execstack
 ```
 
-## precompile header
+## pre-compile header
 
 * avoid header being processed multiple times in larger project
 * generate `.gch` file which take precedence over normal header file
-* only one precompile header can be used in one translation unit
+* only one pre-compile header can be used in one translation unit
 * ASLR can generate not binary identical `.gch` file
   * gch is a dump of compiler parsing state?
 * any macro must be defined the same way when compiling the header
