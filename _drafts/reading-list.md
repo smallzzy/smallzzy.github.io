@@ -91,3 +91,5 @@ virtual machine
 
 * how to manage the virtual machines
 * gap in the virtualization
+
+https://gcc.gnu.org/onlinedocs/gcc/Function-Names.html

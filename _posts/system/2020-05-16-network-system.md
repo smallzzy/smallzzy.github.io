@@ -23,12 +23,23 @@ IP suite (OSI)
 ## physical
 
 * small form-factor pluggable (SFP)
+  * direct attached cable (DAC)
+  * active copper?
+  * active optical cable (AOC)
+    * long reach - single mode
+      * yellow cable
+    * short reach - multimode
+      * OM1, OM2 -> led, orange
+      * OM3, OM4 -> laser, aqua
+    * larger core means less distance
 * media independent interface (MII)
   * connect to mac
 * Magnetics?
   * connect to RJ45
 * T568 A/B
   * 10 / 100 Mbit use two pairs (1-2, 3-6)
+
+[fiber](https://www.multicominc.com/training/technical-resources/single-mode-sfp-vs-multi-mode-sfp/)
 
 ## protocol
 
