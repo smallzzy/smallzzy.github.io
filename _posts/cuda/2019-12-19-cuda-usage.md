@@ -32,7 +32,7 @@ grid -> block -> thread -> warp
 
 * L0 is used for instruction cache
 
-### unified
+## unified memory
 
 ```c++
 cudaMallcManaged()
@@ -41,14 +41,21 @@ cudaMemPrefetchAsync()
 cudaStreamAttachMemAsync()
 ```
 
-* page fault handler
-* 49 bit addressing -> x86 current has 48 bit addressing
-* cannot access concurrent from host and device
-* only allocated when used
+* 49 bit addressing -> x86 currently has 48 bit addressing
+* based on page fault
+  * cannot access concurrently from host and device
+  * only allocated when used -> can appear on gpu
+  * sync mmu on cpu and gpu?
 
-### access
+### (not) uniform memory access
 
-### shuffle
+* for UMA, cpu should be able to operate directly on the memory
+  * no memory transfer, zero copy
+* in cuda, the driver takes care of memory transfer?
+
+## access
+
+## shuffle
 
 ## sync behavior
 
