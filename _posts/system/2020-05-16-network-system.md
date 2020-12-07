@@ -24,14 +24,9 @@ IP suite (OSI)
 
 * small form-factor pluggable (SFP)
   * direct attached cable (DAC)
+    * no transceiver
   * active copper?
   * active optical cable (AOC)
-    * long reach - single mode
-      * yellow cable
-    * short reach - multimode
-      * OM1, OM2 -> led, orange
-      * OM3, OM4 -> laser, aqua
-    * larger core means less distance
 * media independent interface (MII)
   * connect to mac
 * Magnetics?
@@ -40,6 +35,37 @@ IP suite (OSI)
   * 10 / 100 Mbit use two pairs (1-2, 3-6)
 
 [fiber](https://www.multicominc.com/training/technical-resources/single-mode-sfp-vs-multi-mode-sfp/)
+
+### SFP & QSFP
+
+* SFP, SFP+, SFP28
+  * 1G, 10G, 25G
+* QSFP+, QSFP28
+  * QSFP was not widely adopted?
+* the modules are usually backward-compatible
+* switch need to support breakout to split QSFP into SFP
+
+[infiniband data rate](https://en.wikipedia.org/wiki/InfiniBand)
+
+### fiber
+
+* connector
+  * LC
+  * MPO
+* ferrule: how fiber contact
+  * PC, UPC, APC
+* cable (ISO11801)
+  * long reach - single mode
+    * yellow cable
+  * short reach - multimode
+    * OM1, OM2 -> led, orange
+    * OM3, OM4 -> laser, aqua
+  * larger core means less distance
+* wavelength division multiplexing
+  * in comm, we call it frequency division multiplexing
+  * transmit multiple wavelength on the same fiber
+  * Coarse WDM (20 nm)
+  * Dense WDM (0.8 nm)
 
 ## protocol
 
@@ -163,6 +189,27 @@ IP suite (OSI)
 * left-most continuous zero octets can be compressed as `::`
   * otherwise, each octet needs to retain at least one zero
 * wrapped in square bracket so `:` is not confused with port number
+
+## L3 Switch
+
+* route between vlan without packets leaving the switch
+* devices on vlan will use switch as the gateway
+  * configure vlan interface to be a virtual device with a ip
+* switch will use the router as the gateway
+  * might need to disable switching in order to assign a ip
+
+## rdma
+
+pfc?
+ECN?
+
+PCP 802.1q Priority Code Point)
+differentiated services code point (DSCP)
+
+VPI
+
+OFED -> rdma-core -> libfabric
+openucx
 
 ## quic
 
