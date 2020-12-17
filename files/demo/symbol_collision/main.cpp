@@ -1,7 +1,13 @@
 #include <iostream>
-void DoThing() {
-    printf("work\n");
+
+// local function
+// Intentionally conflict with library function
+void DoThing()
+{
+  printf("local\n");
 };
+
+// supposed library call
 void DoLayer();
 
 int main()

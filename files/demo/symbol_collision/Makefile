@@ -1,45 +1,52 @@
-symbol_conflict: main.cpp libconflict.so
-	g++ -c main.cpp -o main.o
-	g++ -o test main.o -L. -lconflict
-
-symbol_sconflict: main.cpp libconflict.a
-	g++ -c main.cpp -o main.o
-	g++ -o test main.o -L. -lconflict
-
-symbol_hide: main.cpp libhide.so
+# this is the correct behavior
+correct: main.cpp libhide.so
 	g++ -c main.cpp -o main.o
 	g++ -o test main.o -L. -lhide
 
-cc_fail: main.cpp libfail.a
+# shared library symbol is hidden unintentionally
+one_shared: main.cpp libone_shared.so
 	g++ -c main.cpp -o main.o
-	g++ -o test main.o -L. -lfail
+	g++ -o test main.o -L. -lone_shared
 
-cc_success: main.cpp libfail.so
+# static library cannot be linked if there is duplicated symbol
+# although the introduction is a unwanted side effect
+one_static: main.cpp libone_static.a
 	g++ -c main.cpp -o main.o
-	g++ -o test main.o -L. -lfail
+	g++ -o test main.o -L. -lone_static
 
-libconflict.so: thing.cpp conflict.cpp
-	g++ -c conflict.cpp -o conflict.o
-	g++ -c thing.cpp -o thing.o
-	g++ -shared -o libconflict.so thing.o conflict.o
+# shared library symbol is hidden unintentionally
+two_shared: main.cpp libtwo_shared.so
+	g++ -c main.cpp -o main.o
+	g++ -o test main.o -L. -ltwo_shared
 
-libconflict.a: thing.cpp conflict.cpp
-	g++ -c conflict.cpp -o conflict.o
-	g++ -c thing.cpp -o thing.o
-	ar rc libconflict.a thing.o conflict.o
+# static library symbol is not introduced if the object is not included
+two_static: main.cpp libtwo_static.a
+	g++ -c main.cpp -o main.o
+	g++ -o test main.o -L. -ltwo_static
 
-libhide.so: thing.cpp conflict.cpp
-	g++ -c -fvisibility=hidden conflict.cpp -o conflict.o
-	g++ -c -fvisibility=hidden thing.cpp -o thing.o
-	g++ -shared -o libhide.so thing.o conflict.o
+libone_shared.so: one_fail.cpp
+	g++ -c one_fail.cpp -o one_fail.o -fPIC
+	g++ -shared -o libone_shared.so one_fail.o
 
-libfail.a: fail.cpp
-	g++ -c fail.cpp -o fail.o
-	ar rc libfail.a fail.o
+libone_static.a: one_fail.cpp
+	g++ -c one_fail.cpp -o one_fail.o
+	ar rc libone_static.a one_fail.o
 
-libfail.so: fail.cpp
-	g++ -c fail.cpp -o fail.o -fPIC
-	g++ -shared -o libfail.so fail.o
+libtwo_shared.so: two_func.cpp two_fail.cpp
+	g++ -c two_fail.cpp -o two_fail.o
+	g++ -c two_func.cpp -o two_func.o
+	g++ -shared -o libtwo_shared.so two_fail.o two_func.o
+
+libtwo_static.a: two_func.cpp two_fail.cpp
+	g++ -c two_fail.cpp -o two_fail.o
+	g++ -c two_func.cpp -o two_func.o
+	ar rc libtwo_static.a two_fail.o two_func.o
+
+# run nm -C and observe the difference please
+libhide.so: two_func.cpp two_fail.cpp
+	g++ -c -fvisibility=hidden two_fail.cpp -o two_fail.o
+	g++ -c -fvisibility=hidden two_func.cpp -o two_func.o
+	g++ -shared -o libhide.so two_fail.o two_func.o
 
 clean:
 	rm *.o *.so *.a test 
