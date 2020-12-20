@@ -121,6 +121,8 @@ astrodesign: screen signal generator
 
 adjustable current load 
 
+pc3000 acelab
+
 cable certifier?
 Netally?
 https://www.idealnetworks.net/us/product/signaltek-ct/
@@ -143,3 +145,11 @@ volta: node environment
 
 * [UEFI](https://uefi.org/specifications): SEC, PEI, DXE
   * during DXE, oprom is loaded -> driver?
+
+https://www.reddit.com/r/homelab/comments/81cdwc/what_are_the_options_for_cheap_10g_sfp_switches/
+
+stacking presents multiple switch as one 
+but might be no performance as a bigger one?
+or better than trunk?
+
+iso 11801
