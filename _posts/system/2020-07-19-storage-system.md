@@ -35,13 +35,15 @@ summary:
     * shared-disk file system
     * SCSI fencing
 
-### JBOD enclosure
+### SAS
 
-* SAS support multiplexing
-  * daisy chain also seems to be possible
-* we can have SAS expander
-  * backplane
-  * JBOD enclousre
+* multiplexing
+  * daisy chain SAS expander
+* multipath
+* backplane
+  * might have SAS expander
+  * might have nvme passthrough
+* JBOD enclousre
 * SFF connector
   * 8484 can fan out to 4 8482
   * 8639: U2
@@ -49,7 +51,9 @@ summary:
 ## disk
 
 `du -sch .[!.]* *`: show file size including hidden
-`ncdu`: show file size in command line, very quick
+`ncdu`: show file size in command line, easier than `du -h`
+`iotop`: view disk usage by application
+`iostat`: view disk usage by device
 
 ### alignment
 
@@ -189,6 +193,12 @@ disk structure?
     * `set shareiscsi=on`
 * zvol
 
+nvme 
+Supported LBA Sizes
+4k performance
+
+https://wintelguy.com/raidmttdl.pl
+
 ### btrfs
 
 https://work-work.work/blog/2018/12/01/ubuntu-1804-btrfs.html
@@ -216,3 +226,5 @@ https://github.com/cernceph/ceph-scripts
 ##
 
 [disk firmware](https://firmware.hddsurgery.com/index.php)
+
+mylto - tape
