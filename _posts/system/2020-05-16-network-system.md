@@ -51,16 +51,25 @@ IP suite (OSI)
 
 * connector
   * LC
+    * CWDM4
   * MPO
+    * SR4, PSM4
 * ferrule: how fiber contact
   * PC, UPC, APC
 * cable (ISO11801)
-  * long reach - single mode
-    * yellow cable
-  * short reach - multimode
+  * related to `mode` of light
+  * single mode -> long reach
+    * OS1, OS2 -> yellow
+  * multi mode -> short reach
     * OM1, OM2 -> led, orange
     * OM3, OM4 -> laser, aqua
+    * OM5
+      * WDM is specified on MMF since OM5
   * larger core means less distance
+* wavelength
+  * 850, 1300, 1550
+  * scattering and absorption
+    * water band
 * wavelength division multiplexing
   * in comm, we call it frequency division multiplexing
   * transmit multiple wavelength on the same fiber
@@ -190,6 +199,14 @@ IP suite (OSI)
   * otherwise, each octet needs to retain at least one zero
 * wrapped in square bracket so `:` is not confused with port number
 
+## scope
+
+* IPv4
+  * private: 10.0/24, 172/16, 192.168.
+  * link-local: 169.254.0.0/16
+* IPv6
+  * link-local: fe80::/10
+
 ## L3 Switch
 
 * route between vlan without packets leaving the switch
@@ -270,3 +287,17 @@ dhcp relay
 
 VRPP
 LLDP
+cat /proc/net/dev
+
+https://docs.cumulusnetworks.com/cumulus-linux-40/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-Using-ethtool/
+
+ethtool -m: module
+
+        Optical diagnostics support               : Yes
+
+ip route s 
+
+https://frrouting.org/
+
+
+MXS824 PCIE switch
