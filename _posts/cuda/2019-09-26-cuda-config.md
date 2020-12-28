@@ -92,21 +92,7 @@ Exchange data between GPU and disk?
 
 https://developer.nvidia.com/blog/gpudirect-storage/
 
-## connection
-
-### PCIe
-
-On servers, it is possible that some pcie slot is shared by a switch.
-
-Here are some commands to reveal such problem.
-
-```bash
-lspci
-lshw
-lstopo # show system topology
-```
-
-### NvLink
+## NvLink
 
 [Linux support](https://www.pugetsystems.com/labs/hpc/NVLINK-on-RTX-2080-TensorFlow-and-Peer-to-Peer-Performance-with-Linux-1262/)
 
