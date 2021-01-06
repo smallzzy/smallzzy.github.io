@@ -219,6 +219,7 @@ IP suite (OSI)
 
 * Forward Error Correction (FEC):
   * mellanox connection always enable RS FEC
+  * sonic enable fec: `sudo portconfig -p Ethernet124 -f rs`
 
 pfc?
 ECN?
@@ -290,17 +291,22 @@ dhcp relay
 
 VRPP
 LLDP
-cat /proc/net/dev
 
 https://docs.cumulusnetworks.com/cumulus-linux-40/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-Using-ethtool/
 
-ethtool -m: module
-
-        Optical diagnostics support               : Yes
-
-ip route s 
-
 https://frrouting.org/
 
-
 MXS824 PCIE switch
+
+* show interface `/sys/class/net`
+* interface: `ip link set eth1 up/down`
+* static ip: `ip addr add/del 192.168.50.5 dev eth1`
+* routing table:
+  * `ip route show`
+  * static route `ip route add 10.10.20.0/24 via 192.168.50.100 dev eth0`
+* arp table:
+  * `ip neigh`
+
+* ethtool:
+  * `-m`: read eeprom info
+  * `-t`: self test

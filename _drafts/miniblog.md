@@ -129,6 +129,8 @@ https://www.idealnetworks.net/us/product/signaltek-ct/
 https://www.fluke.com/en-us/product/network-cable-testers/copper/ms-poe
 
 elastic search?
+phantom v2511: high speed camera
+
 jumbo packet?
 
 volta: node environment
@@ -153,3 +155,7 @@ but might be no performance as a bigger one?
 or better than trunk?
 
 iso 11801
+
+## mail
+
+Prevent mail to Gmail users from being blocked or sent to spam

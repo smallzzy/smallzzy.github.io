@@ -93,3 +93,13 @@ virtual machine
 * gap in the virtualization
 
 https://gcc.gnu.org/onlinedocs/gcc/Function-Names.html
+
+http://xflat.sourceforge.net/NoMMUSharedLibs.html
+
+overlay fs?
+
+bios nvram
+
+DCPMM
+
+rosette scanning pattern
