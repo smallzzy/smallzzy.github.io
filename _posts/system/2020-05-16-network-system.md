@@ -217,6 +217,9 @@ IP suite (OSI)
 
 ## rdma
 
+* Forward Error Correction (FEC):
+  * mellanox connection always enable RS FEC
+
 pfc?
 ECN?
 

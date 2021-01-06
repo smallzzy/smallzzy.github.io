@@ -198,6 +198,7 @@ Supported LBA Sizes
 4k performance
 
 https://wintelguy.com/raidmttdl.pl
+https://tinyapps.org/docs/nvme-secure-erase.html
 
 ### btrfs
 
