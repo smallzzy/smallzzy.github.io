@@ -8,6 +8,21 @@ tags: [misc]
 summary: 
 ---
 
+## tools
+
+* show interface `/sys/class/net`
+* interface: `ip link set eth1 up/down`
+* static ip: `ip addr add/del 192.168.50.5 dev eth1`
+* routing table:
+  * `ip route show`
+  * static route `ip route add 10.10.20.0/24 via 192.168.50.100 dev eth0`
+* arp table:
+  * `ip neigh`
+
+* ethtool:
+  * `-m`: read eeprom info
+  * `-t`: self test
+
 ## networking suite
 
 IP suite (OSI)
@@ -210,6 +225,10 @@ IP suite (OSI)
 ## L3 Switch
 
 * route between vlan without packets leaving the switch
+* L3 can work between following elements
+  * Router Interface: a single port to another router
+  * Port Channel: port aggregation to another router
+  * Vlan Interface: between vlan groups
 * devices on vlan will use switch as the gateway
   * configure vlan interface to be a virtual device with a ip
 * switch will use the router as the gateway
@@ -218,8 +237,7 @@ IP suite (OSI)
 ## rdma
 
 * Forward Error Correction (FEC):
-  * mellanox connection always enable RS FEC
-  * sonic enable fec: `sudo portconfig -p Ethernet124 -f rs`
+  * mellanox might enable FEC by default
 
 pfc?
 ECN?
@@ -259,6 +277,9 @@ openucx
 
 http://www.dns-sd.org/ServiceTypes.html
 
+LLDP?
+SNMP?
+
 ## http
 
 * compression: `Accept-Encoding`
@@ -280,17 +301,17 @@ Representational state transfer (REST) is a style to design api.
 * layered system
 * code on demand
 
-## tools
+## todo
 
-nmap
-tracepath
-traceroute
+`nmap`
+`tracepath`
+`traceroute`
 
 multi-homed dhcp
 dhcp relay
 
 VRPP
-LLDP
+`bridge`?
 
 https://docs.cumulusnetworks.com/cumulus-linux-40/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-Using-ethtool/
 
@@ -298,15 +319,4 @@ https://frrouting.org/
 
 MXS824 PCIE switch
 
-* show interface `/sys/class/net`
-* interface: `ip link set eth1 up/down`
-* static ip: `ip addr add/del 192.168.50.5 dev eth1`
-* routing table:
-  * `ip route show`
-  * static route `ip route add 10.10.20.0/24 via 192.168.50.100 dev eth0`
-* arp table:
-  * `ip neigh`
-
-* ethtool:
-  * `-m`: read eeprom info
-  * `-t`: self test
+[tuning](https://fasterdata.es.net/)
