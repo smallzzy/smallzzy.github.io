@@ -17,6 +17,7 @@ summary:
   * `ip route show`
   * static route `ip route add 10.10.20.0/24 via 192.168.50.100 dev eth0`
   * check which route will be taken `ip route get`
+  * default route (gateway) is taken when no specific route is available
 * arp table:
   * `ip neigh`
 
@@ -198,17 +199,6 @@ IP suite (OSI)
 * anycast: transmit to any one in the group
   * ipv6
 
-### fragmentation
-
-* maximum transmission unit (MTU)
-  * specify the max bytes on one link
-* MSS in tcp?
-* mtu discovery
-  * icmp blocked
-* Do not fragment
-
-[fragmentation](https://blog.cloudflare.com/ip-fragmentation-is-broken/)
-
 ### IPv6
 
 * left-most continuous zero octets can be compressed as `::`
@@ -223,6 +213,17 @@ IP suite (OSI)
 * IPv6
   * link-local: fe80::/10
 
+### fragmentation
+
+* maximum transmission unit (MTU)
+  * specify the max bytes on one link
+* MSS in tcp?
+* mtu discovery
+  * icmp blocked
+* Do not fragment
+
+[fragmentation](https://blog.cloudflare.com/ip-fragmentation-is-broken/)
+
 ## L3 Switch
 
 * route between vlan without packets leaving the switch
@@ -230,10 +231,8 @@ IP suite (OSI)
   * Router Interface: a single port to another router
   * Port Channel: port aggregation to another router
   * Vlan Interface: between vlan groups
-* devices on vlan will use switch as the gateway
-  * configure vlan interface to be a virtual device with a ip
-* switch will use the router as the gateway
-  * might need to disable switching in order to assign a ip
+
+
 
 ## rdma
 
@@ -251,8 +250,6 @@ VPI
 OFED -> rdma-core -> libfabric
 openucx
 
-## quic
-
 ## zeroconf
 
 * traditional dns, unicast
@@ -261,12 +258,6 @@ openucx
   * `.local` domain
   * boujour, avahi 
   * `avahi-browse --all --ignore-local --resolve --terminate`
-
-### name service switch 
-
-* specify how different services are resolved
-  * `/etc/nsswitch.conf`
-* `nss-mdns`: resolve host name with mdns
 
 ## service discover
 
@@ -290,6 +281,8 @@ SNMP?
   * http 2: do not use this header
   * http 2: multiplex requests over a single TCP connection
 * `Connection: Upgrade`
+
+quic?
 
 ## REST
 
