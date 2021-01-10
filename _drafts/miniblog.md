@@ -135,6 +135,12 @@ jumbo packet?
 
 volta: node environment
 
+pc3000
+deepspar usb stabilizer
+r-tt: r studio
+
+bpainter
+
 ## virtualization
 
 * proxmox, ESXi, xcp-ng
