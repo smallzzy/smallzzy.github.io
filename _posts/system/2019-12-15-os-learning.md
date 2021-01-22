@@ -60,9 +60,19 @@ turnaround time vs response time
 ## memory
 
 * internal vs external fragmentation
-* page table vs segmentation
-* multiple level page table
-* larger page table size
+  * internal: memory not fully utilized in one allocation
+  * extermal: consecutive memory after usage
+* MMU: Memory Management Unit
+  * mapping virual address to physical 
+  * segementation
+  * multiple level page table
+    * no external frag -> fixed block size
+* TLB: Translation lookaside buffer
+  * store recent page table
+  * content addressable memory
+  * partial tlb replacement
+    * kernel do not need swap
+  * hugetlb
 
 ## concurrency
 

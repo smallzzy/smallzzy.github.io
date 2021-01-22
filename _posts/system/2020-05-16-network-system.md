@@ -20,6 +20,7 @@ summary:
   * default route (gateway) is taken when no specific route is available
 * arp table:
   * `ip neigh`
+* maxmtu: `ip -d link list`
 
 * ethtool:
   * `-m`: read eeprom info
@@ -239,16 +240,24 @@ IP suite (OSI)
 * Forward Error Correction (FEC):
   * mellanox might enable FEC by default
 
-pfc?
 ECN?
-
-PCP 802.1q Priority Code Point)
-differentiated services code point (DSCP)
 
 VPI
 
 OFED -> rdma-core -> libfabric
 openucx
+
+## DCB
+
+* PFC
+  * Priority Code Point (PCP)
+    * 3 bits in Vlan
+  * Differentiated Services Code Point (DSCP)
+  * global pause?
+* ETS
+* DCBX
+  * LLDP
+* QCN
 
 ## zeroconf
 
@@ -310,7 +319,5 @@ VRPP
 https://docs.cumulusnetworks.com/cumulus-linux-40/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-Using-ethtool/
 
 https://frrouting.org/
-
-MXS824 PCIE switch
 
 [tuning](https://fasterdata.es.net/)
