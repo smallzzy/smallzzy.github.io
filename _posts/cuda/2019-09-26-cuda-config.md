@@ -86,6 +86,10 @@ MOFED driver -> [Mellanox OpenFabrics Enterprise Distribution](https://www.mella
 Some basic [info1](https://www.rohitzambre.com/blog/2018/2/9/for-the-rdma-novice-libfabric-libibverbs-infiniband-ofed-mofed)
 [info2](https://shelbyt.github.io/rdma-explained-1.html)
 
+https://community.mellanox.com/s/article/How-To-Enable-Verify-and-Troubleshoot-RDMA
+
+https://community.mellanox.com/s/article/performance-tuning-for-mellanox-adapters
+
 ### storage
 
 Exchange data between GPU and disk?

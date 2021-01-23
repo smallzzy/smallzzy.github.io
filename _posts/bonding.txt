@@ -1,0 +1,17 @@
+network:
+  bonds:
+    bond0:
+      dhcp4: false
+      addresses: [10.200.210.171/24]
+      gateway4: 10.200.210.1
+      nameservers:
+        addresses: [10.200.210.195,8.8.8.8]
+      interfaces:
+      - eno1
+      - eno2
+      - eno3
+      - eno4
+      parameters:
+        lacp-rate: slow
+        mode: 802.3ad
+        transmit-hash-policy: layer2
