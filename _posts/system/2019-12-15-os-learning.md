@@ -56,6 +56,12 @@ turnaround time vs response time
    * run process with least progress (vruntime)
    * physical run time (pruntime) determined by max slice, min slice, total # process
    * virtual run time determined by pruntime and niceness
+* Heterogeneous multiprocessing 
+  * big.Little
+  * Cluster Migration: migrate between CPU clusters
+  * CPU Migration: migrate between CPU pairs
+  * Global Task Scheduling: scheduling using all cores
+    * dynamic voltage and frequency scaling (DVFS)
 
 ## memory
 
