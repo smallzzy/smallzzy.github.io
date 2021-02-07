@@ -72,6 +72,7 @@ so that we know that we are talking to the right person.
 
 * generate key: `--full-generate-key`
 * modify keys: `--edit-key <email>`
+  * `trust` a key when user believe a signer
 * save key file: `--output <file> --armor --export <email>`
 * save Revocation Certificate: `--output <file> --gen-revoke <email>`
 * import key file: `--import <file>`
@@ -82,6 +83,7 @@ so that we know that we are talking to the right person.
 * show fingerprint: `--fingerprint <email>`
   * a short string to verify a received key
 * adopt keys: `--sign-key <email>`
+  * sign a key when signer believe a key is genuine
 * refresh keys: `--refresh-keys`
 * key server: `pgp.mit.edu`
 
