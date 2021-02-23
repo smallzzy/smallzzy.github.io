@@ -10,33 +10,14 @@ summary:
 
 ## virtualization
 
-## system call
-
-fork(): duplicate the current process context -> will copy the address space
-exec(): replace current context with new process
-wait(): wait for process return
-clone(): similar to fork, but share the address space
-pipe(): connect file descriptor
-signal(): register a handler for signal
-
-### difference vs library function
+### system call vs library function
 
 * has no address to jump to, because the program does not know where the kernel is.
 * user mode vs kernel mode, privilage change
 * context switch
 * trap, return-from-trap, trap table
 
-### fork safety
-
-[Source](https://www.evanjones.ca/fork-is-dangerous.html)
-
-* Due to the implicit usage of threading, fork() can be dangerous.
-  * if another thread is holding a lock, or using a blocking syscall, we will end up in dead lock.
-* if use coroutine, fork() can copy the entire process
-* if fork() run all threads, there will be no dead lock
-* what is spawn()?
-
-## scheduler
+### scheduler
 
 turnaround time vs response time
 
@@ -63,7 +44,7 @@ turnaround time vs response time
   * Global Task Scheduling: scheduling using all cores
     * dynamic voltage and frequency scaling (DVFS)
 
-## memory
+### memory
 
 * internal vs external fragmentation
   * internal: memory not fully utilized in one allocation
@@ -113,6 +94,16 @@ thread:
 
 * kernel space -> pthread
 * user space -> coroutine
+
+### fork safety
+
+[Source](https://www.evanjones.ca/fork-is-dangerous.html)
+
+* Due to the implicit usage of threading, fork() can be dangerous.
+  * if another thread is holding a lock, or using a blocking syscall, we will end up in dead lock.
+* if use coroutine, fork() can copy the entire process
+* if fork() run all threads, there will be no dead lock
+* what is spawn()?
 
 ### event based concurrency
 

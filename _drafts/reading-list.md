@@ -60,12 +60,6 @@ https://www.microsoldering.com/zxw-tools-dongle-download/
 
 https://cpugrade.com/articles/cinebench-r15-ipc-comparison-graphs/
 
-https://unixsurplus.com/servers/
-https://www.unixplus.com
-https://www.servermonkey.com/    
-https://www.xbyte.com/    
-https://tekboost.com/
-
 ## chip reverse
 
 http://www.righto.com/
@@ -96,10 +90,10 @@ https://gcc.gnu.org/onlinedocs/gcc/Function-Names.html
 
 http://xflat.sourceforge.net/NoMMUSharedLibs.html
 
-overlay fs?
 
 bios nvram
 
 DCPMM
 
 rosette scanning pattern
+halbach array

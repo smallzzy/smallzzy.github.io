@@ -14,21 +14,12 @@ time +%s%3N
 
 ## file log
 
-lsof: list process that opened a file
 LoggedFS: 
 audit subsystem
 
-https://www.cs.miami.edu/home/burt/learning/Csc524.032/notes/tcp_nutshell.html
- http.content_type == "application/json"
-http contains
-
-fork() return 0 for child
-pthread_atfork()
-
-strerror_r()
-
 
 # irc
+
 network - represent group of server
 * most server are configured through dns instead?
 * infomation is shared in one network
@@ -55,16 +46,6 @@ sasl?
 
 https://gist.github.com/xero/2d6e4b061b4ecbeb9f99
 https://stackoverflow.com/questions/31666247/what-is-the-difference-between-the-nick-username-and-real-name-in-irc-and-wha
-
-## gc
-
-https://medium.com/a-journey-with-go/go-how-does-the-garbage-collector-mark-the-memory-72cfc12c6976
-https://medium.com/a-journey-with-go/go-memory-management-and-allocation-a7396d430f44
-https://spin.atomicobject.com/2014/09/03/visualizing-garbage-collection-algorithms/
-
-zgc?
-c4
-tri-color
 
 # vpn?
 
@@ -154,14 +135,8 @@ bpainter
 * [UEFI](https://uefi.org/specifications): SEC, PEI, DXE
   * during DXE, oprom is loaded -> driver?
 
-https://www.reddit.com/r/homelab/comments/81cdwc/what_are_the_options_for_cheap_10g_sfp_switches/
-
-stacking presents multiple switch as one 
-but might be no performance as a bigger one?
-or better than trunk?
-
 iso 11801
 
 ## mail
 
-Prevent mail to Gmail users from being blocked or sent to spam
+search this: `Prevent mail to Gmail users from being blocked or sent to spam`
