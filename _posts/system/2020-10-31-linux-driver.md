@@ -61,17 +61,6 @@ summary:
 * timeval
   * second + microsecond
 
-## todo
-
-* https://blog.yadutaf.fr/2013/12/28/introduction-to-linux-namespaces-part-2-ipc/
-
-* https://refspecs.linuxfoundation.org/
-
-### device
-
-https://www.kernel.org/doc/Documentation/admin-guide/devices.txt
-
-## time
 
 wait queue
 
@@ -104,7 +93,7 @@ exclusive
   * `mdelay`
   * `msleep`
 
-## future
+## future work
 
 * timer: `linux/timer.h`
   * `add_timer`
@@ -125,3 +114,55 @@ exclusive
   * per-cpu thread might be inited
   * `queue_work`
   * shared workqueue: `schedule_work()`
+
+## interrupt
+
+## memory
+
+* memory mapping
+  * /proc/iomem
+    * embedded in normal memory range
+    * non-prefetchable
+  * /proc/ioports
+    * special instruction required
+  * nopage / remap_pfn_range
+* dma
+  * bus address
+
+## sys, proc, dev
+
+### sysfs 
+
+* `/sys` contains the running information for the system
+  * each driver will create one directory in the tree
+    * module relationship is expressed as symbolic link
+  * each attribute becomes one file in the directory
+* different folder represents the structure in different ways
+  * `/sys/devices`: describe devices' physical connection
+  * `/sys/dev`: char and block device
+  * `/sys/class`: based on devices' function
+  * `/sys/bus`: based on interconnect type
+  
+https://www.kernel.org/doc/Documentation/filesystems/sysfs.txt
+https://www.kernel.org/doc/html/latest/admin-guide/sysfs-rules.html
+
+### proc
+
+* `/proc` decribes running information for each process
+  * `cpuinfo`, `meminfo`
+  * `iomem`, `ioport`
+* device tree:
+  * `/proc/device-tree/`
+  * of-node
+
+### dev
+
+* simulated file for actual data transfer
+* https://www.kernel.org/doc/Documentation/admin-guide/devices.txt
+
+
+## todo
+
+* https://blog.yadutaf.fr/2013/12/28/introduction-to-linux-namespaces-part-2-ipc/
+
+* https://refspecs.linuxfoundation.org/

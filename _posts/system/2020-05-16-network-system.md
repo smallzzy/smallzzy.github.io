@@ -26,6 +26,21 @@ summary:
   * `-m`: read eeprom info
   * `-t`: self test
 
+### other tools
+
+* find network interfaces `/sys/class/net`
+* ifupdown
+  * `/etc/network/interfaces`
+  * `https://wiki.debian.org/NetworkConfiguration`
+* ifconfig -> ip
+  * `netstat`
+* NetworkManager -> nmcli
+  * https://fedoraproject.org/wiki/Networking/CLI
+  * `unmanaged-devices`
+  * `*/NetworkManager/conf.d/`
+* netplan
+  * https://netplan.io/examples/
+
 ## networking suite
 
 IP suite (OSI)
