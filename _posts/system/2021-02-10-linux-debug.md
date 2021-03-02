@@ -48,3 +48,25 @@ summary:
 workqueue:workqueue_queue_work -> kworker
 
 [events](https://www.kernel.org/doc/Documentation/trace/events.txt)
+
+## oops
+
+- kernel can oops when having a bug
+  - kernel will crash when oops to a irrecoverable state
+- `kexec`: execute kernel 
+- `kdump`: dump crash context to `/var/crash`
+- `crash`: reload crash context
+
+
+```bash
+kdump-tools.service
+
+# /etc/default/kdump-tools
+KDUMP_SYSCTL="kernel.panic_on_oops=1"
+
+# /etc/default/grub.d/kdump-tools.default
+# load backup kernel to specified location
+GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT crashkernel=384M-:128M"
+```
+
+[kexec-reboot](https://github.com/error10/kexec-reboot)
