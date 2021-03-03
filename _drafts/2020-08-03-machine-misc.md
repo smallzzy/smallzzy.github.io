@@ -49,6 +49,7 @@ weight attached to tail rotor blade grip
 
 backlash
 stiction
+Cavitation
 hydralic anti-backlash split nut
 recirculating ball screws
 Rack_and_pinion
@@ -64,7 +65,6 @@ Rack_and_pinion
 * support with thrust bearing
   * threads on the screw
 
-
 ## metal blackening
 
 *  anodizing
@@ -74,14 +74,32 @@ Rack_and_pinion
 
 https://www.finishing.com/05/31.shtml
 
+## electric power
+
+* electrical standard
+  * nfpa 70
+* ground wire should only carry current in the case of a fault condition
+* gfci: detect difference between neutral and hot
+
+* power supply
+  * power line filter
+  * transformer
+  * bridge rectifier
+  * power factor correction
+  * switch 
+  * regulator
+
+## mems
+
+Coriolis effect
+
+## todo 
+
 tormach
 dmgmori
 ramset caliber blank
-
-electrical standard
-nfpa 70
-ground wire should only carry current in the case of a fault condition
-gfci: detect difference between neutral and hot
+rosette scanning pattern
+halbach array
 
 synthetic graphite foil
 http://www.szdasen.com/en/products/sitecms/

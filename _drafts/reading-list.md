@@ -63,6 +63,7 @@ https://cpugrade.com/articles/cinebench-r15-ipc-comparison-graphs/
 ## chip reverse
 
 http://www.righto.com/
+techinsights
 
 ## a weird issue on nvme
 
@@ -71,29 +72,11 @@ https://forum.level1techs.com/t/fixing-slow-nvme-raid-performance-on-epyc/151909
 ## js
 https://exploringjs.com/es6/index.html
 
-https://freenetproject.org/
-
-pylance
-
-nvram -> available in bios?
-
-virtual machine
-
-* alloc more machine w/o physical deployment
-  * multi tenent
-  * a better machine with multiple user can be used as one when needed
-
-* how to manage the virtual machines
-* gap in the virtualization
 
 https://gcc.gnu.org/onlinedocs/gcc/Function-Names.html
 
 http://xflat.sourceforge.net/NoMMUSharedLibs.html
 
-
 bios nvram
 
 DCPMM
-
-rosette scanning pattern
-halbach array
