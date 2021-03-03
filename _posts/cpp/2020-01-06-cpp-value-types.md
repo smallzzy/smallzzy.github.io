@@ -20,8 +20,10 @@ summary:
 * You cannot bind a rvalue to non-const reference
 * `int&&` is `rvalue reference`, which is a reference by itself.
 * In a type deducing context (`T&& t`), `T&&` does not necessarily mean rvalue reference.
-  * if `t` is a lvalue of type `U`, `T` deduce to `U&`. `T&&` is `U&`
-  * if `t` is a rvalue of type `U`, `T` deduce to `U`. `T&&` is `U&&`
+  * if `t` is a lvalue of type `U`
+    * `T` deduce to `U&` and `T&&` collapse to `U&`
+  * if `t` is a rvalue of type `U`
+    * `T` deduce to `U` and `T&&` collapse to `U&&`
   * This usage is given the name `universal reference`
 
 ## reference collapsing
@@ -32,9 +34,6 @@ summary:
 && & -> &
 && && -> &&
 ```
-
-Since C++11, there are also ref-qualified member functions.
-The implicit object parameter will have a corresponding type reference.
 
 ## std::forward
 
@@ -89,9 +88,9 @@ For functions, we might have a problem with unnecessary dealloc.
 3. If we pass by const reference, we have the choice of move or copy
 4. However, most classes do not have this re-use pattern. Thus, both patterns can be helpful.
 
-## side note
+## ref-qualified member functions (C++11)
 
-c++11 ref-qualifiers for member functions
+The implicit object parameter `this` will have a corresponding type reference.
 
 ```c++
 template <typename T>
