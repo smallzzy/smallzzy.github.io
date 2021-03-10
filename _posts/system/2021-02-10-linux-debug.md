@@ -14,6 +14,7 @@ summary:
 - `console_loglevel`
   - `cat /proc/sys/kernel/printk`
   - `current default minimum boot-time-default`
+- `dmesg`: `-w` follow, `-H` human readable format
 - [dynamic debug](https://www.kernel.org/doc/html/v4.19/admin-guide/dynamic-debug-howto.html)
   - `pr_debug` can be enabled per-callsite
   - enable via `<debugfs>/dynamic_debug/control`
