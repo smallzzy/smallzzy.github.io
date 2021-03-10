@@ -10,7 +10,36 @@ summary:
 
 ## basic
 
-python float is usually implemented with c double: 64 bit
+* python float is usually implemented with c double: 64 bit
+* `.format` esacpe `{}` by doubling it, `{{` `}}` 
+
+## numpy
+
+### indexing
+
+* `Ellipsis` expands to the number of : objects needed for the selection tuple to index all dimensions.
+* Each `newaxis` object in the selection tuple serves to expand the dimensions of the resulting selection by one unit-length dimension
+  * `newaxis` is a alias of `None`
+* operation on certain axis means to increment index along that axis.
+
+```python
+>>> x = np.array([[[1],[2],[3]], [[4],[5],[6]]])
+>>> x.shape
+(2, 3, 1)
+>>> x[...,0]
+array([[1, 2, 3],
+       [4, 5, 6]])
+>>> x[:,np.newaxis,:,:].shape
+(2, 1, 3, 1)
+```
+
+### boardcast
+
+- Two dimensions are compatible when
+  1. they are equal, or
+  2. one of them is 1
+- Lining up the sizes of the trailing axes according to the broadcast rules, will shows if arrays are compatible
+- Dimensions with size 1 are stretched or “copied” to match the other
 
 ## pybind
 
