@@ -8,7 +8,7 @@ tags: [misc]
 summary: 
 ---
 
-## tools
+## interface setup
 
 * show interface `/sys/class/net`
 * interface: `ip link set eth1 up/down`
@@ -21,6 +21,7 @@ summary:
 * arp table:
   * `ip neigh`
 * maxmtu: `ip -d link list`
+  * set mtu: `ip link set dev eth0 mtu 1400`
 
 * ethtool:
   * `-m`: read eeprom info
@@ -53,7 +54,7 @@ IP suite (OSI)
   * User Datagram Protocol (UDP)
 5. application (session, presentation, application): ssl/tls
 
-## physical
+## (physical)
 
 * small form-factor pluggable (SFP)
   * direct attached cable (DAC)
@@ -109,7 +110,7 @@ IP suite (OSI)
   * Coarse WDM (20 nm)
   * Dense WDM (0.8 nm)
 
-## protocol
+## link
 
 1. Shared media / Repeater / Hub (same segment):
   * CSMA/CD
@@ -123,10 +124,57 @@ IP suite (OSI)
     * link aggregation control protocol, LACP(802.1ax)
       * active, passive
       * `bonding`, `ifenslave`
-3. Router
+3. Router (different scope)
   * QoS:
   * UPnP
   * NAT
+
+## internet
+
+* unicast: transmit from point to point
+  * unspecified: `0.0.0.0`, `::`
+  * loopback: `127.0.0.1`, `::1`
+* multicast: transmit to one group of addresses
+  * `224.0.0.0/4` `FF00::/8`
+  * [wiki](https://en.wikipedia.org/wiki/Multicast_address)
+* boardcast: transmit to a certain domain?
+  * ipv4
+* anycast: transmit to any one in the group
+  * ipv6
+
+### IPv6
+
+* left-most continuous zero octets can be compressed as `::`
+  * otherwise, each octet needs to retain at least one zero
+* wrapped in square bracket so `:` is not confused with port number
+
+## scope
+
+* IPv4
+  * private: 10.0/24, 172/16, 192.168.
+  * link-local: 169.254.0.0/16
+* IPv6
+  * link-local: fe80::/10
+
+* `traceroute` return packet path to host
+  * by setting incrementing ttl number
+* `tracepath` also traces mtu size
+
+### fragmentation
+
+* maximum transmission unit (MTU)
+  * specify the max bytes through one link
+* maximun segment size (MSS) in tcp header
+  * usually determined by MTU - tcp header size
+* udp packet do not have size constraint
+  * packet is fragemented when exceeding MTU
+* Do not fragment (DF) force packet to be dropped instead
+* mtu discovery is done through ICMP message
+  * `ping -M do -s 2000`: force mtu discovery
+  * icmp might be blocked on old firewall
+* In IPv6, mtu discovery and DF is required in protocol?
+
+[fragmentation](https://blog.cloudflare.com/ip-fragmentation-is-broken/)
 
 ## switch
 
@@ -151,6 +199,14 @@ IP suite (OSI)
   * core
 
 [howstuffworks](https://computer.howstuffworks.com/lan-switch.htm)
+
+### L3 Switch
+
+* route between vlan without packets leaving the switch
+* L3 can work between following elements
+  * Router Interface: a single port to another router
+  * Port Channel: port aggregation to another router
+  * Vlan Interface: between vlan groups
 
 ## Spanning Tree Protocol / Shortest Path Bridging
 
@@ -202,53 +258,7 @@ IP suite (OSI)
 * dynamic vlan: assign vlan based on mac
   * Cisco: VLAN Member Policy Server
 
-## IP
-
-* unicast: transmit from point to point
-  * unspecified: `0.0.0.0`, `::`
-  * loopback: `127.0.0.1`, `::1`
-* multicast: transmit to one group of addresses
-  * `224.0.0.0/4` `FF00::/8`
-  * [wiki](https://en.wikipedia.org/wiki/Multicast_address)
-* boardcast: transmit to a certain domain?
-  * ipv4
-* anycast: transmit to any one in the group
-  * ipv6
-
-### IPv6
-
-* left-most continuous zero octets can be compressed as `::`
-  * otherwise, each octet needs to retain at least one zero
-* wrapped in square bracket so `:` is not confused with port number
-
-## scope
-
-* IPv4
-  * private: 10.0/24, 172/16, 192.168.
-  * link-local: 169.254.0.0/16
-* IPv6
-  * link-local: fe80::/10
-
-### fragmentation
-
-* maximum transmission unit (MTU)
-  * specify the max bytes on one link
-* MSS in tcp?
-* mtu discovery
-  * icmp blocked
-* Do not fragment
-
-[fragmentation](https://blog.cloudflare.com/ip-fragmentation-is-broken/)
-
-## L3 Switch
-
-* route between vlan without packets leaving the switch
-* L3 can work between following elements
-  * Router Interface: a single port to another router
-  * Port Channel: port aggregation to another router
-  * Vlan Interface: between vlan groups
-
-
+## transport
 
 ## rdma
 
@@ -273,6 +283,8 @@ openucx
 * DCBX
   * LLDP
 * QCN
+
+## application
 
 ## zeroconf
 
@@ -322,8 +334,6 @@ Representational state transfer (REST) is a style to design api.
 ## todo
 
 `nmap`
-`tracepath`
-`traceroute`
 
 multi-homed dhcp
 dhcp relay
