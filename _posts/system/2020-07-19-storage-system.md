@@ -48,6 +48,13 @@ summary:
   * 8484 can fan out to 4 8482
   * 8639: U2
 
+### nvme
+
+- Supported LBA Sizes: `smartctl -a /dev/`
+- change LBA size: `nvme format /dev/nvme1n1 -l 1`
+
+https://tinyapps.org/docs/nvme-secure-erase.html
+
 ## disk
 
 `du -sch .[!.]* *`: show file size including hidden
@@ -73,10 +80,12 @@ align-check opt n
   * imply noexec, nosuid, nodev
   * nouser(default): root only
 * noatime: do not update last access time
-* auto/noauto: mount automatically at boot
-* nofail: do not report error if device does not exist
-  * x-systemd.device-timeout:
-* _netdev: only try mount after network is up
+* `auto`: mount automatically at boot
+  * `noauto,x-systemd.automount`: let systemd mount at access
+* `_netdev`: try mount after network is up
+  * `_netdev,x-systemd.mount-timeout=30`: remote file system
+* `nofail`: do not report error if device does not exist
+  * `nofail,x-systemd.device-timeout=1ms`: removable device
 * fsck: 1 for root, 2 for other, 0 to disable
 
 [systemd mount](https://www.freedesktop.org/software/systemd/man/systemd.mount.html)
@@ -120,6 +129,7 @@ stripe width = number of data disks * stride
 
 [raid for existing partition](https://feeding.cloud.geek.nz/posts/setting-up-raid-on-existing/)
 [multipath](https://discourse.ubuntu.com/t/device-mapper-multipathing-introduction/11316)
+[raid reliability](https://wintelguy.com/raidmttdl.pl)
 
 ### storcli
 
@@ -174,9 +184,12 @@ https://danluu.com/filesystem-errors/
 
 https://news.ycombinator.com/item?id=24258444
 
-xfs, btrfs, zfs
-disk structure?
-overlay fs?
+### overlayfs
+
+- allows one, usually read-write, directory tree to be overlaid onto another, read-only directory tree
+- file -> work -> upper -> lower
+
+[reference](https://wiki.archlinux.org/index.php/Overlay_filesystem)
 
 ### zfs
 
@@ -193,13 +206,6 @@ overlay fs?
   * `create -V size` volume as block device
     * `set shareiscsi=on`
 * zvol
-
-nvme 
-Supported LBA Sizes
-4k performance
-
-https://wintelguy.com/raidmttdl.pl
-https://tinyapps.org/docs/nvme-secure-erase.html
 
 ### btrfs
 
