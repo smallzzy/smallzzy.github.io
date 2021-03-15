@@ -13,6 +13,11 @@ summary:
 * python float is usually implemented with c double: 64 bit
 * `.format` esacpe `{}` by doubling it, `{{` `}}` 
 
+## asyncio
+
+* move blocking function to another process:
+  * [run_in_executor](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.loop.run_in_executor)
+
 ## numpy
 
 ### indexing
@@ -127,6 +132,5 @@ a good example for [cmake+setup.py](https://github.com/pybind/cmake_example/blob
 
 schedule
 queue.work_done() queue.join()
-async
 
 trio?
