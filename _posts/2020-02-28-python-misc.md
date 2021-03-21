@@ -12,6 +12,7 @@ summary:
 
 * python float is usually implemented with c double: 64 bit
 * `.format` esacpe `{}` by doubling it, `{{` `}}` 
+  * use a `f'string {replace}'` in python3
 
 ## asyncio
 
