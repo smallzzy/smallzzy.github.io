@@ -125,6 +125,13 @@ Lookup the complexity [here](https://www.bigocheatsheet.com/).
 
 ## algorithm
 
+### note
+
+1. always consider edge cases
+2. problem might be symmetric
+   1. certain sub problems might be easier to solve
+   2. answer might be the union / intersect of sub problems 
+
 ### basic ideas
 
 1. divide and conquer
@@ -137,8 +144,6 @@ Lookup the complexity [here](https://www.bigocheatsheet.com/).
 4. sliding window: maintain invariant between range
    1. usually done with two pointers
    2. useful for finding stuff in range
-5. converge from both side
-   1. the answer might be the union / intersect of two sub problems.
 
 ### sort
 
