@@ -156,6 +156,7 @@ IP suite (OSI)
 * IPv6
   * link-local: fe80::/10
 
+* `mtr`: my trace route -> much better interface
 * `traceroute` return packet path to host
   * by setting incrementing ttl number
 * `tracepath` also traces mtu size
