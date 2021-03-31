@@ -18,6 +18,19 @@ summary:
 * compile options record: `-frecord-gcc-switches`
 * generate compile dependency: `-MM`
 
+## spec file
+
+[format](https://gcc.gnu.org/onlinedocs/gcc/Spec-Files.html)
+
+* customize linker behavior
+  * link to a different set of libraries
+    * `newlib`, `newlib_nano`
+  * change link flag
+
+### semihosting
+
+* `--specs=rdimon.specs`: printf is redirected to host machine using jtag
+
 ## reduce binary size
 
 function remove:
