@@ -18,6 +18,7 @@ summary:
 - [dynamic debug](https://www.kernel.org/doc/html/v4.19/admin-guide/dynamic-debug-howto.html)
   - `pr_debug` can be enabled per-callsite
   - enable via `<debugfs>/dynamic_debug/control`
+  - ex: `echo 'module usbcore =p' >/sys/kernel/debug/dynamic_debug/control`
 - change dmesg size in boot parameter: `log_buf_len=5M`
 
 ### syslog

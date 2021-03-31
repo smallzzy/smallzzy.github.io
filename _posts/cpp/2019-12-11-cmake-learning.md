@@ -10,6 +10,9 @@ summary:
 
 ## basic
 
+* always write out source files in cmake
+  * [glob](https://stackoverflow.com/questions/1027247/is-it-better-to-specify-source-files-with-glob-or-each-file-individually-in-cmak/55290546)
+  * `glob_recursive`: find files in folder recursively (despite the syntax seems to be only one folder)
 * variable is stored in string
 * list is a semicolon separated string
   * semicolon is replaced when used in flags
