@@ -165,12 +165,13 @@ IP suite (OSI)
 
 * maximum transmission unit (MTU)
   * specify the max bytes through one link
-* maximun segment size (MSS) in tcp header
-  * usually determined by MTU - tcp header size
-* udp packet do not have size constraint
-  * packet is fragemented when exceeding MTU
-* Do not fragment (DF) force packet to be dropped instead
-* mtu discovery is done through ICMP message
+* packet will be fragmented when exceeding MTU
+  * maximun segment size (MSS) in tcp header
+    * usually set to MTU - tcp header size
+  * udp packet do not have size constraint
+  * if one segment is lost, the whole packet is resent 
+    * Do not fragment (DF) force packet to be dropped instead
+* MTU Discovery is done through ICMP message
   * `ping -M do -s 2000`: force mtu discovery
   * icmp might be blocked on old firewall
 * In IPv6, mtu discovery and DF is required in protocol?
