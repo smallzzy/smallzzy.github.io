@@ -35,7 +35,6 @@ summary:
   - `imuxsock`: read from `/dev/log`
   - `imjournal`, `omjournal`: let rsyslog talk to journald
 - journald can also process logging
-  - install along with systemd
   - write to `/var/log/journal` (persistent) or `/run/log/journal` (volatile)
 
 ## debug
