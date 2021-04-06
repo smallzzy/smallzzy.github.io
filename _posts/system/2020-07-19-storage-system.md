@@ -184,6 +184,11 @@ https://danluu.com/filesystem-errors/
 
 https://news.ycombinator.com/item?id=24258444
 
+## fs options
+
+tune2fs -l /dev/sda # list filesystem stat
+tune2fs -m 0 /dev/sda # reduce reserve to 0
+
 ### overlayfs
 
 - allows one, usually read-write, directory tree to be overlaid onto another, read-only directory tree
