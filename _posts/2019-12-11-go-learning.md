@@ -37,7 +37,7 @@ GOBIN - binary install dir
 go run # build & run 
  --race # detect data race
 go generate # generate go code
-go build:
+go build -ldflags="-s -w" hello.go # remove symbol table and debugging info
 go install # install to $GOBIN
 go get # download package to src
 go fmt # format files
@@ -361,7 +361,6 @@ go test -bench=. # run all tests + benchmarks
 https://go101.org/article/101.html
 https://github.com/golang/go/wiki/CodeReviewComments
 https://blog.golang.org/generics-next-step
-https://blog.golang.org/normalization
 
 ## package
 

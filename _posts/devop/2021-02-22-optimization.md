@@ -49,6 +49,12 @@ sar -n TCP,ETCP
 
 - a similar command is fuser
 
+## stress test
+
+iperf
+fio
+stress: cpu
+
 ## monitor
 
 `psensor`
