@@ -10,21 +10,19 @@ summary:
 
 This post aims to help understanding the problem of symbol missing or conflict that appears during the compilation process.
 
-## basics
-
-### linkage in c / cpp
+## linkage in c / cpp
 
 A translation unit refers to an implementation file (c/cpp) and all included headers.
 
-* If internal linkage, that symbol is only visible to that translation unit.
-* If external linkage, that symbol can used in other translation unit.
-* `static` keyword / anonymous namespace force symbol to have internal linkage.
-* `extern` force symbol to have external linkage.
+* When internal linkage, that symbol is only visible to that translation unit.
+  * `static` keyword / anonymous namespace force internal linkage.
+* When external linkage, that symbol can used in other translation unit.
+  * `extern` force  external linkage.
 
 By default,
 
 * Non-const global variables have external linkage
-* Const global variables have internal linkage
+* `const` global variables have internal linkage
 * Functions have external linkage
 * `inline`
   * no external linkage in ISO C
@@ -34,14 +32,33 @@ Linkage can affect symbol generation.
 So, it will have an impact on visibility.
 But its capability is limited across multiple sources.
 
-### symbol in elf
+### static keyword
+
+> When used in a declaration of a class member, it declares a static member. 
+> When used in a declaration of an object, it specifies static storage duration (except if accompanied by thread_local). 
+> When used in a declaration at namespace scope, it specifies internal linkage.
+
+### decleration
+
+> Extern decleration suggests that the decleration is made outside of function scope.
+
+> A tentative definition is a declaration that may or may not act as a definition. 
+> If an actual external definition is found earlier or later in the same translation unit,
+> then the tentative definition just acts as a declaration
+
+> Unlike the extern declarations, which don't change the linkage of an identifier if a previous declaration established it,
+> tentative definitions may disagree in linkage with another declaration of the same identifier.
+> If two declarations for the same identifier are in scope and have different linkage,
+> the behavior is **undefined**. 
+
+## linkage to symbol
 
 * external linkage will become global symbol.
   * symbol can become strong or weak
 * internal linkage will become local symbol.
   * usually have HIDDEN visibility
 
-### visibility for linking
+## symobl visibility for linking
 
 global symbol has five level of visibility:
 
@@ -51,7 +68,7 @@ global symbol has five level of visibility:
 * HIDDEN: cannot directly referenced
 * INTERNAL: cannot be directly or indirectly reference
 
-### compilation
+## compilation
 
 A translation unit will be compiled into one object file.
 Which can:
@@ -78,7 +95,9 @@ A static library is simply a collection of objects.
 And it uses `ar` instead of `ld`.
 Meaning that no linking is performed.
 
-## linking object and static
+## linking
+
+### for object and static
 
 Linker will maintain two lists.
 One for exported symbols. One for undefined symbols.
@@ -106,7 +125,7 @@ Note:
    linker will not look at it again even if it contains necessary symbol.
    This behavior can be overridden by certain flags
 
-## linking shared
+### for shared
 
 > When binding symbols at runtime,
 > the dynamic linker searches libraries in the same order

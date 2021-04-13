@@ -19,12 +19,6 @@ summary:
 4. thread: allocated at thread start and dealloc at thread end
    1. `thread_local`
 
-### static keyword
-
-> When used in a declaration of a class member, it declares a static member. 
-> When used in a declaration of an object, it specifies static storage duration (except if accompanied by thread_local). 
-> When used in a declaration at namespace scope, it specifies internal linkage.
-
 ## step 1: Static Initialization
 
 > 1) If relevant, constant initialization is applied.

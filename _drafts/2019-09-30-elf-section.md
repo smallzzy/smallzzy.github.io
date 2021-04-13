@@ -17,6 +17,7 @@ summary:
 [nm result](https://sourceware.org/binutils/docs/binutils/nm.html)
 
 ```bash
+# capital character means that symbol is global
 nm -C # demangle
 nm -D # dynamic symbol
 nm --print-size --size-sort --radix=d # sort symbol size
@@ -58,7 +59,14 @@ strip
 --strip-unneeded
 ```
 
-## c++ demangle
+## c++ name mangling
+
+* generate symbol names which are different from decleration
+  * identify different entity in different CU
+    * `extern` variable is not mangled
+  * checks function signature
+    * return type is not mangled
+* when not mangled, linker cannot check for errors
 
 ```bash
 c++filt
