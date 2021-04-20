@@ -72,3 +72,26 @@ https://github.com/Stonesjtu/pytorch_memlab
 4. setup model
    1. `model = ToyModel().to(local_rank)`
    2. `ddp_model = DDP(model, device_ids=[local_rank])`
+
+### DataParallel
+
+`torch/nn/parallel/data_parallel.py`
+
+> In each forward, `module` is **replicated** on each device, 
+> so any updates to the running module in `forward` will be lost.
+
+> **in-place** updates to the parameters or buffers on ``device[0]`` will be recorded
+
+### DistributedDataParallel
+
+`torch/nn/parallel/distributed.py`
+
+> Parameters are never broadcast between processes.
+
+> Buffers are broadcast from the module in process of rank 0,
+> to all other replicas in the system in every iteration
+
+1. cannot create new parameter because it will not be registered in optimizer
+2. cannot resize existing paramter because it has require_grad state
+3. replace `.data` is the way to go
+   1. initialize on multiple gpu might be problematic?

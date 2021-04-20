@@ -14,6 +14,12 @@ summary:
 * `.format` esacpe `{}` by doubling it, `{{` `}}` 
   * use a `f'string {replace}'` in python3
 
+## inplace operation
+
+* `__add__` vs `__iadd__`
+  * `a = b + c` vs `b += c`
+* note that new PyObject is created when operation is not inplace
+
 ## asyncio
 
 * move blocking function to another process:
