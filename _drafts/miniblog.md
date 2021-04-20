@@ -130,13 +130,13 @@ bpainter
 * virtio
 * libvirt?
 
-## boot process
-
-* [UEFI](https://uefi.org/specifications): SEC, PEI, DXE
-  * during DXE, oprom is loaded -> driver?
-
 iso 11801
 
 ## mail
 
 search this: `Prevent mail to Gmail users from being blocked or sent to spam`
+
+
+libdivide
+
+http://www.guiffy.com/SureMergeWP.html
