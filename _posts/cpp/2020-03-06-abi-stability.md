@@ -45,6 +45,17 @@ Pimpl relies on the fact that imcompleted type can be used as pointer.
 The abi issue is mitigated by `-mmacosx-min-version` which specify the minimal abi version.
 And unsupported feature will trigger a error.
 
+## calling convention
+
+> Calling conventions describe the interface of called code:
+>   - The order in which atomic (scalar) parameters, or individual parts of a complex parameter, are allocated
+>   - How parameters are passed (pushed on the stack, placed in registers, or a mix of both)
+>   - Which registers the called function must preserve for the caller (also known as: callee-saved registers or non-volatile registers)
+>   - How the task of preparing the stack for, and restoring after, a function call is divided between the caller and the callee
+
+* in c language, the decleration can have less parameters than implementation
+  * the exceeding amount is not read
+
 ## known abi problem
 
 `_GLIBCXX_USE_CXX11_ABI`

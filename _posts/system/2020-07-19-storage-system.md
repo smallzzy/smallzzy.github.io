@@ -62,6 +62,16 @@ https://tinyapps.org/docs/nvme-secure-erase.html
 `iotop`: view disk usage by application
 `iostat`: view disk usage by device
 
+### partition scheme
+
+- `lsblk -o`
+- `PARTUUID`: partition identifier, fs independent
+  - `UUID`: stored in filesystem, cannot be read if filesystem is unknown
+- `PARTLABEL`: partition name, fs independent
+- to identify partition purpose
+  - `Partition type ID`: mbr
+  - `PARTTYPE`, `Partition type UUID`: gpt
+
 ### alignment
 
 ```
@@ -144,7 +154,7 @@ stripe width = number of data disks * stride
   * some motherboard might fix broken gpt header automatically
     * seems to be defined in UEFI
     * `sgdisk --zap`
-  * leave some margin at the end of disk ensures easily replacement
+  * leave some margin at the end of disk ensures easy disk replacement
   * `0xfd` makes it obvious that parition belongs to a raid
 * ~~use raid on raw disk~~
 

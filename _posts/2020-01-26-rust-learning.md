@@ -174,6 +174,9 @@ clippy
 docs.rs
 future
 
+cbingen - generate c header for rust library
+bindgen - generate rust ffi bindings to c library
+
 serde: de/serialization for any type
 Rayon, parallel iterator access?
 
