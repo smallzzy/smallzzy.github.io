@@ -51,20 +51,16 @@ remove rtti `-fno-rtti`
 
 ## strict-aliasing
 
-Strict aliasing make dereferencing a pointer with incompatible type a UB.
+> an object of one type is assumed never to reside at the same address as an object of a different type
 
-More details on this [gist](https://gist.github.com/shafik/848ae25ee209f698763cffee272a58f8)
-
-```c
-unsigned long a;
-a = 5;
-*(unsigned short *)&a = 4;
-```
-
-With strict aliasing,
-
-* gcc might assume that two pointers are different memory locations
 * optimization (such as re-order) might took place against our intention.
+
+### type aliasing in c++
+
+Dereferencing a pointer with incompatible type is a UB.
+More details [here](https://gist.github.com/shafik/848ae25ee209f698763cffee272a58f8)
+
+memcpy, bit_cast, union, aggregate?
 
 ## frame-pointer
 
