@@ -113,13 +113,19 @@ They will hold any type as a value.
 Thus, any functionality is also erasured.
 As a result, we have to cast to original type before use.
 
-## std::pmr memory allocator
+## std::function
 
-- normal allocator is fixed in type and cannot be converted to each other
-- std::pmr allow different allocator to have same type
-- std::pmr::vector != std::vector
+1. std::bind + std::ref / std::cref
+2. lambda `[] {} ();`
+   1. capture by value `=`
+   2. capture by reference `&`
+      1. referenced object need to out live lambda
+      2. `mutable`
+   3. for object, `this` is captured instead of member variable
+3. `std::function::target<T>()`: retrive function pointer if T matches
+   1. note that if a lambda object is stored, we cannot retrive it
 
-## function pointer
+### function pointer
 
 Notice that pointer to normal and static class function is the same.
 But pointer to member function is different.
@@ -132,3 +138,9 @@ int (Fred::*)(char,float)
 
 A functionoid (general form of functor) might be more useful
 because object can be created with different parameters.
+
+## std::pmr memory allocator
+
+- normal allocator is fixed in type and cannot be converted to each other
+- std::pmr allow different allocator to have same type
+- std::pmr::vector != std::vector
