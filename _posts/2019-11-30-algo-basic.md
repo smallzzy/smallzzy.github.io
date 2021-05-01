@@ -101,34 +101,42 @@ Lookup the complexity [here](https://www.bigocheatsheet.com/).
 5. avl
 6. kd tree
 7. segment tree
-   1. say we want sum on part of array, we can:
-      1. save the array and calculate each time -> fast update, slow query
-      2. save all results -> slow update, fast query
-      3. segment tree -> each node save part of the solution
-   2. each node will keep track of a interval and the result on this interval
-   3. when searching for a interval, we could:
-      1. split the interval and search in both child branch
-      2. follow one child branch
-      3. return when interval matches
+   1. each node keep track of a interval and the result on this interval
+      1. `O(n)` to create such tree
+   2. when searching for a interval, we will:
+      1. compare the interval with both child branch
+      2. follow the branch when it partially matches
 8. zkw segment tree
 9. trie
    1. save storage space by sharing prefix
 10. huffman table
     1. save storage space by entropy
     2. asymmetric number system
-11. heap property
+11. heap property, priority queue
     1. a tree with parent node larger or equal to child node (max heap)
     2. easier to maintain when only relative order is required
     3. insert at child node and push up
     4. remove at root node, place leaf node at root and push down
     5. std::make_heap, push_heap, pop_heap, sort_heap, is_heap
 
+### subarray sum
+
+1. keep the array and calculate each time
+   1. `O(1)` update, `O(n)` query
+2. save cumulative sum
+   1. we can find subarray sum by subtracting two cumulative sum
+   2. `O(n)` update, `O(1)` query
+3. segment tree
+   1. `O(logn)` for both update and query
+
 ## algorithm
 
 ### note
 
 1. always consider edge cases
-2. problem might be symmetric
+   1. min / max value, begin / end
+2. TOCTTOU
+3. problem might be symmetric
    1. certain sub problems might be easier to solve
    2. answer might be the union / intersect of sub problems 
 
