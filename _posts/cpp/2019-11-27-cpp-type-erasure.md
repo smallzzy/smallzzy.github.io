@@ -123,13 +123,12 @@ As a result, we have to cast to original type before use.
       2. `mutable`
    3. for object, `this` is captured instead of member variable
 3. `std::function::target<T>()`: retrive function pointer if T matches
-   1. note that if a lambda object is stored, we cannot retrive it
+   1. note that we cannot retrive a stored class method (including lambda)
 
 ### function pointer
 
 Notice that pointer to normal and static class function is the same.
 But pointer to member function is different.
--> possibly a completely different data structure due to inheritance.
 
 ```c++
 int (*)(char,float)
