@@ -23,8 +23,6 @@ summary:
 - block can only be assigned to one SM
 - one SM can hold more than one block
 - one block can have up to 1024 threads
-- SM register and shared memory is shared by all active threads
-  - theoretical occupancy
 
 ### warp
 
@@ -38,7 +36,6 @@ summary:
 - thread are identified by: blockIdx * blockDim + threadIdx
   - block per grid
   - thread per block
-- `__syncthreads`: wait for all threads in the same block
 
 ## memory
 
@@ -52,6 +49,8 @@ summary:
 - L1 / shared memory split
   - register will spill to L1 if cannot fit?
   - all threads in a block can access the same shared memory
+- register and shared memory is shared by all active threads
+  - theoretical occupancy
 - read-only memory: instruction cache, constant memory, texture memory and RO cache
 - L2 cache is shared between all block
 
@@ -75,13 +74,23 @@ cudaStreamAttachMemAsync()
 - for UMA, cpu should be able to operate directly on the memory
 - in cuda, the driver takes care of memory transfer?
 
-## shared memory
+### shared memory
 
 - static: `__shared__ int s[64];`
 - dynamic: `extern __shared__ int s[];`
   - require smem in kernel launch
+- shared memory is access via bank
+  - if same address, we will have a boardcast. OK
+  - if same bank, we will have a serial acess. Bad
+  - if different bank, we can have a higher bandwidth
+    - configurable width?
 
-## sync behavior
+### vectorized memory access
+
+- we can generate a wider copy instruction by using int2, int4 or float2
+  - require alignment
+
+## host sync
 
 - kernel calls are async wrt host
 - stream sync means that kernel will not operate at the same time
@@ -99,6 +108,15 @@ cudaStreamAttachMemAsync()
 [Sync Rule](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#explicit-synchronization)
 [API Sync](https://docs.nvidia.com/cuda/cuda-runtime-api/api-sync-behavior.html#api-sync-behavior)
 [Stream Sync](https://docs.nvidia.com/cuda/cuda-runtime-api/stream-sync-behavior.html#stream-sync-behavior)
+
+## device sync
+
+- `__syncthreads()`: wait for all threads in the same block
+  - dead lock if some threads do not make the call
+
+### cooperative group
+
+To achieve sub-block sync, we use [cooperative group](https://developer.nvidia.com/blog/cooperative-groups/)
 
 ## nvprof metric
 
