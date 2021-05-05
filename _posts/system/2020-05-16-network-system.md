@@ -348,3 +348,10 @@ https://docs.cumulusnetworks.com/cumulus-linux-40/Monitoring-and-Troubleshooting
 https://frrouting.org/
 
 [tuning](https://fasterdata.es.net/)
+
+
+netstat 
+-t (tcp), -u (udp), -x (unix)
+-l: show listening
+-p: process
+-n: show numeric value (like ip) directly

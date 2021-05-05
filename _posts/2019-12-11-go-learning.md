@@ -373,6 +373,7 @@ https://godoc.org/-/subrepo
 
 io.ioutil
 bytes.Buffer
+strings.Builder
 bufio
 
 gob

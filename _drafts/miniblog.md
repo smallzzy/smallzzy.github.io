@@ -142,3 +142,10 @@ libdivide
 http://www.guiffy.com/SureMergeWP.html
 
 kexec-reboot
+
+crowbar circuit: over voltage protection
+two stage power transform: -> protection when single stage failed
+Spread_spectrum clock 
+
+https://help.magicplan.app/laser-distance-meters
+https://design.ui.com/
