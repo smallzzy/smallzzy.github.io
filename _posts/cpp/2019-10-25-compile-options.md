@@ -176,4 +176,3 @@ sized-deallocation
 ```
 
 coverage
-cppinsight
