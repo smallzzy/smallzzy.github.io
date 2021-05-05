@@ -108,23 +108,6 @@ The effects of default initialization are:
   * `...` == `vector<int>{1, 2}` will trigger a move
   * `...` == `initializer_list<int>{1, 2}` will contruct inplace
 
-## aggregate
-
-* array type
-* class type (typically, struct or union), that has
-  * no private or protected direct (since C++17)non-static data members
-  * no user-declared or inherited constructors
-  * no virtual, private, or protected (since C++17) base classes
-  * no virtual member functions
-
-### POD?
-
-* PODType
-* TrivialType
-* StandardLayoutType
-
-[aggregate, POD](https://stackoverflow.com/questions/4178175/what-are-aggregates-and-pods-and-how-why-are-they-special)
-
 ## aggregate initialization
 
 
