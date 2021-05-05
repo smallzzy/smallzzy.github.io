@@ -1,36 +1,59 @@
 ---
 layout: post
-title: 
+title:
 date: 2019-12-19 14:40
-category: 
-author: 
+category:
+author:
 tags: [gpu]
-summary: 
+summary:
 ---
 
-## executation
+## execution
 
-grid -> block -> thread -> warp
+- organization: grid > block > warp > thread
+- `kernel<<< blocks , threads, smem, stream>>>();`
 
-* thread shares:
-  * register file
-  * shared memory
-* block can only be assigned to one SM
-* one SM can hold more than one block
-* SM resources are partitioned among all threads and blocks
-  * limit the amount of active warp
+### grid
+
+- one kernel call correspond to one grid
+- grid split into many blocks
+
+### block
+
+- block can only be assigned to one SM
+- one SM can hold more than one block
+- one block can have up to 1024 threads
+- SM register and shared memory is shared by all active threads
+  - theoretical occupancy
+
+### warp
+
+- group of 32 threads
+  - the threads in one warp is executed at the same time
+- state: selected, eligible, stalled, active
+  - active = eligible + stalled
+
+### thread
+
+- thread are identified by: blockIdx * blockDim + threadIdx
+  - block per grid
+  - thread per block
+- `__syncthreads`: wait for all threads in the same block
 
 ## memory
 
-| Type     | Specifier    | Position | Cache | Note                              |
-| -------- | ------------ | -------- | ----- | --------------------------------- |
-| Register | N/A          | on chip  |       | Will spill to local if cannot fit |
-| local    | N/A          | off chip | L1    |
+| Type     | Specifier    | Position | Cache |
+| -------- | ------------ | -------- | ----- |
+| register | N/A          | on chip  |       |
 | shared   | `__shared__` | on chip  | L1    |
 | global   |              | off chip | L2    |
 | constant | `constant`   |
 
-* L0 is used for instruction cache
+- L1 / shared memory split
+  - register will spill to L1 if cannot fit?
+  - all threads in a block can access the same shared memory
+- read-only memory: instruction cache, constant memory, texture memory and RO cache
+- L2 cache is shared between all block
 
 ## unified memory
 
@@ -41,42 +64,58 @@ cudaMemPrefetchAsync()
 cudaStreamAttachMemAsync()
 ```
 
-* 49 bit addressing -> x86 currently has 48 bit addressing
-* based on page fault
-  * cannot access concurrently from host and device
-  * only allocated when used -> can appear on gpu
-  * sync mmu on cpu and gpu?
+- 49 bit addressing -> x86 currently has 48 bit addressing
+- based on page fault
+  - cannot access concurrently from host and device
+  - only allocated when used -> can appear on gpu
+  - sync mmu on cpu and gpu?
 
 ### (not) uniform memory access
 
-* for UMA, cpu should be able to operate directly on the memory
-  * no memory transfer, zero copy
-* in cuda, the driver takes care of memory transfer?
+- for UMA, cpu should be able to operate directly on the memory
+- in cuda, the driver takes care of memory transfer?
 
-## access
+## shared memory
 
-## shuffle
+- static: `__shared__ int s[64];`
+- dynamic: `extern __shared__ int s[];`
+  - require smem in kernel launch
 
 ## sync behavior
 
-* kernel calls are always async wrt host
+- kernel calls are async wrt host
+- stream sync means that kernel will not operate at the same time
+  - which is possible if no dependency
+  - default stream is in sync with all other stream
+    - behavior can change via compile option
+  - `cudaStreamNonBlocking`
+  - `cudaStreamAddCallback`
+  - `cudaStreamCreateWithPriority`
 
-`Device`
-`Stream`
-`event`
-`threads`
+`cudaDeviceSynchronize`
+`cudaStreamSynchronize`
+`cudaStreamWaitEvent`
 
+[Sync Rule](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#explicit-synchronization)
 [API Sync](https://docs.nvidia.com/cuda/cuda-runtime-api/api-sync-behavior.html#api-sync-behavior)
 [Stream Sync](https://docs.nvidia.com/cuda/cuda-runtime-api/stream-sync-behavior.html#stream-sync-behavior)
 
-## nvprof
+## nvprof metric
 
-* achieved_occupancy
-* branch_efficiency
-* gld_throughput
-* inst_per_warp
-  * divergence can cause high inst
-* stall_sync
+- issue efficiency
+- branch_efficiency
+- gld_throughput
+- inst_per_warp
+  - divergence can cause high inst
+- stall_sync
+
+### occupancy
+
+- achieved vs theoretical
+- Warps per SM
+- Blocks per SM
+- Registers per SM
+- Shared Memory per SM
 
 ## Hyper-Q
 
@@ -100,6 +139,12 @@ I suppose it is best fit for multiple users.
 
 ## tensor core
 
-* tensor core has a fixed calculation pipeline
-  * out = A * B + C
-* accessed via `nvcuda::wmma`
+- tensor core has a fixed calculation pipeline
+  - `out = A * B + C`
+- accessed via `nvcuda::wmma`
+
+## todo
+
+access
+
+shuffle
