@@ -131,15 +131,6 @@ Lookup the complexity [here](https://www.bigocheatsheet.com/).
 
 ## algorithm
 
-### note
-
-1. always consider edge cases
-   1. min / max value, begin / end
-2. TOCTTOU
-3. problem might be symmetric
-   1. certain sub problems might be easier to solve
-   2. answer might be the union / intersect of sub problems 
-
 ### basic ideas
 
 1. divide and conquer
@@ -255,6 +246,11 @@ left = 2 * i + 1;
 right = 2 * i + 2;
 parent = (i - 1) / 2; -> use integer division
 ```
+
+## bit count
+
+- Brian Kernighan's algorithm
+  - if we loop on `n & (n - 1)`, we unset the right most bit in each iteration
 
 ## todo
 
