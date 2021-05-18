@@ -61,6 +61,7 @@ https://tinyapps.org/docs/nvme-secure-erase.html
 `ncdu`: show file size in command line, easier than `du -h`
 `iotop`: view disk usage by application
 `iostat`: view disk usage by device
+`partprobe`: read partition after change
 
 ### partition scheme
 
@@ -221,6 +222,16 @@ tune2fs -m 0 /dev/sda # reduce reserve to 0
   * `create -V size` volume as block device
     * `set shareiscsi=on`
 * zvol
+
+```bash
+# change arc size
+echo "options zfs zfs_arc_max=34359738368" >> /etc/modprobe.d/zfs.conf
+echo "34359738368" > /sys/module/zfs/parameters/zfs_arc_max
+# zfs current arc status
+/proc/spl/kstat/zfs/arcstats
+# l2arc
+zpool add <pool> cache <device-id>
+```
 
 ### btrfs
 

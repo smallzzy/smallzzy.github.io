@@ -55,6 +55,8 @@ iperf
 fio
 stress: cpu
 
+[fio on google cloud](https://cloud.google.com/compute/docs/disks/benchmarking-pd-performance)
+
 ## monitor
 
 `psensor`
