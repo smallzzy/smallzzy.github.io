@@ -1,8 +1,15 @@
-battery
-https://batteryuniversity.com/learn/article/charging_with_a_power_supply
+## tier 1
 
 reading notes on many books
 https://notes.shichao.io/
+
+gui complexity
+https://blog.royalsloth.eu/posts/the-complexity-that-lives-in-the-gui/
+
+## misc
+
+battery
+https://batteryuniversity.com/learn/article/charging_with_a_power_supply
 
 transactional memory
 https://en.wikipedia.org/wiki/Transactional_Synchronization_Extensions
@@ -12,7 +19,8 @@ http://www.cs.cmu.edu/afs/cs/academic/class/15740-f14/www/lectures/htm_yr1.pdf
 https://www.cs.rochester.edu/u/scott/papers/2015_SIGACT_News_TM_today.pdf
 https://en.cppreference.com/w/cpp/language/transactional_memory
 
-pwn
+## pwn
+
 http://shell-storm.org/shellcode/
 https://wiki.osdev.org/CPU_Bugs
 
@@ -42,7 +50,6 @@ reflex vs Holographic
 rocket
 https://www.n2yo.com/database/
 https://www.reddit.com/r/Starlink/comments/9sxr3c/starlink_network_topology_simulation_predictions/
-
 
 https://github.com/intel-isl/Open3D
 https://www.ansys.com/
@@ -80,3 +87,11 @@ http://xflat.sourceforge.net/NoMMUSharedLibs.html
 bios nvram
 
 DCPMM
+
+
+- xbox bcpack
+- ps5 kraken
+  - radgametools.com
+    - acquired by epic?
+  - oodle compression
+  - rate distortion optimization (RDO)
