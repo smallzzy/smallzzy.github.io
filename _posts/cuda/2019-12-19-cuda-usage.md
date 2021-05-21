@@ -93,6 +93,7 @@ cudaStreamAttachMemAsync()
 ## host sync
 
 - kernel calls are async wrt host
+  - use `CUDA_LAUNCH_BLOCKING=1` to debug kernel launch
 - stream sync means that kernel will not operate at the same time
   - which is possible if no dependency
   - default stream is in sync with all other stream
@@ -105,7 +106,7 @@ cudaStreamAttachMemAsync()
 `cudaStreamSynchronize`
 `cudaStreamWaitEvent`
 
-[Sync Rule](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#explicit-synchronization)
+[Sync Rule](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#asynchronous-concurrent-execution)
 [API Sync](https://docs.nvidia.com/cuda/cuda-runtime-api/api-sync-behavior.html#api-sync-behavior)
 [Stream Sync](https://docs.nvidia.com/cuda/cuda-runtime-api/stream-sync-behavior.html#stream-sync-behavior)
 
