@@ -42,46 +42,7 @@ Lookup the complexity [here](https://www.bigocheatsheet.com/).
 
 ### hash table
 
-1. load factor
-   1. key count / capacity of hash table
-2. collision handling
-   1. separate chaining (closed addressing)
-      1. conflict key is kept in the same location as a linked list
-      2. waste of space (linked list & not used key)
-      3. less sensitive to hash function and load factor
-   2. open addressing
-      1. probe for a open address to put in the key
-      2. linear probe / quadratic probe / double hashing
-      3. table can become full
-   3. double hashing
-      1. use another function hash again and help generate new address
-   4. coalesced hashing
-      1. combine open addressing and chaining
-      2. all keys are stored in table, but each node will hold a pointer to next conflicted key
-   5. overflow area
-      1. conflict keys are kept in overflow area
-   6. Cuckoo
-      1. using two or more hash functions, check if one of the two possible positions is open
-      2. when conflicting, push old key to its possibly open position.
-         More positions should be available due to multiple hash function.
-3. common hash function
-   1. hash = key % table_size
-   2. hash = key % m -> m being a prime number can help reduce collision
-   3. hash = rand(key) % m
-   4. hash = (a * key + b) % m
 
-#### implementation in different language
-
-* c++: unordered_map
-  * By default, use `std::hash`, which can be specialized for custom class.
-  * Otherwise, we can provide a functor template to generate hash
-  * no specialization for `const char *`
-  * specialization exist for all pointers `std::hash<T*>`
-* python: dict
-  * an object is hashable if `__hash__(), __eq__()`
-  * by default, `__hash__()` is derived from `id()`
-  * `id()` is guaranteed to unique during its lifetime
-    * in cpython, it is the address of object
 
 ### tree
 

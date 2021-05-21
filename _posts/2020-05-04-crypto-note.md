@@ -131,27 +131,6 @@ https://www.dyne.org/software/tomb/
 
 ## cryptographic hash
 
-Hash based message authentication code (HMAC): RFC 2104
-
-\\[
-\begin{align*}
-\operatorname{HMAC}(K, m) &= \operatorname{H}\Bigl(\bigl(K' \oplus opad\bigr) \parallel 
-  \operatorname{H} \bigl(\left(K' \oplus ipad\right) \parallel m\bigr)\Bigr) \\
-K' &= \begin{cases}
-  \operatorname{H}\left(K\right) & K\text{ is larger than block size} \\
-  K                              & \text{otherwise}
-\end{cases}
-\end{align*}
-\\]
-
-Normal hash functions starts from a known state, 
-and results with its internal state.
-So, it is easy to modify the message and have the same hash.
-
-SHA 1, 2, 3
-
-https://csrc.nist.gov/projects/cryptographic-algorithm-validation-program/validation-search
-
 ## PRNG
 
 Mersenne twister
