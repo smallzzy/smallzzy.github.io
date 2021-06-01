@@ -149,3 +149,8 @@ Spread_spectrum clock
 
 https://help.magicplan.app/laser-distance-meters
 https://design.ui.com/
+
+https://www.avermedia.com/us/product-detail/GC573
+https://www.liqid.com/products/liqid-elements/element-lqd4500-pcie-aic-ssd
+
+media pipe

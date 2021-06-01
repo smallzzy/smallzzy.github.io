@@ -24,12 +24,11 @@ summary:
 ### syslog
 
 - logging content are present on the following file
-  - `/dev/log`: syslog
-    - `syslog()` in libc
-    - socket
-  - `/dev/kmsg`: kernel message
-    - `klogd`
-- rsyslog is one impl to process logging
+  - `/dev/log`: local unix socket which is read by syslogd
+    - write by `syslog()` in libc
+  - `/dev/kmsg`: content of kernel message ring buffer
+    - write by `klogd` in kernel
+- rsyslog is one impl for syslogd
   - config in `/etc/rsyslog.conf`
   - write to `/var/log`
   - `imuxsock`: read from `/dev/log`
