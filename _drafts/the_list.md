@@ -19,11 +19,6 @@ okteta
 hex fiend
 hachoir
 
-### kde
-
-heaptrack
-kcachegrind
-
 ## driver, disk, cpu
 
 ddu: display driver uninstall
@@ -100,12 +95,6 @@ mpc-hc
 deadline
 redshift
 
-## serialization
-
-thrift
-protobuf
-capnproto
-msgpack
 
 ## overclock
 
