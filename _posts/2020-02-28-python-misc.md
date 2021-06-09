@@ -25,6 +25,35 @@ summary:
 * move blocking function to another process:
   * [run_in_executor](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.loop.run_in_executor)
 
+## debug
+
+[debugpy](https://code.visualstudio.com/docs/python/debugging#_debugging-by-attaching-over-a-network-connection)
+
+```python
+import debugpy
+
+# 5678 is the default attach port in the VS Code
+debugpy.listen(5678)
+debugpy.wait_for_client()
+debugpy.breakpoint()
+```
+
+```json
+{
+  "name": "Python: Attach",
+  "type": "python",
+  "request": "attach",
+  "port": 5678,
+  "host": "localhost",
+  "pathMappings": [
+    {
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "."
+    }
+  ]
+}
+```
+
 ## numpy
 
 ### indexing
