@@ -125,6 +125,12 @@ As a result, we have to cast to original type before use.
 3. `std::function::target<T>()`: retrive function pointer if T matches
    1. note that we cannot retrive a stored class method (including lambda)
 
+```c++
+// Using lambda to compare elements.
+auto cmp = [](int left, int right) { return (left ^ 1) < (right ^ 1); };
+std::priority_queue<int, std::vector<int>, decltype(cmp)> q3(cmp);
+```
+
 ### function pointer
 
 Notice that pointer to normal and static class function is the same.
