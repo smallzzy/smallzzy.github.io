@@ -195,6 +195,10 @@ https://danluu.com/filesystem-errors/
 
 https://news.ycombinator.com/item?id=24258444
 
+https://stackoverflow.com/questions/2009063/are-disk-sector-writes-atomic
+
+https://www.bswd.com/FMS12/FMS12-Rudoff.pdf
+
 ## fs options
 
 tune2fs -l /dev/sda # list filesystem stat
