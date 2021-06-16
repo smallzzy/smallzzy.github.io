@@ -10,8 +10,9 @@ summary:
 
 ## execution
 
+- [profile guide](https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html) has a good general introduction
 - organization: grid > block > warp > thread
-- `kernel<<< blocks , threads, smem, stream>>>();`
+- `kernel<<< blocks, threads, smem, stream>>>();`
 
 ### grid
 
@@ -20,6 +21,7 @@ summary:
 
 ### block
 
+- also known as Cooperative Thread Array (CTA)
 - block can only be assigned to one SM
 - one SM can hold more than one block
 - one block can have up to 1024 threads
@@ -28,14 +30,14 @@ summary:
 
 - group of 32 threads
   - the threads in one warp is executed at the same time
-- state: selected, eligible, stalled, active
-  - active = eligible + stalled
+
+> If the number of threads in a CTA is not dividable by 32, the last warp will contain the remaining number of threads
 
 ### thread
 
 - thread are identified by: blockIdx * blockDim + threadIdx
-  - block per grid
-  - thread per block
+  - block per grid: can contain up to 3 dimension
+  - thread per block: can contain up to 3 dimension
 
 ## memory
 
@@ -46,33 +48,11 @@ summary:
 | global   |              | off chip | L2    |
 | constant | `constant`   |
 
-- L1 / shared memory split
-  - register will spill to L1 if cannot fit?
-  - all threads in a block can access the same shared memory
-- register and shared memory is shared by all active threads
-  - theoretical occupancy
+- L1 cache can be split between register spill + shared memory
+- local memory (register + spill) can only be accessed by current thread
+- shared memory can be shared across a block
+  - sync is most likely required
 - read-only memory: instruction cache, constant memory, texture memory and RO cache
-- L2 cache is shared between all block
-
-## unified memory
-
-```c++
-cudaMallcManaged()
-cudaMemAdvise()
-cudaMemPrefetchAsync()
-cudaStreamAttachMemAsync()
-```
-
-- 49 bit addressing -> x86 currently has 48 bit addressing
-- based on page fault
-  - cannot access concurrently from host and device
-  - only allocated when used -> can appear on gpu
-  - sync mmu on cpu and gpu?
-
-### (not) uniform memory access
-
-- for UMA, cpu should be able to operate directly on the memory
-- in cuda, the driver takes care of memory transfer?
 
 ### shared memory
 
@@ -85,19 +65,43 @@ cudaStreamAttachMemAsync()
   - if different bank, we can have a higher bandwidth
     - configurable width?
 
+> Shared memory has 32 banks that are organized such that successive 32-bit words map to successive banks that can be accessed simultaneously
+
 ### vectorized memory access
 
 - we can generate a wider copy instruction by using int2, int4 or float2
   - require alignment
 
+## unified memory
+
+```c++
+cudaMallcManaged()
+cudaMemAdvise()
+cudaMemPrefetchAsync()
+cudaStreamAttachMemAsync()
+```
+
+> Global memory is a 49-bit virtual address space that is mapped to physical memory on the device, pinned system memory, or peer memory.
+
+- supposely based on page fault
+  - cannot access concurrently from host and device
+  - only allocated when used -> can appear on gpu
+  - sync mmu on cpu and gpu?
+
+### (not) uniform memory access
+
+- for UMA, cpu should be able to operate directly on the memory
+- in cuda, the driver takes care of memory transfer?
+
 ## host sync
 
 - kernel calls are async wrt host
   - use `CUDA_LAUNCH_BLOCKING=1` to debug kernel launch
-- stream sync means that kernel will not operate at the same time
-  - which is possible if no dependency
+- multiple kernel can operate at the same time
+  - which require kernel to be launched in different stream
+    - behavior can be changed when set up stream
   - default stream is in sync with all other stream
-    - behavior can change via compile option
+    - behavior can be changed via compile option
   - `cudaStreamNonBlocking`
   - `cudaStreamAddCallback`
   - `cudaStreamCreateWithPriority`
@@ -135,6 +139,8 @@ To achieve sub-block sync, we use [cooperative group](https://developer.nvidia.c
 - Blocks per SM
 - Registers per SM
 - Shared Memory per SM
+
+> A warp is considered active from the time its threads begin executing to the time when all threads in the warp have exited from the kernel.
 
 ## Hyper-Q
 
