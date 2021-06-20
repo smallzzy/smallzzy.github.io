@@ -145,6 +145,7 @@ type Shape interface {
     * similar to vtable in c++ -> Itab in go?
   * table computed for concrete type and interface
   * at runtime, the two tables are bind together
+    * when a library is compiled, it does not know if it will be used in a specific interface?
 * when comparing interface, T and V needs to match
   * data is converted to interface for comparison
   * nil -> T = nil and V = nil

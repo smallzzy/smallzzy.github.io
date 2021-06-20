@@ -39,6 +39,7 @@ summary:
 > 5) If T is reference type, nothing is done.
 
 * if we only perform 2), the object is in a unusable state.
+  * which requires dynamic initialization to be done later
 
 ## step 2: Dynamic initialization
 
@@ -51,7 +52,7 @@ summary:
 
 ### value initialization
 
-* Usually appear in the form of `T()`
+> This is the initialization performed when an object is constructed with an empty initializer. 
 
 > 1) if T is a class type with no default constructor or with a user-provided or deleted default constructor,
 > the object is default-initialized;
@@ -116,10 +117,6 @@ The effects of default initialization are:
 
 RVO
 NRVO
-
-## explicit vs converting constructor
-
-* cannot be used for implicit conversion & copy-initialization
 
 ## static and const 
 
