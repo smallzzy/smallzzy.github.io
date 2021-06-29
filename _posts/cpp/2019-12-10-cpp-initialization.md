@@ -10,6 +10,8 @@ summary:
 
 ![]({{site.img_url}}/cpp_init_forest.gif)
 
+[CPP Reference](https://en.cppreference.com/w/cpp/language/initialization)
+
 ## storage duration
 
 1. automatic: RAII
@@ -109,33 +111,33 @@ The effects of default initialization are:
   * `...` == `vector<int>{1, 2}` will trigger a move
   * `...` == `initializer_list<int>{1, 2}` will contruct inplace
 
+## initialization order 
+
+### class
+
+> In a non-delegating constructor, initialization proceeds in the following order:
+>
+>  — First, and **only for the constructor of the most derived class**, virtual base classes are initialized in the order they appear on a depth-first left-to-right traversal of the directed acyclic graph of base classes, where “left-to-right” is the order of appearance of the base classes in the derived class base-specifier-list.
+>
+>  — Then, direct base classes are initialized in declaration order as they appear in the base-specifier-list (regardless of the order of the mem-initializers).
+>
+>  — Then, non-static data members are initialized in the order they were declared in the **class definition** (again regardless of the order of the mem-initializers).
+>
+>  — Finally, the compound-statement of the constructor body is executed.
+
+### static variables
+
+The order is undefined across different compilation units.
+
+In the same compilation unit, it is the same order as definition.
+
+## todo
+
 ## aggregate initialization
-
-
 
 ## copy elision
 
 RVO
 NRVO
 
-## static and const 
-
-* `static` means that variable will be shared, which can still be changed in runtime. 
-  * Thus, require a storage space and cannot be defined in a header file
-  * (c++17 has inline variable)
-* `const` means that the value cannot change **after creation**
-* `static const` means that the value is a constant, which will evaluated during compilation
-  * intergral constant has special rules called integral constant expressions
-  * for other type, we need specify `constexpr` in the type
-    * `constexpr` implicitly make the type to be `const`
-    * `constexpr` does not make sense on type without `static`
-    * `constexpr` only works on literal type or reference type
-      * no object?
-* When use `constexpr` in expression, programmer need to make sure that the expression can be evaluated at compile time
-
-## todo
-
 dynamic non-local
-## Reference
-
-[CPP Reference](https://en.cppreference.com/w/cpp/language/initialization)
