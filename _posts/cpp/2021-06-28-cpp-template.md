@@ -22,6 +22,26 @@ template <typename T> void func(T param) {}
 template <> void func<int>(int param) {}
 // explicit instantiation
 template void func<int>(int param);
+
+// class template
+template <typename T>
+class Sample {
+  void foo(T) {}
+};
+
+// specialize member function only
+template<>
+void Sample<int>::foo(int) {}
+
+// specialize the class
+// note: w/o a base class all function need to be repeated
+template<>
+class Sample<char> {
+  void foo(char) {}
+};
+
+// if the class is specialized, its member function is just definition
+void Sample<char>::foo<char> {}
 ```
 
 ## only allow specialization
