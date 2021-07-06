@@ -11,6 +11,7 @@ summary:
 ## execution
 
 - [profile guide](https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html) has a good general introduction
+- [compute capability](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#compute-capabilities)
 - organization: grid > block > warp > thread
 - `kernel<<< blocks, threads, smem, stream>>>();`
 

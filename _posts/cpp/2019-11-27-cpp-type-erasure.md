@@ -125,6 +125,12 @@ As a result, we have to cast to original type before use.
 3. `std::function::target<T>()`: retrive function pointer if T matches
    1. note that we cannot retrive a stored class method (including lambda)
 
+### lambda 
+
+- lambda has a ton of [special rules](https://en.cppreference.com/w/cpp/language/lambda)
+- lambda `operator=` is deleted until c++20
+  - in c++20, `operator=` is defined if capture list is empty
+
 ```c++
 // Using lambda to compare elements.
 auto cmp = [](int left, int right) { return (left ^ 1) < (right ^ 1); };

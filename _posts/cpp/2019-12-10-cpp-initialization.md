@@ -131,6 +131,22 @@ The order is undefined across different compilation units.
 
 In the same compilation unit, it is the same order as definition.
 
+## static and const class member
+
+* `static` means that variable will be shared, which can still be changed in runtime. 
+  * Thus, require a storage space and cannot be defined in a header file
+  * (c++17 has inline variable)
+* `const` means that the value cannot change **after creation**
+  * apply to the left first and then to the right?
+* `static const` means that the value is a constant, which will evaluated during compilation
+  * intergral constant has special rules called integral constant expressions
+  * for other type, we need specify `constexpr` in the type
+    * `constexpr` implicitly make the type to be `const`
+    * `constexpr` does not make sense on type without `static`
+    * `constexpr` only works on literal type or reference type
+      * no object?
+* When use `constexpr` in expression, programmer need to make sure that the expression can be evaluated at compile time
+
 ## todo
 
 ## aggregate initialization
