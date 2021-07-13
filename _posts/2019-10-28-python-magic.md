@@ -17,6 +17,29 @@ OR
 
 `from contextlib import contextmanager`
 
+## __new__ vs __init__
+
+- `__new(cls)__` is used to construct a object
+  - used in factory pattern, one class can be used to construct different sub-class
+  - if the result has been initialized, `__init__` will be skipped
+- `__init(self)__` is used to initialize a object
+  - no return value is expected
+
+### multiple inheritance
+
+- `super(MyClass, self).__init__()` provides the next `__init__` method according to the used Method Resolution Ordering (MRO) algorithm in the context of the complete inheritance hierarchy.
+  - for `class D(B, C)`, that means D -> B -> A -> C -> A
+  - then removing all dup except the last: D -> B -> C -> A
+- Which means that the base class needs to be designed to handle inheritance
+  - it might need to call `super` with arbitrary parameter 
+- The other solution is to call `__init__` explicitly for each class.
+
+## __slots__ vs __dict__
+
+- python attribute is usually stored in `__dict__` which use a lot of memory
+- it is possible to a static set of attribute in `__slots__`
+  - reduce foot print for small object
+
 ## decorator
 
 In normal use case, decorator is a function that wraps another function.
