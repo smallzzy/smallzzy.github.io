@@ -65,13 +65,29 @@ https://tinyapps.org/docs/nvme-secure-erase.html
 
 ### partition scheme
 
-- `lsblk -o`
+- partition table indicate the position of file system
+  - but it is not involved in the structure of fs
+  - assuming 512 byte sector
+    - mbr: only the first sector (LBA 0)
+    - gpt:
+      - protective mbr (LBA 0)
+      - gpt header (LBA 1)
+      - at least 32 sector
+- `lsblk -o` can use the following option to print info on partition
 - `PARTUUID`: partition identifier, fs independent
   - `UUID`: stored in filesystem, cannot be read if filesystem is unknown
 - `PARTLABEL`: partition name, fs independent
 - to identify partition purpose
   - `Partition type ID`: mbr
   - `PARTTYPE`, `Partition type UUID`: gpt
+
+[make fs on file](http://www.orangepi.org/Docs/Makingabootable.html)
+
+### iso9660
+
+- iso is a file system definition
+  - some software might interpret the iso file structure as overlapping partition
+- https://superuser.com/questions/1353671/run-efi-files-scripts-from-boot-virtual-media-iso
 
 ### alignment
 
