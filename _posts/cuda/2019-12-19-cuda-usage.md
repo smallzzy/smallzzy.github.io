@@ -47,13 +47,27 @@ summary:
 | register | N/A          | on chip  |       |
 | shared   | `__shared__` | on chip  | L1    |
 | global   |              | off chip | L2    |
-| constant | `constant`   |
+| constant | `__constant__`   |
 
-- L1 cache can be split between register spill + shared memory
-- local memory (register + spill) can only be accessed by current thread
+- L1 cache can split between register spill + shared memory
+  - `cudaDeviceSetCacheConfig`
+- local memory (refers to register + spill) can only be accessed by current thread
+  - register count can be controlled when compiling with `maxregcount`
+    - or deducted from `__launch_bounds__(MAX_THREADS_PER_BLOCK, MIN_BLOCKS_PER_MP)`
+  - stored in global memory
+    - usually available through cache
+    - the access is controlled by compiler
 - shared memory can be shared across a block
   - sync is most likely required
 - read-only memory: instruction cache, constant memory, texture memory and RO cache
+  - `cudaMemcpyToSymbol`
+
+### host memory
+
+- host vs device
+  - pcie link is usually the bottleneck
+  - `cudaHostAlloc` vs `cudaMalloc`
+  - `cudaHostRegister`
 
 ### shared memory
 
@@ -61,10 +75,12 @@ summary:
 - dynamic: `extern __shared__ int s[];`
   - require smem in kernel launch
 - shared memory is access via bank
-  - if same address, we will have a boardcast. OK
-  - if same bank, we will have a serial acess. Bad
-  - if different bank, we can have a higher bandwidth
-    - configurable width?
+  - for same address
+    - for read, we will have a boardcast. OK
+    - for write, we will have a conflict
+  - for same bank, we will have a serial acess for r / w. Bad
+  - for different bank, we can have a higher bandwidth for r / w
+    - how configurable width is done in hardware?
 
 > Shared memory has 32 banks that are organized such that successive 32-bit words map to successive banks that can be accessed simultaneously
 
@@ -72,11 +88,12 @@ summary:
 
 - we can generate a wider copy instruction by using int2, int4 or float2
   - require alignment
+- fill multiple cache lines in a single fetch
 
 ## unified memory
 
 ```c++
-cudaMallcManaged()
+cudaMallocManaged()
 cudaMemAdvise()
 cudaMemPrefetchAsync()
 cudaStreamAttachMemAsync()
@@ -93,6 +110,21 @@ cudaStreamAttachMemAsync()
 
 - for UMA, cpu should be able to operate directly on the memory
 - in cuda, the driver takes care of memory transfer?
+
+## memory best practice
+
+- multi-thread + multi-word + **multi-iteration**
+- coalesced access: let consecutive thread access consecutive data
+  - otherwise, multiple fetch might be needed
+  - scatter & gather exist, but avoid if you can
+    - scatter: read seq, write rand
+    - gather: read rand, write seq
+- array of struct vs struct of array
+  - aos is prefered in single thread
+    - aos will became strided access in simt
+  - soa is prefered in simt
+- [trove](https://github.com/bryancatanzaro/trove)
+  - convert aos to soa for execution on cuda
 
 ## host sync
 
@@ -136,10 +168,12 @@ To achieve sub-block sync, we use [cooperative group](https://developer.nvidia.c
 ### occupancy
 
 - achieved vs theoretical
-- Warps per SM
-- Blocks per SM
-- Registers per SM
-- Shared Memory per SM
+- bound by hardware
+  - Warps per SM
+  - Blocks per SM
+- bound by resorce sharing 
+  - Registers per SM
+  - Shared Memory per SM
 
 > A warp is considered active from the time its threads begin executing to the time when all threads in the warp have exited from the kernel.
 

@@ -137,11 +137,14 @@ there is a reviewer toolkit
 
 ### Enable persistence mode on startup
 
-~~On 09/26/2019, [persistence does not work on startup](https://github.com/NVIDIA/nvidia-persistenced/issues/2).~~
-Persistence mode does work with normal installation. The problem is that libnvidia-cfg is not installed automatically.
-Such problem can be revealed by `sudo less /var/log/syslog`
+nvidia-persistent hold device state to avoid multiple initialization, which might cause false reading on `nvidia-smi`
 
-Then, we are supposed to enable it like [this](https://devtalk.nvidia.com/default/topic/1048549/cuda-setup-and-installation/recommended-way-to-launch-nvidia-persistence-daemon-on-boot-login/). A modified version is available here.
+Persistence mode should work with normal installation. Here are some old issues that prevent it.
+
+1. libnvidia-cfg is not installed automatically. Such problem can be revealed by `sudo less /var/log/syslog`
+2. The `nvidia-persistenced.service` defaults to not enable persistent mode.
+   1. edit the file or do it like the following service file.
+   2. [credit](https://devtalk.nvidia.com/default/topic/1048549/cuda-setup-and-installation/recommended-way-to-launch-nvidia-persistence-daemon-on-boot-login/)
 
 The power limit can be found at [overclock.net](https://www.overclock.net/forum/69-nvidia/1706276-official-nvidia-rtx-2080-ti-owner-s-club.html)
 Or [techpowerup.com](https://www.techpowerup.com/vgabios/209238/zotac-rtx2080ti-11264-181023)
