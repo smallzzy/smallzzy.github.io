@@ -65,3 +65,32 @@ stress: cpu
 
 `munin` and `cacti`
 `pcm`
+
+## cpu pin
+
+NUMA node is common on server.
+The performance for certain workload might tank if it operates on a remote NUMA node
+
+- `taskset`
+  - `taskset <mask> <command>`: start with affinity
+  - `taskset -p <pid>`: print affinity
+  - `taskset -p <mask> <pid>`: set affinity
+  - `-c`: interpret mask as cpu list
+- `isolcpus`?
+
+https://unix.stackexchange.com/questions/247209/how-to-use-cgroups-to-limit-all-processes-except-whitelist-to-a-single-cpu
+
+### interrupt
+
+- `/proc/interrupts`
+  - `cat / echo` `/proc/irq/92/smp_affinity`
+- irqbalance
+
+> Irqbalance identifies the highest volume interrupt sources, 
+> and isolates them to a single CPU, 
+> so that load is spread as much as possible over an entire processor set, 
+> while minimizing cache hit rates for irq handlers. 
+
+- mellanox recommands to map each interrupt to a different cpu and only one cpu
+  - `mlnx_tune`
+  - `show_irq_affinity`
