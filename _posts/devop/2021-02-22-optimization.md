@@ -77,6 +77,8 @@ The performance for certain workload might tank if it operates on a remote NUMA 
   - `taskset -p <mask> <pid>`: set affinity
   - `-c`: interpret mask as cpu list
 - `isolcpus`?
+- `docker`
+  - `--cpuset-cpus <core-list>`
 
 https://unix.stackexchange.com/questions/247209/how-to-use-cgroups-to-limit-all-processes-except-whitelist-to-a-single-cpu
 

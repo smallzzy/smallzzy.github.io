@@ -229,28 +229,49 @@ tune2fs -m 0 /dev/sda # reduce reserve to 0
 
 ### zfs
 
-* zpool: device pool
-  * virtual devices, vdev
+* [archlinux](https://wiki.archlinux.org/title/ZFS)
+* zpool: device pool, there can be multiple pool on one system
+  * storage is not shared between pools
+  * vdev, virtual devices
+    * there can be multiple vdev in one pool
+    * parity is provided over one vdev
+  * vdev types
     * mirror / raidz
       * disk / slice / file
     * hot spare
     * intent log
     * cache devices
-* zfs:
-  * `create` filesystem datasets
-    * inherit parent `-O mountpoint`
-  * `create -V size` volume as block device
-    * `set shareiscsi=on`
-* zvol
+* tuning
+  * `ashift=12`: depending on device, can be `13` for 8K native 
+  * `xattr=sa`
+  * `atime=off`
+  * `compression`: depending on cpu power?
+  * `recordsize`: depending on workload
+* arc:
+  * `zfs_arc_max`
+* l2arc:
+  * `l2arc_noprefetch=0`: allow seq read to be cached
+  * `l2arc_write_max`: max write speed for cache
+  * `l2arc_write_boost`: max write speed at boot (for warmup)
 
 ```bash
-# change arc size
-echo "options zfs zfs_arc_max=34359738368" >> /etc/modprobe.d/zfs.conf
-echo "34359738368" > /sys/module/zfs/parameters/zfs_arc_max
-# zfs current arc status
-/proc/spl/kstat/zfs/arcstats
-# l2arc
+make deb
+apt install zfs libnvpair libuutils libzfs libzpool zfs-dkms
+## enable systemd service -> archlinux
+# check various parameter
+zfs list
+zfs get all <pool>
+zpool get all <pool>
+# add vdev to pool
 zpool add <pool> cache <device-id>
+zpool replace
+zpool remove
+# check which pool is loaded during boot
+zdb -C
+# check various arc stat
+arc_summary
+arcstat
+zpool iostat
 ```
 
 ### btrfs

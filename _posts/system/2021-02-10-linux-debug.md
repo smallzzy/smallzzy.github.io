@@ -67,6 +67,26 @@ workqueue:workqueue_queue_work -> kworker
 
 [events](https://www.kernel.org/doc/Documentation/trace/events.txt)
 
+## sysctl
+
+Statically built kernel parameters are available at `/proc/sys`
+Which can be accessed via `sysctl`, `/etc/sysctl.conf`
+
+`sysctl -p`
+
+## kernel module
+
+```bash
+lsmod
+modprobe
+# print available module param
+modinfo
+```
+
+* change kernel module parameters
+  * at runtime: `echo 0 > /sys/module/<mod>/parameters/<param>`
+  * at boot: `echo "options <mod> <param>=0" >> /etc/modprobe.d/<>`
+
 ## oops
 
 - kernel can oops when having a bug
