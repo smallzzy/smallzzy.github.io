@@ -115,16 +115,17 @@ IP suite (OSI)
 
 1. Shared media / Repeater / Hub (same segment):
   * CSMA/CD
-2. Switch (different segment)
+2. Switch (different segment, same scope):
+  * scope determined by subnet mask
   * Address Resolution Protocol: knowing ip, broadcast request for a mac address
   * redundant links to achieve high availibity (STP)
-  * mutltiple links for high throughput (aggregation)
-  * LLDP (802.1AB): discovery capability on link
-  * aggregation
+  * multiple links for high throughput (aggregation)
     * link aggregation group, LAG
     * link aggregation control protocol, LACP(802.1ax)
       * active, passive
       * `bonding`, `ifenslave`
+  * LLDP (802.1AB): discovery capability on link
+  * use `bridge` to form a software switch
 3. Router (different scope)
   * QoS:
   * UPnP
@@ -152,7 +153,7 @@ IP suite (OSI)
 ## scope
 
 * IPv4
-  * private: 10.0/24, 172/16, 192.168.
+  * private: 10./8, 172.16/12, 192.168./16
   * link-local: 169.254.0.0/16
 * IPv6
   * link-local: fe80::/10
@@ -203,14 +204,6 @@ IP suite (OSI)
 
 [howstuffworks](https://computer.howstuffworks.com/lan-switch.htm)
 
-### L3 Switch
-
-* route between vlan without packets leaving the switch
-* L3 can work between following elements
-  * Router Interface: a single port to another router
-  * Port Channel: port aggregation to another router
-  * Vlan Interface: between vlan groups
-
 ## Spanning Tree Protocol / Shortest Path Bridging
 
 * this tech has evolved several times
@@ -252,14 +245,21 @@ IP suite (OSI)
   * configured per trunk
   * a untagged vlan on trunk port get native vlan
   * backward compatible with device w/o vlan
-* l3 switch
-  * support cross vlan
 * instead of configure vlan group on every device, configure on one device and propagte
   * GARP -> MRP
   * GMRP -> MMRP
   * GVRP -> MVRP
 * dynamic vlan: assign vlan based on mac
   * Cisco: VLAN Member Policy Server
+
+### L3 Switch
+
+* route between vlan without packets leaving the switch
+* L3 can work between following elements
+  * Router Interface: a single port to another router
+  * Port Channel: port aggregation to another router
+  * Vlan Interface: between vlan groups
+* L3 switch might have different forwarding capacity for L3 switching
 
 ## transport
 
@@ -342,14 +342,12 @@ multi-homed dhcp
 dhcp relay
 
 VRPP
-`bridge`?
 
 https://docs.cumulusnetworks.com/cumulus-linux-40/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-Using-ethtool/
 
 https://frrouting.org/
 
 [tuning](https://fasterdata.es.net/)
-
 
 netstat 
 -t (tcp), -u (udp), -x (unix)
