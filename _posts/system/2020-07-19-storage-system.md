@@ -8,7 +8,12 @@ tags: []
 summary: 
 ---
 
-## disk protocol
+## disk
+
+`iotop`: view disk usage by application
+`iostat`: view disk usage by device
+
+### disk protocol
 
 * SCSI: Small Computer System Interface
   * serial attached scsi: sas
@@ -55,15 +60,29 @@ summary:
 
 https://tinyapps.org/docs/nvme-secure-erase.html
 
-## disk
+### ssd trim
 
-`du -sch .[!.]* *`: show file size including hidden
-`ncdu`: show file size in command line, easier than `du -h`
-`iotop`: view disk usage by application
-`iostat`: view disk usage by device
+* when fs delete a file, it only needs to remove it from dir
+  * the underlying inode is not touched
+* ssd controller has no way of knowing if a block is actually used in fs
+* trim tells ssd controller when a block is disposed
+* [trim not necessary](https://www.spinics.net/lists/raid/msg40916.html)
+  * the block will get reused when fs write again
+  * with proper op, occupied block should not be a big problem
+
+* trim support mode: drat dzat
+* trim support in protocol: https://en.wikipedia.org/wiki/Trim_(computing)
+
+### smr
+
+* higher density but write amplification
+* not suitable to small file write
+
+https://www.ixsystems.com/community/resources/list-of-known-smr-drives.141/
+
+## partition
+
 `partprobe`: read partition after change
-
-### partition scheme
 
 - partition table indicate the position of file system
   - but it is not involved in the structure of fs
@@ -82,12 +101,6 @@ https://tinyapps.org/docs/nvme-secure-erase.html
   - `PARTTYPE`, `Partition type UUID`: gpt
 
 [make fs on file](http://www.orangepi.org/Docs/Makingabootable.html)
-
-### iso9660
-
-- iso is a file system definition
-  - some software might interpret the iso file structure as overlapping partition
-- https://superuser.com/questions/1353671/run-efi-files-scripts-from-boot-virtual-media-iso
 
 ### alignment
 
@@ -116,18 +129,6 @@ align-check opt n
 * fsck: 1 for root, 2 for other, 0 to disable
 
 [systemd mount](https://www.freedesktop.org/software/systemd/man/systemd.mount.html)
-
-### expansion
-
-1. after raid expansion, rescan the disk
-   1. `echo 1>/sys/class/block/sdd/device/rescan`
-2. re-write the GPT backup header at the new end of the disk 
-   1. `gdisk x e`
-3. resize partition
-   1. `gdisk d n`
-   2. `parted resizepart`
-4. resize fs
-   1. `resize2fs`
 
 ## mdadm
 
@@ -184,25 +185,6 @@ stripe width = number of data disks * stride
 https://serverfault.com/questions/796460/partition-table-on-one-disk-from-raid-always-equal-to-partition-table-configured
 https://serverfault.com/questions/619862/should-i-partition-a-raid-or-just-create-a-file-system-on-it
 
-## ssd trim
-
-* when fs delete a file, it only needs to remove it from dir
-  * the underlying inode is not touched
-* ssd controller has no way of knowing if a block is actually used in fs
-* trim tells ssd controller when a block is disposed
-* [trim not necessary](https://www.spinics.net/lists/raid/msg40916.html)
-  * the block will get reused when fs write again
-  * with proper op, occupied block should not be a big problem
-
-* trim support mode: drat dzat
-* trim support in protocol: https://en.wikipedia.org/wiki/Trim_(computing)
-
-## smr
-
-* higher density but write amplification
-* not suitable to small file write
-
-https://www.ixsystems.com/community/resources/list-of-known-smr-drives.141/
 
 ## file system
 
@@ -215,10 +197,34 @@ https://stackoverflow.com/questions/2009063/are-disk-sector-writes-atomic
 
 https://www.bswd.com/FMS12/FMS12-Rudoff.pdf
 
-## fs options
+`du -sch .[!.]* *`: show file size including hidden
+`ncdu`: show file size in command line, easier than `du -h`
 
+### ext4
+
+```bash
 tune2fs -l /dev/sda # list filesystem stat
 tune2fs -m 0 /dev/sda # reduce reserve to 0
+```
+
+#### expansion
+
+1. after raid expansion, rescan the disk
+   1. `echo 1>/sys/class/block/sdd/device/rescan`
+2. re-write the GPT backup header at the new end of the disk 
+   1. `gdisk x e`
+3. resize partition
+   1. `gdisk d n`
+   2. `parted resizepart`
+4. resize fs
+   1. `resize2fs`
+
+### iso9660
+
+- iso is a file system definition
+  - some software might interpret the iso file structure as overlapping partition
+- https://superuser.com/questions/1353671/run-efi-files-scripts-from-boot-virtual-media-iso
+
 
 ### overlayfs
 
@@ -253,6 +259,9 @@ tune2fs -m 0 /dev/sda # reduce reserve to 0
   * `l2arc_noprefetch=0`: allow seq read to be cached
   * `l2arc_write_max`: max write speed for cache
   * `l2arc_write_boost`: max write speed at boot (for warmup)
+* snapshot:
+  * `send/receive`
+  * [sanoid](https://github.com/jimsalterjrs/sanoid)
 
 ```bash
 make deb
@@ -277,6 +286,11 @@ zpool iostat
 ### btrfs
 
 https://work-work.work/blog/2018/12/01/ubuntu-1804-btrfs.html
+
+### Filesystem in Userspace (FUSE)
+
+- bindfs: mapping uid when mounting a fs
+- mergerfs: store file across different fs
 
 ## distributed file system
 
