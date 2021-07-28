@@ -95,6 +95,7 @@ IP suite (OSI)
     - CWDM4
   - MPO
     - SR4, PSM4
+    - type A / B / C : different fiber cross over pattern
 - ferrule: how fiber contact
   - PC, UPC, APC
 - cable (ISO11801)
