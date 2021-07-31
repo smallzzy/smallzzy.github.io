@@ -24,10 +24,9 @@ summary:
   - decide how the struct is used by others
     - might cause additional code to be emit for risc
   - might cause false sharing in cacheline
-- placement new
+- placement new: construct objects in allocated storage
   - `new (placement params) type (initializer)`
-  - construct objects in allocated storage
-  - must manually call destructor
+  - must manually call destructor to avoid releasing memory
   - usually encapsulated by `Allocator`
 - changing aligment
   - `alignof, alignas`: put additional alignment requirement on struct
