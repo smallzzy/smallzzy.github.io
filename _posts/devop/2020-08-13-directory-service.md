@@ -141,3 +141,18 @@ https://serverfault.com/questions/617678/cant-use-external-authentication-after-
 include SUDO schema
 
 https://kifarunix.com/install-and-setup-openldap-server-on-ubuntu-20-04/
+
+## Samba AD
+
+follow the samba.sh to bring up samba ad service
+
+## sssd-ad
+
+sssd provides the following capability
+
+id: provide user information (based on sssd-ldap)
+auth: provide user authentication (based on sssd-krb5)
+access?
+chpass?
+sudo?
+autofs?

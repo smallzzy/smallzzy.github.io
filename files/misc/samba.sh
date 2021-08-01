@@ -44,6 +44,9 @@ sudo mv /etc/krb5.conf /etc/krb5.conf.old
 ## provision samba ad
 sudo samba-tool domain provision --use-rfc2307 --interactive
 
+## put rfc2307 to use
+## https://wiki.samba.org/index.php/Idmap_config_ad
+
 ## https://wiki.samba.org/index.php/BIND9_DLZ_DNS_Back_End#Configuring_the_BIND9_DLZ_Module
 ## has listed what to change in each section. But the path is corrent in the following link
 ## https://wiki.samba.org/index.php/Setting_up_a_BIND_DNS_Server#Installing_.26_Configuring_BIND_on_Debian_based_distros
@@ -56,6 +59,7 @@ sudo samba-tool domain provision --use-rfc2307 --interactive
 ## minimal-responses yes;
 
 # /etc/resolv.conf
+## search domain is used to create FQDN from relative name
 search samdom.example.com
 nameserver <lan ip>
 
@@ -73,3 +77,9 @@ sudo systemctl enable samba-ad-dc.service
 ## _ldap._tcp.dc._msdcs.samdom.example.com
 
 ## note: ipv6 might have different dns
+
+# linux join domain
+sudo realm join --user=Administrator --automatic-id-mapping=no samdom.example.com
+
+## check for id
+id test@samdom.example.com
