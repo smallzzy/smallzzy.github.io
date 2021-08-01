@@ -64,4 +64,12 @@ sudo cp /var/lib/samba/private/krb5.conf /etc/krb5.conf
 
 sudo systemctl enable samba-ad-dc.service
 
+# ldap tls is necessary?
 # https://wiki.samba.org/index.php/Configuring_LDAP_over_SSL_(LDAPS)_on_a_Samba_AD_DC
+
+## check ns from windows
+## nslookup
+## set q=srv
+## _ldap._tcp.dc._msdcs.samdom.example.com
+
+## note: ipv6 might have different dns
