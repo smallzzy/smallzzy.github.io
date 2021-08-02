@@ -162,7 +162,7 @@ IP suite (OSI)
 ### reserved scope
 
 - IPv4
-  - private: 10./8, 172.16./12, 192.168./16
+  - private(RFC 1918): 10./8, 172.16./12, 192.168./16
   - link-local: 169.254.0.0/16
 - IPv6
   - link-local: fe80::/10

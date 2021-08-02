@@ -19,16 +19,6 @@ Such as Microsoft Active Directory, OpenLDAP.
 For other softwares that wants to communicate to a directory service.
 They talks in a protocol called LDAP.
 
-### clarification
-
-- Microsoft Active Directory
-  - AD Domian Service: directory service
-  - AD LDS: implements LDAP protocol
-- Microsoft used to provide another domain service called NT4
-  - probably in the 2000
-  - Samba has support for AD and NT4. Make sure to look at right src
-- other services can use LDAP as a backend to store data
-
 ## what does a directory service provide
 
 Copied from [ubuntu documentation](https://ubuntu.com/server/docs/service-ldap). Highlight on keywords.
@@ -50,6 +40,14 @@ Copied from [ubuntu documentation](https://ubuntu.com/server/docs/service-ldap).
 * dc: domain component
 * ou: organizational unit
 * cn: common name
+
+## Microsoft Active Directory
+
+- Microsoft AD is a bundle of different service
+  - AD Domian Service: directory service
+  - AD LDS: implements LDAP protocol
+- There used to be a domain service called NT4?
+  - probably in the 2000?
 
 ## OpenLDAP
 
@@ -74,7 +72,7 @@ dkpg-reconfigure slapd
   * `olcRootDN` always has full access to that db
   * `cn=config` is limited to local root by default
 
-## change olcRootPW
+### change olcRootPW
 
 ```
 # generate hashed passwd
@@ -115,7 +113,7 @@ olcRootPW: {SSHA}cZbRoOhRew8MBiWGSEOiFX0XqbAQwXUr
 
 ## ldap tls
 
-* ldap's cert is set in its own conf instead of ca-certificate
+* openldap's cert is set in its own conf instead of ca-certificate
 * need to deploy root certificate to server
 * check ssl connection `openssl s_client -connect domain:port -showcerts`
   * `--starttls ldap` force tls connection
@@ -129,8 +127,6 @@ olcRootPW: {SSHA}cZbRoOhRew8MBiWGSEOiFX0XqbAQwXUr
   * based on nslcd: libnss-ldapd + libpam-ldapd
   * based on sssd
 * sssd seems to be the most integrated solution
-  * `entry_cache_timeout` -> default to 5400 s
-  * `offline_*` -> offline login
 
 ## todo
 
@@ -146,13 +142,13 @@ https://kifarunix.com/install-and-setup-openldap-server-on-ubuntu-20-04/
 
 follow the samba.sh to bring up samba ad service
 
-## sssd-ad
+## sssd
 
-sssd provides the following capability
-
-id: provide user information (based on sssd-ldap)
-auth: provide user authentication (based on sssd-krb5)
-access?
-chpass?
-sudo?
-autofs?
+- generate log put `debug_log` at each section in sssd
+- sssd provides the following capability
+  - id: user information (based on sssd-ldap)
+  - auth: user authentication (based on sssd-krb5)
+  - access?
+  - chpass?
+  - sudo?
+  - autofs?
