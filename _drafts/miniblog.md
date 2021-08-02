@@ -124,11 +124,26 @@ bpainter
 
 ## virtualization
 
+* kvm
+* XEN
+* qemu
+
+### libvirt
+
+- virtio: iommu
+- uefi: `edk2-ovmf`
+- virsh
+  - `net-list --all`
+  - `net-start`
+- virt-manager
+  - `usermod -aG libvirt <>`
+  - `libvirtd.service`
+
+https://wiki.archlinux.org/title/libvirt#Server
+
 * proxmox, ESXi, xcp-ng
 * KVM XEN
 * lxc lxd
-* virtio
-* libvirt?
 
 iso 11801
 

@@ -52,11 +52,6 @@ swagger
 graphql
 openapi
 
-## virtualization
-
-virtual box
-qemu
-
 ## file sync
 
 mountainduck
