@@ -6,11 +6,12 @@
 # setup samba 
 ## https://wiki.samba.org/index.php/Setting_up_Samba_as_an_Active_Directory_Domain_Controller
 # make sure time sync
-timedatectl set-timezone
+sudo timedatectl set-timezone
 # hostname & domain name 
-hostnamectl set-hostname dc1.samdom.example.com
-# host should only resolve to lan ip (requires static ip)
-## edit /etc/hosts
+sudo hostnamectl set-hostname dc1.samdom.example.com
+# edit /etc/hosts
+## for server, host should only resolve to lan ip (requires static ip)
+## for client, host can resolve to loopback
 ## <lan ip> dc1.samdom.example.com dc1
 # reboot!!
 
@@ -28,7 +29,13 @@ sudo apt-get install -y acl attr samba samba-dsdb-modules samba-vfs-modules winb
 # in this case, we change it to local bind server
 ## `/etc/resolv.conf -> ../run/systemd/resolve/stub-resolv.conf`
 sudo systemctl mask systemd-resolved
-rm /etc/resolv.conf
+sudo rm /etc/resolv.conf
+
+# vim /etc/resolv.conf
+## to verify bind is working `dig A facebook.com @127.0.0.1`
+## search domain is used to create FQDN from relative name
+# search samdom.example.com
+# nameserver <lan ip>
 
 # 5. disable sambda relate process
 sudo systemctl stop samba-ad-dc.service smbd.service nmbd.service winbind.service
@@ -50,36 +57,45 @@ sudo samba-tool domain provision --use-rfc2307 --interactive
 ## https://wiki.samba.org/index.php/Setting_up_a_BIND_DNS_Server#Installing_.26_Configuring_BIND_on_Debian_based_distros
 
 # named.conf.local
-## include "/var/lib/samba/bind-dns/named.conf";
+include "/var/lib/samba/bind-dns/named.conf";
 
 # named.conf.options
-## tkey-gssapi-keytab "/var/lib/samba/bind-dns/dns.keytab";
-## minimal-responses yes;
+tkey-gssapi-keytab "/var/lib/samba/bind-dns/dns.keytab";
+minimal-responses yes;
 
 # check config & restart bind
-named-checkconf
+sudo named-checkconf
 sudo systemctl restart bind9
 
-# /etc/resolv.conf
-## to verify bind is working `dig A facebook.com @127.0.0.1`
-## search domain is used to create FQDN from relative name
-search samdom.example.com
-nameserver <lan ip>
-
+# new krb config
 sudo cp /var/lib/samba/private/krb5.conf /etc/krb5.conf
 
-# sudo systemctl unmask samba-ad-dc.service
+sudo systemctl unmask samba-ad-dc.service
 sudo systemctl enable --now samba-ad-dc.service
 
 # ldap tls is necessary?
 # https://wiki.samba.org/index.php/Configuring_LDAP_over_SSL_(LDAPS)_on_a_Samba_AD_DC
 
-## check ns from windows
-## nslookup
+# a reserve zone is necessary for ddns to setup PTR
+## and other domain might be wanted
+## https://wiki.samba.org/index.php/DNS_Administration
+samba-tool dns zonecreate samdom.example.com 168.192.in-addr.arpa -UAdministrator
+
+# check for dns
+## note: ipv6 might have different dns
+host -t SRV _ldap._tcp.samdom.example.com.
+
+## nslookup for windows
 ## set q=srv
 ## _ldap._tcp.dc._msdcs.samdom.example.com
 
-## note: ipv6 might have different dns
+# make sure dynamic dns update can succeed locally
+## relate to bind tkey settings or needs to start bind
+sudo samba_dnsupdate --verbose --all-names
+
+# check if Kerberos can succeess
+## the realm has to be uppercase
+KRB5_TRACE=/dev/stdout kinit Administrator@SAMDOM.EXAMPLE.COM
 
 # linux join domain
 ## timezone, hostname, (dns)
@@ -87,24 +103,25 @@ sudo systemctl enable --now samba-ad-dc.service
 sudo realm join --user=Administrator --automatic-id-mapping=no samdom.example.com
 
 # check for id
-## todo: find out current uid to set?
-## todo: gid needed?
-# sudo samba-tool user create test
-sudo samba-tool user addunixattrs administrator 10000 --gid-number=10000
+## create new user 
+sudo samba-tool user create test
+## 1. because we specify rfc2307 + no auto mapping,
+## we need to add attr to user / group before they can be accessed on unix
+## 2. group id still carry over to users
+sudo samba-tool group addunixattrs 'Domain Users' 10000
+sudo samba-tool user addunixattrs administrator 10000
+## check user id
 id administrator@samdom.example.com
 
-# make sure dynamic dns update can succeed locally
-sudo samba_dnsupdate --verbose --all-names
-
-# a reserve zone seems to be necessary for dynamic dns to success completely
-## and other domain might be wanted
-## https://wiki.samba.org/index.php/DNS_Administration
-samba-tool dns zonecreate samdom.example.com 168.192.in-addr.arpa -uAdministrator
-rndc flush && rndc reload
-
-# login without using domain
+## samba unable to login
+## https://serverfault.com/questions/872542/debugging-sssd-login-pam-sss-system-error
+# ad_gpo_access_control = permissive
+## login without using domain
 ## https://serverfault.com/questions/679236/configure-realmd-to-allow-login-without-domain-name
-## client sssd.conf: use_fully_qualified_names = False
+use_fully_qualified_names = False
 
-## todo: cannot login?
+## todo: find out current uid to set?
 ## todo: sudo account?
+
+https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=859445
+https://dev.tranquil.it/samba/en/index.html
