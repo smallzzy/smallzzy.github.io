@@ -129,8 +129,6 @@ https://www.dyne.org/software/tomb/
 
 [cipher mode](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation)
 
-## cryptographic hash
-
 ## PRNG
 
 Mersenne twister
@@ -138,26 +136,6 @@ Yarrow
 fortuna
 
 https://www.schneier.com/academic/fortuna/
-
-## error correction?
-
-hamming code
-Reed–Solomon
-Latin Square
-convolutional code
-ldpc
-turbo
-polar
-
-## vpn
-
-rustls
-ring
-boringssl
-https://am.i.mullvad.net/
-v2ray
-shadowsock
-wireguard?
 
 ## todo
 

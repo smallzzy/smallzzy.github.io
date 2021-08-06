@@ -90,9 +90,19 @@ mpc-hc
 deadline
 redshift
 
-
 ## overclock
 
 hwmonitor
 XTU
 trottle stop
+
+## vpn
+
+ipsec?
+rustls
+ring
+boringssl
+https://am.i.mullvad.net/
+v2ray
+shadowsock
+wireguard?
