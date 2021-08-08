@@ -56,6 +56,7 @@ openapi
 
 mountainduck
 rclone
+osync
 
 ## misc
 

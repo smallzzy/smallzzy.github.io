@@ -44,7 +44,7 @@ sar -n TCP,ETCP
 - `-p`: file opened by pid
 - `-P`: inhibit conversion of port number to port name
 - `-n`: inhibit conversion of network number to host name
-- `-i`: select files with matching internet address
+- `-i :80`: select files with matching internet address
 - `-a`: provide `and` result from given conditions
 
 - a similar command is fuser

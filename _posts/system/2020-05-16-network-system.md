@@ -297,6 +297,15 @@ openucx
   - LLDP
 - QCN
 
+## dhcp
+
+- for vlan
+  - dhcp server for each vlan
+  - multi-homed dhcp + dhcp relay
+- [dhcp options](https://www.iana.org/assignments/bootp-dhcp-parameters/bootp-dhcp-parameters.xhtml)
+  - 15: domain name, 119: domain search
+  - 26: mtu
+
 ## application
 
 ## zeroconf
@@ -347,9 +356,6 @@ Representational state transfer (REST) is a style to design api.
 ## todo
 
 `nmap`
-
-multi-homed dhcp
-dhcp relay
 
 VRPP
 

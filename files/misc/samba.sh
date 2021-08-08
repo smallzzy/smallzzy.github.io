@@ -3,7 +3,7 @@
 # they do not match for ubuntu 20.04
 # currently, we deploy on 21.04 instead
 
-# setup samba 
+# 1. prepare samba for dc
 ## https://wiki.samba.org/index.php/Setting_up_Samba_as_an_Active_Directory_Domain_Controller
 # make sure time sync
 sudo timedatectl set-timezone
@@ -25,7 +25,7 @@ sudo apt-get install -y acl attr samba samba-dsdb-modules samba-vfs-modules winb
 # it will ask three questions about default realm, kdc server, admin_server 
 # it does not matter because krb.conf will be override later
 
-# 4. disable resolv.conf from being updated automatically
+# disable resolv.conf from being updated automatically
 # in this case, we change it to local bind server
 ## `/etc/resolv.conf -> ../run/systemd/resolve/stub-resolv.conf`
 sudo systemctl mask systemd-resolved
@@ -37,26 +37,27 @@ sudo rm /etc/resolv.conf
 # search samdom.example.com
 # nameserver <lan ip>
 
-# 5. disable sambda relate process
+# disable sambda relate process
 sudo systemctl stop samba-ad-dc.service smbd.service nmbd.service winbind.service
 sudo systemctl disable samba-ad-dc.service smbd.service nmbd.service winbind.service
 
-# 6. remove existing config and database
+# remove existing config and database
 smbd -b | grep "CONFIGFILE" | awk '{print $2}' | xargs -I % sudo mv % %.old
 smbd -b | egrep "LOCKDIR|STATEDIR|CACHEDIR|PRIVATE_DIR"  | awk '{print $2}' | xargs -I % sudo find % \( -name "*.tdb" -o -name "*.ldb" \) -exec mv {} {}.old \;
 sudo mv /etc/krb5.conf /etc/krb5.conf.old
 
-# 7. provision samba ad
+# 2. provision samba ad (primary)
 ## https://wiki.samba.org/index.php/Setting_up_Samba_as_an_Active_Directory_Domain_Controller
 sudo samba-tool domain provision --use-rfc2307 --interactive
 
-# 8. config bind service
+# config bind service
 ## use the following link to find out what to change in each section.
 ## https://wiki.samba.org/index.php/BIND9_DLZ_DNS_Back_End#Configuring_the_BIND9_DLZ_Module
 ## but the following link contains a more correct file path
 ## https://wiki.samba.org/index.php/Setting_up_a_BIND_DNS_Server#Installing_.26_Configuring_BIND_on_Debian_based_distros
 
 # named.conf.local
+## as a sancheck, cat this file & check version
 include "/var/lib/samba/bind-dns/named.conf";
 
 # named.conf.options
@@ -73,6 +74,67 @@ sudo cp /var/lib/samba/private/krb5.conf /etc/krb5.conf
 sudo systemctl unmask samba-ad-dc.service
 sudo systemctl enable --now samba-ad-dc.service
 
+# prepare osync
+## https://wiki.samba.org/index.php/Bidirectional_Rsync/osync_based_SysVol_replication_workaround
+## add ssh key to root
+## sysvol.conf
+INSTANCE_ID="sync_sysvol"
+INITIATOR_SYNC_DIR="/var/lib/samba/sysvol"
+TARGET_SYNC_DIR="ssh://syncuser@10.200.200.11:22//var/lib/samba/sysvol"
+SSH_RSA_PRIVATE_KEY="/root/.ssh/id_rsa"
+REMOTE_3RD_PARTY_HOSTS=""
+PRESERVE_ACL=yes
+PRESERVE_XATTR=yes
+SOFT_DELETE=yes
+REMOTE_RUN_AFTER_CMD="sudo /usr/bin/samba-tool ntacl sysvolreset"
+SUDO_EXEC=yes
+
+## bind.conf
+INSTANCE_ID="sync_bind"
+INITIATOR_SYNC_DIR="/etc/bind"
+TARGET_SYNC_DIR="ssh://syncuser@10.200.200.11:22//etc/bind"
+SSH_RSA_PRIVATE_KEY="/root/.ssh/id_rsa"
+REMOTE_3RD_PARTY_HOSTS=""
+PRESERVE_ACL=yes
+PRESERVE_XATTR=yes
+SOFT_DELETE=yes
+SUDO_EXEC=yes
+
+# 2.1 provision samba ad (secondary)
+## https://wiki.samba.org/index.php/Joining_a_Samba_DC_to_an_Existing_Active_Directory
+
+# new krb config
+[libdefaults]
+    dns_lookup_realm = false
+    dns_lookup_kdc = true
+    default_realm = SAMDOM.EXAMPLE.COM
+
+# join domain
+samba-tool domain join samdom.example.com DC -U"SAMDOM\administrator" \
+    --dns-backend=BIND9_DLZ \
+    --option='idmap_ldb:use rfc2307 = yes'
+
+# config bind (same as above)
+
+# prepare osync
+## add sync user && copy ssh key here
+sudo adduser --uid 1001 syncuser --disabled-password
+sudo visudo /etc/sudoers
+# syncuser ALL= NOPASSWD:SETENV:/usr/bin/rsync,/usr/bin/bash,/usr/bin/samba-tool,/usr/bin/systemctl restart bind9
+
+# copy over idmapping
+## this might be different on each dc
+sudo tdbbackup -s .bak /var/lib/samba/private/idmap.ldb
+sudo cp /var/lib/samba/private/idmap.ldb.bak ~
+## scp
+net cache flush
+## initial osync
+
+# start bind
+## check status, there might be permission problems
+sudo systemctl restart bind9
+
+## 2.2 various setting and tests
 # ldap tls is necessary?
 # https://wiki.samba.org/index.php/Configuring_LDAP_over_SSL_(LDAPS)_on_a_Samba_AD_DC
 
@@ -97,7 +159,7 @@ sudo samba_dnsupdate --verbose --all-names
 ## the realm has to be uppercase
 KRB5_TRACE=/dev/stdout kinit Administrator@SAMDOM.EXAMPLE.COM
 
-# linux join domain
+# 3. linux join domain
 ## timezone, hostname, (dns)
 ## avoid sssd generate mapping for uid
 sudo realm join --user=Administrator --automatic-id-mapping=no samdom.example.com
