@@ -56,6 +56,7 @@ fio
 stress: cpu
 
 [fio on google cloud](https://cloud.google.com/compute/docs/disks/benchmarking-pd-performance)
+https://www.mankier.com/1/stress-ng
 
 ## monitor
 
@@ -96,3 +97,6 @@ https://unix.stackexchange.com/questions/247209/how-to-use-cgroups-to-limit-all-
 - mellanox recommands to map each interrupt to a different cpu and only one cpu
   - `mlnx_tune`
   - `show_irq_affinity`
+
+https://developer.amd.com/resources/epyc-resources/epyc-tuning-guides/
+https://www.amd.com/en/processors/server-tech-docs/search
