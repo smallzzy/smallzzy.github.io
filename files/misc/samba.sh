@@ -76,29 +76,6 @@ sudo systemctl enable --now samba-ad-dc.service
 
 # prepare osync
 ## https://wiki.samba.org/index.php/Bidirectional_Rsync/osync_based_SysVol_replication_workaround
-## add ssh key to root
-## sysvol.conf
-INSTANCE_ID="sync_sysvol"
-INITIATOR_SYNC_DIR="/var/lib/samba/sysvol"
-TARGET_SYNC_DIR="ssh://syncuser@10.200.200.11:22//var/lib/samba/sysvol"
-SSH_RSA_PRIVATE_KEY="/root/.ssh/id_rsa"
-REMOTE_3RD_PARTY_HOSTS=""
-PRESERVE_ACL=yes
-PRESERVE_XATTR=yes
-SOFT_DELETE=yes
-REMOTE_RUN_AFTER_CMD="sudo /usr/bin/samba-tool ntacl sysvolreset"
-SUDO_EXEC=yes
-
-## bind.conf
-INSTANCE_ID="sync_bind"
-INITIATOR_SYNC_DIR="/etc/bind"
-TARGET_SYNC_DIR="ssh://syncuser@10.200.200.11:22//etc/bind"
-SSH_RSA_PRIVATE_KEY="/root/.ssh/id_rsa"
-REMOTE_3RD_PARTY_HOSTS=""
-PRESERVE_ACL=yes
-PRESERVE_XATTR=yes
-SOFT_DELETE=yes
-SUDO_EXEC=yes
 
 # 2.1 provision samba ad (secondary)
 ## https://wiki.samba.org/index.php/Joining_a_Samba_DC_to_an_Existing_Active_Directory
@@ -117,18 +94,6 @@ samba-tool domain join samdom.example.com DC -U"SAMDOM\administrator" \
 # config bind (same as above)
 
 # prepare osync
-## add sync user && copy ssh key here
-sudo adduser --uid 1001 syncuser --disabled-password
-sudo visudo /etc/sudoers
-# syncuser ALL= NOPASSWD:SETENV:/usr/bin/rsync,/usr/bin/bash,/usr/bin/samba-tool,/usr/bin/systemctl restart bind9
-
-# copy over idmapping
-## this might be different on each dc
-sudo tdbbackup -s .bak /var/lib/samba/private/idmap.ldb
-sudo cp /var/lib/samba/private/idmap.ldb.bak ~
-## scp
-net cache flush
-## initial osync
 
 # start bind
 ## check status, there might be permission problems
@@ -164,14 +129,10 @@ KRB5_TRACE=/dev/stdout kinit Administrator@SAMDOM.EXAMPLE.COM
 ## avoid sssd generate mapping for uid
 sudo realm join --user=Administrator --automatic-id-mapping=no samdom.example.com
 
-# check for id
 ## create new user 
 sudo samba-tool user create test
-## 1. because we specify rfc2307 + no auto mapping,
+## because we specify rfc2307 + no auto mapping,
 ## we need to add attr to user / group before they can be accessed on unix
-## 2. group id still carry over to users
-sudo samba-tool group addunixattrs 'Domain Users' 10000
-sudo samba-tool user addunixattrs administrator 10000
 ## check user id
 id administrator@samdom.example.com
 
@@ -182,7 +143,6 @@ id administrator@samdom.example.com
 ## https://serverfault.com/questions/679236/configure-realmd-to-allow-login-without-domain-name
 use_fully_qualified_names = False
 
-## todo: find out current uid to set?
 ## todo: sudo account?
 
 https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=859445
