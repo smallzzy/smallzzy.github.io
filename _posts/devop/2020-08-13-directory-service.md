@@ -87,22 +87,25 @@ olcRootPW: {SSHA}cZbRoOhRew8MBiWGSEOiFX0XqbAQwXUr
 
 ## ldap-tools
 
-* ldapsearch
-  * `-LLL`: reduce display data
-  * `-b`: search base
-* ldapwhoami
-  * `-D`: bind dn
-    * otherwise, dn = anonymous
-  * auth
-    * `-x`: plain text auth
-    * `-Y`: SASL method
-    * `-Y EXTERNAL`: only works for `ldapi`
-  * `-W`: interactive password
-  * `-H`
-    * `ldap://` tcp
-    * `ldapi:///` local unix socket
-  * `-ZZ`: force ssl
-* ldapadd
+In order to form a ldap connection, you need the following:
+
+1. `-H` URI
+   1. `ldap://` network
+      1. `-ZZ`: force ssl
+   2. `ldapi:///` local unix socket
+2. `-D`: bind DN. ie user account
+   1. `user@samdom.example.com` for ad 
+   2. otherwise, dn = anonymous
+3. authorization:
+   1. `-x`: plain text auth
+   2. `-Y`: SASL method
+   3. `-Y EXTERNAL`: only works for `ldapi`
+   4. `-W`: interactive password
+4. `-b`: search base. ie where to look for object
+
+* `-LLL`: reduce display data
+* common command: `ldapsearch`, `ldapwhoami`, `ldapadd`, `ldapmodify`
+
 * `man 5 ldap.conf`
   * the default should be `/etc/ldap/ldap.conf`
   * but other package might defined addtional files
