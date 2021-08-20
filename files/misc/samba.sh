@@ -138,7 +138,7 @@ id administrator@samdom.example.com
 
 ## samba unable to login
 ## https://serverfault.com/questions/872542/debugging-sssd-login-pam-sss-system-error
-# ad_gpo_access_control = permissive
+ad_gpo_access_control = permissive
 ## login without using domain
 ## https://serverfault.com/questions/679236/configure-realmd-to-allow-login-without-domain-name
 use_fully_qualified_names = False

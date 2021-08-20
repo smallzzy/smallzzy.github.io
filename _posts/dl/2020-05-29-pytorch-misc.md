@@ -75,7 +75,7 @@ https://github.com/Stonesjtu/pytorch_memlab
 
 ### DataParallel
 
-`torch/nn/parallel/data_parallel.py`
+https://github.com/pytorch/pytorch/blob/master/torch/nn/parallel/data_parallel.py
 
 > In each forward, `module` is **replicated** on each device, 
 > so any updates to the running module in `forward` will be lost.
@@ -84,7 +84,7 @@ https://github.com/Stonesjtu/pytorch_memlab
 
 ### DistributedDataParallel
 
-`torch/nn/parallel/distributed.py`
+https://github.com/pytorch/pytorch/blob/master/torch/nn/parallel/distributed.py
 
 > Parameters are never broadcast between processes.
 

@@ -124,6 +124,7 @@ IP suite (OSI)
    1. CSMA/CD
 2. Switch (different segment, same scope):
    1. segment determined by physical connection, scope determined by subnet mask
+      1. segment can be divided with vlan
    2. Address Resolution Protocol: knowing ip, broadcast request for a mac address
    3. redundant links to achieve high availibity (STP)
    4. multiple links for high throughput (aggregation)
@@ -146,32 +147,35 @@ IP suite (OSI)
   - by setting incrementing ttl number
 - `tracepath` also traces mtu size
 
-### reserved address
-
-- unicast: transmit from point to point
-  - unspecified: `0.0.0.0`, `::`
-  - loopback: `127.0.0.1`, `::1`
-- multicast: transmit to one group of addresses
-  - `224.0.0.0/4` `FF00::/8`
-  - [wiki](https://en.wikipedia.org/wiki/Multicast_address)
-- boardcast: transmit to a certain domain?
-  - ipv4
-- anycast: transmit to any one in the group
-  - ipv6
-
-### reserved scope
+### reserved ip range / scope
 
 - IPv4
-  - private(RFC 1918): 10./8, 172.16./12, 192.168./16
-  - link-local: 169.254.0.0/16
+  - private(RFC 1918): `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`
+  - link-local: `169.254.0.0/16`
 - IPv6
-  - link-local: fe80::/10
+  - link-local: `fe80::/10`
 
 ### IPv6
 
 - left-most continuous zero octets can be compressed as `::`
   - otherwise, each octet needs to retain at least one zero
 - wrapped in square bracket so `:` is not confused with port number
+
+### casting
+
+- boardcast domain: every node can reach others without routing
+  - i.e. segment in link layer
+
+- unicast: communicate with certain device
+  - unspecified: `0.0.0.0`, `::`
+  - loopback: `127.0.0.1`, `::1`
+- boardcast: communicate with all devices in a certain domain
+  - ipv4 supports boardcast in current subnet
+  - ipv6 do not support boardcast
+- multicast: communicate with some devices in a certain domain
+  - `224.0.0.0/4`, `FF00::/8`, [wiki](https://en.wikipedia.org/wiki/Multicast_address)
+- anycast: communicate with any single device in a certain domain
+  - ipv6
 
 ### fragmentation
 

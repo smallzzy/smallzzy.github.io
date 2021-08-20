@@ -29,3 +29,26 @@ summary:
   - `config interface ip add`
 - `show lldp neighbors`
 - `show interfaces status`: will print vlan port as trunk although that is not true
+
+## DX010 setup
+
+```bash
+# generate base config
+sonic-cfggen -H -k Seastone-DX010 --preset=l2 # > config_db.json
+config hostname sonic
+
+# error correction required for mellanox card
+for i in `seq 0 4 124`; do sudo config interface fec "Ethernet$i" rs; done
+
+# breakout does not work with command
+# for i in `seq 112 4 124`; do sudo config interface breakout "Ethernet$i" -u; done
+# https://gist.github.com/smallzzy/019daa996446dedf342694b1a70295b2
+```
+
+```json
+"MGMT_INTERFACE": {
+    "eth0|192.168.128.10/16": {
+        "gwaddr": "192.168.128.1"
+    }
+}
+```
