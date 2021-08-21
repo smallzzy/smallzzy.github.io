@@ -34,6 +34,8 @@ summary:
   - -p: process
   - -n: show numeric value (like ip) directly
 
+- `ping -I`: ping through interface
+
 ### other tools
 
 - find network interfaces `/sys/class/net`
@@ -252,11 +254,14 @@ IP suite (OSI)
 
 - tag range: 1-4094
 - access port / untagged port
+  - assign a given tag for incoming traffic
+  - drop tag for out-going traffic
 - trunk port / tagged port
-  - allow vlan to be transmitted between switches
-  - trunk port has native vlan and allowed vlan settings
-    - both need to match for communication
+  - assign `native vlan` if untagged
+  - retain vlan tag otherwise, (`allowed vlan`)
+  - native vlan and allowed vlan need to match for both router
     - otherwise, it might only work asymmetrically
+    - many routers have a native vlan of 1, which cannot even be changed. 
 - native vlan
   - configured per trunk
   - a untagged vlan on trunk port get native vlan
@@ -275,7 +280,7 @@ IP suite (OSI)
   - Router Interface: a single port to another router
   - Port Channel: port aggregation to another router
   - Vlan Interface: between vlan groups
-- L3 switch might have different forwarding capacity for L3 switching
+- Switch might have different forwarding capacity for L2 and L3
 
 ## transport
 
@@ -308,6 +313,8 @@ openucx
 - for vlan
   - dhcp server for each vlan
   - multi-homed dhcp + dhcp relay
+    - dhcp relay is able to carry subnet info to the dhcp server
+    - or does it carry vlan info?
 - [dhcp options](https://www.iana.org/assignments/bootp-dhcp-parameters/bootp-dhcp-parameters.xhtml)
   - 15: domain name, 119: domain search
   - 26: mtu

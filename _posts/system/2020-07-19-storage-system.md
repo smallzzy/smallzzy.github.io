@@ -247,6 +247,9 @@ tune2fs -m 0 /dev/sda # reduce reserve to 0
     * hot spare
     * intent log
     * cache devices
+  * dataset vs zvol:
+    * zvol is used to simulate block device on top of zfs
+    * `recordsize` vs `volblocksize`
 * tuning
   * `ashift=12`: depending on device, can be `13` for 8K native 
   * `xattr=sa`

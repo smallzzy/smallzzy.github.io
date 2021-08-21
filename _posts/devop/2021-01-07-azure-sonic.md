@@ -52,3 +52,9 @@ for i in `seq 0 4 124`; do sudo config interface fec "Ethernet$i" rs; done
     }
 }
 ```
+
+## IP Source Address Spoofing Protection 
+
+Source IP and/or VLAN mismatch
+
+https://documentation.meraki.com/MX/Firewall_and_Traffic_Shaping/IP_Source_Address_Spoofing_Protection
