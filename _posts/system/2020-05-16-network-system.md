@@ -251,10 +251,12 @@ IP suite (OSI)
 ## vlan 802.1q
 
 - tag range: 1-4094
-- trunk
-  - allow vlan to be transmitted between switch and / or switch
-  - trunk port / tagged port
-  - access port / untagged port
+- access port / untagged port
+- trunk port / tagged port
+  - allow vlan to be transmitted between switches
+  - trunk port has native vlan and allowed vlan settings
+    - both need to match for communication
+    - otherwise, it might only work asymmetrically
 - native vlan
   - configured per trunk
   - a untagged vlan on trunk port get native vlan
