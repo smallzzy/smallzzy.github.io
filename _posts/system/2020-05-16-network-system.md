@@ -262,10 +262,6 @@ IP suite (OSI)
   - native vlan and allowed vlan need to match for both router
     - otherwise, it might only work asymmetrically
     - many routers have a native vlan of 1, which cannot even be changed. 
-- native vlan
-  - configured per trunk
-  - a untagged vlan on trunk port get native vlan
-  - backward compatible with device w/o vlan
 - instead of configure vlan group on every device, configure on one device and propagte
   - GARP -> MRP
   - GMRP -> MMRP
@@ -281,6 +277,20 @@ IP suite (OSI)
   - Port Channel: port aggregation to another router
   - Vlan Interface: between vlan groups
 - Switch might have different forwarding capacity for L2 and L3
+
+## multicast routing
+
+- link layer vs protocol layer
+- join multicast group
+  - `ip maddr`
+  - `smcroute`
+- Multicast router
+  - implement on router, handle multicast request from client
+  - Rendovous Point 
+    - points to core router, which learns all multicast grouping
+    - so that edge router only need to care about a subset.
+- IGMP snooping: implement on switch, make sure that port that is not in a multicast group receive nothing
+- PIM-SM
 
 ## transport
 
@@ -339,6 +349,8 @@ openucx
   - returns SRV and TXT
 
 http://www.dns-sd.org/ServiceTypes.html
+
+https://support.umbrella.com/hc/en-us/articles/232254248-Common-DNS-return-codes-for-any-DNS-service-and-Umbrella-
 
 LLDP?
 SNMP?

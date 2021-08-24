@@ -60,7 +60,13 @@ export LD_LIBRARY_PATH=$CUDA_PATH/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 ### cudnn
 
-todo:
+```bash
+# copy file into place as shown in guide
+https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html
+
+# make sure it is registered in path
+sudo ldconfig
+```
 
 ### tensorrt
 
