@@ -57,6 +57,8 @@ openapi
 mountainduck
 rclone
 osync
+cho easy copy
+https://docs.aws.amazon.com/snowball/latest/developer-guide/batching-small-files.html
 
 ## misc
 

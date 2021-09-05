@@ -15,6 +15,7 @@ summary:
 - static ip: `ip addr add/del 192.168.50.5 dev eth1`
 - routing table:
   - `ip route show`
+    - lower metric has higher priority
   - static route `ip route add 10.10.20.0/24 via 192.168.50.100 dev eth0`
     - default gateway: `ip route add default`
   - check which route will be taken `ip route get`
