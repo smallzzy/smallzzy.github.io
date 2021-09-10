@@ -44,6 +44,26 @@ ldapadd -H ldaps://ad.kneron.com -D "ad\Administrator" -W -f sudoers_ou.ldif
 ## remote manage via samba-tool
 # use ldaps when possible
 samba-tool <cmd> -H ldaps://samdom.example.com -UAdministrator
+
+## create new user 
+samba-tool user create test
+
+## because we specify rfc2307 + no auto mapping,
+## we need to add attr to user / group before they can be accessed on unix
+
+# in newer version samba-tool, available on ubuntu 21.04
+# there is addunixattrs
+
+## first, assign a base group to every user (only required once)
+samba-tool group addunixattrs 'Domain Users' 10000
+
+## then, assign attr to user
+samba-tool user addunixattrs test
+# --gid-number defaults to value as Domain Users
+# --unix-home defaults to /home/DOMAIN/username
+# --login-shell defaults to /bin/sh
+
+# on older samba-tool, you can need to add attribute manually
 samba-tool user edit
 # you need to edit the following attribute
 # for group
@@ -59,12 +79,6 @@ unixHomeDirectory: /home/user_name
 
 # not necessary?
 # msSFU30NisDomain:
-
-# in newer version samba-tool, available on ubuntu 21.04
-samba user addunixattrs
-# --gid-number defaults to value as Domain Users
-# --unix-home defaults to /home/DOMAIN/username
-# --login-shell defaults to /bin/sh
 
 ## file access control
 ## do not allow delete on synology

@@ -129,10 +129,6 @@ KRB5_TRACE=/dev/stdout kinit Administrator@SAMDOM.EXAMPLE.COM
 ## avoid sssd generate mapping for uid
 sudo realm join --user=Administrator --automatic-id-mapping=no samdom.example.com
 
-## create new user 
-sudo samba-tool user create test
-## because we specify rfc2307 + no auto mapping,
-## we need to add attr to user / group before they can be accessed on unix
 ## check user id
 id administrator@samdom.example.com
 
