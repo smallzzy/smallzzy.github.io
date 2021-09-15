@@ -100,3 +100,4 @@ https://unix.stackexchange.com/questions/247209/how-to-use-cgroups-to-limit-all-
 
 https://developer.amd.com/resources/epyc-resources/epyc-tuning-guides/
 https://www.amd.com/en/processors/server-tech-docs/search
+https://www.amd.com/system/files/documents/amd-epyc-7002-tg-hpc-56827.pdf

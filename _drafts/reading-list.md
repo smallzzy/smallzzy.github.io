@@ -92,3 +92,8 @@ bios nvram
     - acquired by epic?
   - oodle compression
   - rate distortion optimization (RDO)
+  
+boost intrusive
+
+sicp
+the art of computer program Knuth

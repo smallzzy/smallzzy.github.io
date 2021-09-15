@@ -10,7 +10,30 @@ summary:
 
 ## boot process
 
-### boot loaders
+- ROM: on chip **proprietary** program. Load code from several preprogrammed location
+  - program only have access to on chip sram at this stage
+- secondary stage program loader: bios, uefi, 
+  - bring up other system parts
+  - load TPL into DRAM (main memory)
+- third stage program loader: grub, uboot
+  - efi system partition (esp)
+    - <ESP>/boot/boot<>.efi
+    - fat32, unique GUID value
+  - note: it is possible to load into dram via jtag directly
+- kernel
+
+## kernel
+
+- ram size, location
+- cpu clock
+- kernel command line
+- device tree (optional)
+- ramdisk (optional)
+
+### device tree
+
+- content verified with kernel schema
+- compiled into dtb when deployed
 
 ### initramfs
 
@@ -29,6 +52,8 @@ summary:
     - `binwalk initrd.img`: check where each archive locates
     - `dd if=initrd.img bs=21136 skip=1 | gunzip | cpio -idv`: extract from specific location
 
+## root filesystem
+
 ### mtd 
 
 https://bootlin.com/blog/managing-flash-storage-with-linux/
@@ -46,5 +71,3 @@ https://bootlin.com/blog/managing-flash-storage-with-linux/
 $DISPLAY
 xauth add $DISPLAY . hexkey
 xauth remove $DISPLAY
-
-boost intrusive
