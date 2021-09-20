@@ -320,3 +320,16 @@ https://github.com/cernceph/ceph-scripts
 [disk firmware](https://firmware.hddsurgery.com/index.php)
 
 mylto - tape
+
+
+https://www.tjansson.dk/2013/09/migrate-from-raid-6-to-raid-5-with-mdadm/
+
+# efi parition is mounted for easy upgrade?
+sudo grub-install --target=x86_64-efi --efi-directory=/mnt/esp 
+parted 
+set esp on?
+
+https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/What_are_the_NFS_mount_options_for_databases_on_NetApp
+
+https://dev.mysql.com/doc/refman/8.0/en/disk-issues.html
+
