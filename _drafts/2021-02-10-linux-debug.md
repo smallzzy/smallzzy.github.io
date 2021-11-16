@@ -10,31 +10,7 @@ summary:
 
 ## printk
 
-- if compiled with `DEBUG`, `pr_debug` are replaced with `printk(KERN_DEBUG`
-- `console_loglevel`
-  - `cat /proc/sys/kernel/printk`
-  - `current default minimum boot-time-default`
 - `dmesg`: `-w` follow, `-H` human readable format
-- [dynamic debug](https://www.kernel.org/doc/html/v4.19/admin-guide/dynamic-debug-howto.html)
-  - `pr_debug` can be enabled per-callsite
-  - enable via `<debugfs>/dynamic_debug/control`
-  - ex: `echo 'module usbcore =p' >/sys/kernel/debug/dynamic_debug/control`
-- change dmesg size in boot parameter: `log_buf_len=5M`
-
-### syslog
-
-- logging content are present on the following file
-  - `/dev/log`: local unix socket which is read by syslogd
-    - write by `syslog()` in libc
-  - `/dev/kmsg`: content of kernel message ring buffer
-    - write by `klogd` in kernel
-- rsyslog is one impl for syslogd
-  - config in `/etc/rsyslog.conf`
-  - write to `/var/log`
-  - `imuxsock`: read from `/dev/log`
-  - `imjournal`, `omjournal`: let rsyslog talk to journald
-- journald can also process logging
-  - write to `/var/log/journal` (persistent) or `/run/log/journal` (volatile)
 
 ## debug
 
@@ -73,19 +49,6 @@ Statically built kernel parameters are available at `/proc/sys`
 Which can be accessed via `sysctl`, `/etc/sysctl.conf`
 
 `sysctl -p`
-
-## kernel module
-
-```bash
-lsmod
-modprobe
-# print available module param
-modinfo
-```
-
-* change kernel module parameters
-  * at runtime: `echo 0 > /sys/module/<mod>/parameters/<param>`
-  * at boot: `echo "options <mod> <param>=0" >> /etc/modprobe.d/<>`
 
 ## oops
 
