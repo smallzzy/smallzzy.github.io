@@ -26,6 +26,7 @@ summary:
   - `cat /proc/sys/kernel/printk`
     - `current default minimum boot-time-default`
   - `echo 8 > /proc/sys/kernel/printk`
+  - [logging level](https://elinux.org/Debugging_by_printing)
 - [dynamic debug](https://www.kernel.org/doc/html/v4.19/admin-guide/dynamic-debug-howto.html)
   - if compile kernel with `CONFIG_DYNAMIC_DEBUG=y`, `pr_debug` can be enabled per-callsite
   - enable certain module, ex: `echo 'module usbcore =p' >/sys/kernel/debug/dynamic_debug/control`
