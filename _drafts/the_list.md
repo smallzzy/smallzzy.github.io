@@ -73,6 +73,7 @@ dbeaver
 flashrom
 netbox: infastructure 
 goby?
+process lasso
 
 ## ui
 

@@ -101,3 +101,16 @@ https://unix.stackexchange.com/questions/247209/how-to-use-cgroups-to-limit-all-
 https://developer.amd.com/resources/epyc-resources/epyc-tuning-guides/
 https://www.amd.com/en/processors/server-tech-docs/search
 https://www.amd.com/system/files/documents/amd-epyc-7002-tg-hpc-56827.pdf
+
+## numa
+
+```
+# bind process w.r.t resource locality. ex. netdev, pcie
+numactl
+# numa memory hit / miss
+numastat
+# per process numa allocation
+/proc/<pid>/numa_maps
+```
+
+https://frankdenneman.nl/2016/07/11/numa-deep-dive-part-3-cache-coherency/

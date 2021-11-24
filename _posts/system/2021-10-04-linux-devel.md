@@ -37,9 +37,10 @@ summary:
 ### static linked
 
 - static module: `/proc/sys/<modules>/<param>`
-  - same at `sysctl -a`
+  - same as `sysctl -a`
 - they can be change temporarily with `sysctl -w`
   - or permanently with `sysctl.conf`
+  - reload from config file with `sysctl --system` or `sysctl -p` 
 
 ### module
 
