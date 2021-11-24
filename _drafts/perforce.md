@@ -8,8 +8,14 @@ there is 4 components that is involved:
 - P4CLIENT: client name when setting up workspace
   - by using same cient name, perforce will copy over existing workspace setting
 
+### .p4config
+
+- put at root of workspace root for easy switching
+  - no need to set up environment variable
+
 ## p4 client
 
+- modify the options for the current workspace
 - `-d`: remove a client (i.e. workspace)
 - `Options`:
   - `nocompress`
@@ -32,11 +38,6 @@ there is 4 components that is involved:
   - only the normal view can be edited
   - make file appear on different position
 
-## .p4config
-
-- put at root of workspace root for easy switching
-  - no need to set up environment variable
-
 ## p4 sync
 
 - p4 does not actively check if files are modified
@@ -50,7 +51,8 @@ there is 4 components that is involved:
 
 ## p4 edit
 
-- prepare p4 to sync those file
+- open the specified file as read-write
+  - by default, files are opened read-only
 - `-t`: type = specify how a file is stored
   - `+l`: exclusive lock
 - `-c`: pending change list?
@@ -87,15 +89,28 @@ p4 delete old
 - `-k`: keep changes in workspace
 - `-w`: remove if added
 
+## p4 change
+
+- create a numbered changelist
+  - vs default changelist
+- `p4 reopen` for moving files between changelist
+
+## p4 changes 
+
+- filter changelist on the server
+  - will list out all changelist if no parameter is given
+- `-u`: user name
+- `-s`: status
+  - `pending`, `submitted`, `shelved`
+
 ## p4 shelve / p4 unshelve
 
 - temporarily store your changes on the server
-  - create a numbered changelist with those files
   - allow changes to be shared
-- `shelve -r -c`: replace shelved files:
-- `shelve -d -c`: remove files from shelf
+- `shelve -r`: replace shelved files with local version
+- `shelve -d`: remove files from shelf
 
-- `unshelve -s`: restore from shelf
+- `unshelve -s`: restore shelved files
 
 ## p4 submit
 
