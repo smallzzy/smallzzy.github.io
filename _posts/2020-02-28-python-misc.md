@@ -148,6 +148,10 @@ sound/                        Top-level package
 > Since the name of the main module is always `__main__`,
 > modules intended for use as the main module of a Python application must always use absolute imports.
 
+### import at runtime 
+
+`my_module = importlib.import_module('os.path')`
+
 ## setup.py
 
 ```python

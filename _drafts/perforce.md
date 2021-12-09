@@ -94,6 +94,7 @@ p4 delete old
 - create a numbered changelist
   - vs default changelist
 - `p4 reopen` for moving files between changelist
+- `-u`: update a submitted changelist
 
 ## p4 changes 
 
@@ -132,6 +133,10 @@ look at server files without sync
 
 - integrate file from one depot to another
 - integrate takes a intersection from workspace and branch flow
+- instead of hand picking what file to integrate each time, we can use branchview
+  - setup a static integration path for repeating integration
+  - find out what branch exist `p4 branches -e <branch name regex>`
+- `p4 integrate -b branchname -s fromFile[revRange] `
 
 ## p4 resolve / resolved
 
@@ -157,3 +162,8 @@ block other from committing a file
 show how files would be mapped
 
 p4 have: see what is available in workspace
+
+## blame
+
+`p4 filelog`: for file history
+`p4 annoate`: line by line changes
