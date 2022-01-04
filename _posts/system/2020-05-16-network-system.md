@@ -25,7 +25,7 @@ summary:
 - maxmtu: `ip -d link list`
   - set mtu: `ip link set dev eth0 mtu 1400`
 
-- ethtool: check network interface status
+- ethtool: check interface status, including negotiated speed
   - `-m`: read eeprom info
   - `-t`: self test
 
