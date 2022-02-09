@@ -90,6 +90,19 @@ For names in templates, there is a two phase name lookup.
   - otherwise, fail
   - `enable_if_t<bool> * = nullptr`
 
+## variadic template
+
+A base declaration + a recursive template
+
+- the base declaration can be a template specialization
+- the recursion is resolved at compile time
+  - va_ macros will resolve at runtime
+- empty base optimization
+  - base class of size 0 will be optimized away (with some limitation)
+  - `clang -cc1 -fdump-record-layouts`
+
+https://eli.thegreenplace.net/2014/variadic-templates-in-c/
+
 ## c++ concepts
 
 Just like trait in rust, it is time to specify constraint for template parameter.
