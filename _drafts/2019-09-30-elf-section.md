@@ -12,6 +12,10 @@ summary:
 
 [https://docs.oracle.com/cd/E23824_01/html/819-0690/chapter6-46512.html#scrolltoc]
 
+https://blogs.oracle.com/solaris/post/inside-elf-symbol-tables
+
+https://blogs.oracle.com/solaris/post/what-are-tentative-symbols
+
 ## tools
 
 [nm result](https://sourceware.org/binutils/docs/binutils/nm.html)
@@ -57,6 +61,9 @@ gdb -batch -ex 'set disassembly-flavor intel' -ex 'file <bin>' -ex 'disassemble 
 ```bash
 strip
 --strip-unneeded
+
+symtab
+dynsym
 ```
 
 ## c++ name mangling

@@ -1,51 +1,53 @@
 ---
 layout: post
-title: 
+title:
 date: 2019-10-25 16:52
-category: 
-author: 
+category:
+author:
 tags: [compile]
-summary: 
+summary:
 ---
+
+https://gcc.gnu.org/onlinedocs/gcc/Option-Index.html#Option-Index
 
 ## flags
 
-* basic: `-pedantic -Wall -Wextra` 
-* error: `-Werror -Wl,--fatal-warnings`
-* math: `-Wcast-align -Wfloat-equal -Wsign-compare`
-* use gold linker: `-fuse-ld=gold`
-* build id: `-Wl,--build-id`
-* compile options record: `-frecord-gcc-switches`
-* generate compile dependency: `-MM`
+- basic: `-pedantic -Wall -Wextra`
+- error: `-Werror -Wl,--fatal-warnings`
+- math: `-Wcast-align -Wfloat-equal -Wsign-compare`
+- use gold linker: `-fuse-ld=gold`
+- build id: `-Wl,--build-id`
+- compile options record: `-frecord-gcc-switches`
+- generate compile dependency: `-MM`
 
 ## spec file
 
 [format](https://gcc.gnu.org/onlinedocs/gcc/Spec-Files.html)
 
-* customize linker behavior
-  * link to a different set of libraries
-    * `newlib`, `newlib_nano`
-  * change link flag
+- customize linker behavior
+  - link to a different set of libraries
+    - `newlib`, `newlib_nano`
+  - change link flag
 
 ### semihosting
 
-* `--specs=rdimon.specs`: printf is redirected to host machine using jtag
+- `--specs=rdimon.specs`: printf is redirected to host machine using jtag
 
 ## reduce binary size
 
 function remove:
 
-* mark with: `-ffunction-sections -fdata-sections`
-* remove with: `-Wl,--gc-sections`
+- mark with: `-ffunction-sections -fdata-sections`
+- remove with: `-Wl,--gc-sections`
 
 remove rtti `-fno-rtti`
 
 ## performance flags
 
-* link time optimization `-lto`
-  * optimize across compilation unit
-* profile guided optimization
-  * hot cold splitting
+- link time optimization `-lto`
+  - optimize across compilation unit
+- profile guided optimization
+  - hot cold splitting
 
 [function attibute](https://gcc.gnu.org/onlinedocs/gcc/Function-Attributes.html)
 
@@ -53,7 +55,7 @@ remove rtti `-fno-rtti`
 
 > an object of one type is assumed never to reside at the same address as an object of a different type
 
-* optimization (such as re-order) might took place against our intention.
+- optimization (such as re-order) might took place against our intention.
 
 ### type aliasing in c++
 
@@ -66,26 +68,26 @@ memcpy, bit_cast, union, aggregate?
 
 In a stack frame, we have:
 
-* top
-* local variable
-* return address
-* parameter
-* bottom
+- top
+- local variable
+- return address
+- parameter
+- bottom
 
 And
 
-* stack pointer, which points to the top of the stack
-* frame pointer, which points to the return address of function
-  * a frame pointer is needed when we have variable stack length ex. alloca
+- stack pointer, which points to the top of the stack
+- frame pointer, which points to the return address of function
+  - a frame pointer is needed when we have variable stack length ex. alloca
 
 With the flag,
 
-* `-fno-omit-frame-pointer`
-  * compiler will always generate frame pointer
-  * can help with debug because variable position can be easily determined
-* `-fomit-frame-pointer`
-  * can reduce code size when frame pointer is not necessary
-  * it might still get generated when compiler determine it is necessary
+- `-fno-omit-frame-pointer`
+  - compiler will always generate frame pointer
+  - can help with debug because variable position can be easily determined
+- `-fomit-frame-pointer`
+  - can reduce code size when frame pointer is not necessary
+  - it might still get generated when compiler determine it is necessary
 
 ## overloaded virtual
 
@@ -110,8 +112,8 @@ class derived : public base
 public:
     // method 1
     // using base::execption;
-    virtual void exception() 
-    { 
+    virtual void exception()
+    {
         intermediate::exception("derived:unknown exception");
     }
     // method 2
@@ -151,14 +153,22 @@ This flag will show the shadowing as a warning.
 
 ## pre-compile header
 
-* avoid header being processed multiple times in larger project
-* generate `.gch` file which take precedence over normal header file
-* only one pre-compile header can be used in one translation unit
-* ASLR can generate not binary identical `.gch` file
-  * gch is a dump of compiler parsing state?
-* any macro must be defined the same way when compiling the header
-  * cannot use compiled header over c / c++
-* debug info must be the same format, but can be ignored
+- avoid header being processed multiple times in larger project
+- generate `.gch` file which take precedence over normal header file
+- only one pre-compile header can be used in one translation unit
+- ASLR can generate not binary identical `.gch` file
+  - gch is a dump of compiler parsing state?
+- any macro must be defined the same way when compiling the header
+  - cannot use compiled header over c / c++
+- debug info must be the same format, but can be ignored
+
+## gcc path
+
+- `-print-file-name`: print file path to certain file
+  - very helpful when use library from gcc
+- `--sysroot`: change gcc base folder for searching headers
+- `gcc -E -Wp,-v -xc /dev/null`: print what the include path is
+  - https://stackoverflow.com/questions/17939930/finding-out-what-the-gcc-include-path-is
 
 ## todo
 
@@ -168,7 +178,8 @@ sized-deallocation
 -Wl,--hash-style=gnu
 -Wl,-Bsymbolic-functions
 --dynamic-list
--print-file-name
 ```
 
 coverage
+
+-dM : generate a list of ‘#define’ directives for all the macros defined during the execution of the preprocessor, including predefined macros
