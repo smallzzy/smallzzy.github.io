@@ -8,7 +8,6 @@ tags: [lang]
 summary:
 ---
 
-https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html
 https://doc.rust-lang.org/std/index.html
 
 ## basic
@@ -22,13 +21,15 @@ https://doc.rust-lang.org/std/index.html
   - specify data type `let b:i32 = 20;`
     - local rule: type is inferred by usage instead of by literal type
 
-- `const` and `static` need to specify data type
+- `const` need to specify data type
   - for global variable, local rule inference will be hard to achieve
   - `const` is immutable
 
+`&'static`
+
 ### primitive data type
 
-- bool
+- `bool`
 - numeric type `i8, i16, i32, i64`, `u`, `f32, f64`
   - `isize, usize`: native width
   - infix notation (vs prefix, postfix)
@@ -46,55 +47,86 @@ https://doc.rust-lang.org/std/index.html
   - `let (a, b) = tuple;`
 - struct
   - `struct a {}`
-  - field init shorthand, make variable name the same as field name
-  - struct update syntax, `..object`
-  - tuple struct, different type despite same content
-- enum
-  - `Option<T>`
-  - `Result<T, E>`
-  - `unwrap`, `unwarp_or_else`, `?`
+    - field init shorthand, make variable name the same as field name
+    - struct update syntax, `..object`
+  - tuple struct
+    - will become different type even if structs have same content
+  - unit struct, for implement trait?
 
-`help: ...or a vertical bar to match on multiple alternatives`
-
-### char, string
-
-- char literal, ex `'a'`
-
-`String, str, char [u8]` ?
-
-- `str` `String`
-- string use `"`. And use `{}` as a placeholder for formatting.
-  - data owner
+```rust
+// enum, tagged union
+enum Message {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+    ChangeColor(i32, i32, i32),
+}
+```
 
 ### array, slice
 
 ```rust
 [1, 2, 3]; // array
 [0; 3];    // array with 0 repeated three times
-[u8; 3]; // type: u8 array with 3 elements, size matters in type system
-&[u8]    // type: slice of a u8 array
+[u8; 3]    // type: u8 array with 3 elements, size matters in type system
+&[u8]      // type: slice of a u8 array
 ```
 
 - taking reference to a array returns a slice.
   - `let hello = &s[0..5];`
-- slice a view on another array
+
+### char, string
+
+- `[u8]` byte array
+- `char`, char literal (ex `'a'`)
+  - One unicode scalar value
+  - 4 byte fixed size
+- `str`, string literal (ex `"hello"`)
+  - UTF-8 encoded
+  - owned type `String`
 
 ## control
 
 - `if`, `else if`, `else`
-- `match`
-  - `=>` make function call
-  - `if let`
 - `for <> in <>`, `while`, `loop`
   - `n..m`, exclusive
   - `n..=m`, inclusive
   - `n..`?
   - `'label` `break 'label`: break nested loop
+- `match`
+  - need to cover all variants
 
 ```rust
+// switch case
 let result = match item {
-    42 | 132 => "hit",
-    _ => "miss",
+    // match certain item
+    42 | 132 => 1,
+    // call-all and use the captured value
+    other => other + 1
+    // call-all and ignore
+    _ => 2
+}
+
+// match can be used for enum to match against type
+let result = match message {
+    // match certain item
+    Quit => "quit",
+    // capture value
+    Move(move) => move
+    // call-all
+    _ => 2
+}
+
+// if-let: the following two part is equivalent
+let config_max = Some(3u8);
+match config_max {
+  Some(max) => println!("The maximum is configured to be {}", max),
+  _ => (),
+}
+
+let config_max = Some(3u8);
+if let Some(max) = config_max {
+  println!("The maximum is configured to be {}", max);
 }
 ```
 
@@ -108,8 +140,9 @@ let result = match item {
   - `& mut` mutable reference
     - need variable to be mutable as well
   - both reference types can appear in the same scope as long as they do not overlap
-- dereference `*`: get the referenced variable?
-  - trait `deref`
+- dereference `*`:
+  - get the referenced variable for changing its value?
+  - `deref` trait
 
 - scope: variable owner release when scope ends
 - move: by default, transfer ownership when assignment or pass into function
@@ -120,6 +153,8 @@ let result = match item {
   - reference coersion
     - in which case, explicit lifetime might be necessary
     - `fn add_with_lifetime<'a, 'b>(i: &'a i32, j:&'b i32) -> i32`
+
+https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html
 
 ## statement, expression, function, method
 
@@ -134,28 +169,22 @@ https://doc.rust-lang.org/reference/expressions.html
 - expression
   - place expression (lvalue)
   - value expression (rvalue)
-- function return type use `->`
+- function `fn`
+  - use `->` for return type
   - function without return type returns `()`
   - `()` unit type
   - `!` never type -> function never returns
+- method
+  - `impl`
 - closure
   - `|parameter| {}`
   - `move`: force capture
-
-## Vec
-
-```rust
-Vec<T>
-let mut tags: Vec<usize> = Vec::new();
-```
 
 ## trait
 
 - interface inheritance rather than implementation inheritance
   - Prefer Composition to Inheritance
   - if it quacks, it's a duck
-- a lot of rust operations can be override by traits
-  - Copy, Iterator
 
 ## generic
 
@@ -167,6 +196,10 @@ let mut tags: Vec<usize> = Vec::new();
 - struct
 - trait
 
+  - `Option<T>`
+  - `Result<T, E>`
+  - `unwrap`, `unwarp_or_else`, `?`
+
 ## concurrent
 
 not thread safe type cannot cross thread boundary
@@ -177,8 +210,27 @@ Arc, Mutex
 
 ## macro
 
+- compiler can help generate code
+  - `println!`, `panic!`, `assert!`
+  - derive
+    https://doc.rust-lang.org/rust-by-example/trait/derive.html
+    https://doc.rust-lang.org/std/fmt/index.html
+
+
+- `#[cfg(test)]`
 - `if cfg!(debug_assertions) { … }`
-- `!` marks a macro. But return code rather than value.
+`#[test]` -> unit test / integration test #[cfg(test)]
+
+?
+
+```rust
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    #[should_panic]
+```
 
 ## carge
 
@@ -190,6 +242,15 @@ doc
 - `\\`: normal comment
 - `\\\`: document for the following block
 - `\\!`: document but for this file
+
+## module
+
+- `mod`: private by default
+  - `pub`
+  - `use`: bring path into scope
+    - `use std::time::{self, SystemTime};`
+    - `use std::time::*;`
+    - `as`: rename
 
 ## lib
 
@@ -204,11 +265,15 @@ bindgen - generate rust ffi bindings to c library
 serde: de/serialization for any type
 Rayon, parallel iterator access?
 
+## collections
+
+```rust
+Vec<T>
+Vec::new();
+vec![]; // macro to construct list directly
+```
+
 ## todo
-
-tagged union?
-
-`#[test]` -> unit test / integration test #[cfg(test)]
 
 `#[global_allocator]`
 jemalloc
@@ -225,4 +290,3 @@ dynamic dispatch?
 reflection?
 runtime assisted debug?
 
-println! will create a immutable reference.
