@@ -19,13 +19,13 @@ https://doc.rust-lang.org/std/index.html
     - no such thing as mutable type?
   - same name can be rebind to other type in the same scope (shadowing)
   - specify data type `let b:i32 = 20;`
-    - local rule: type is inferred by usage instead of by literal type
 
 - `const` need to specify data type
-  - for global variable, local rule inference will be hard to achieve
   - `const` is immutable
 
-`&'static`
+- local rule: type is inferred by usage instead of by literal type
+  - one example is to enables `collect` to work in reverse
+  - for global variable, type inference will be hard to achieve
 
 ### primitive data type
 
@@ -77,13 +77,16 @@ enum Message {
 
 ### char, string
 
-- `[u8]` byte array
+- `&[u8]` byte slice
 - `char`, char literal (ex `'a'`)
   - One unicode scalar value
   - 4 byte fixed size
-- `str`, string literal (ex `"hello"`)
+- `&str`, string slice
+  - string literal (ex `let t: &'static str = "hello";`)
   - UTF-8 encoded
   - owned type `String`
+
+there is no non-reference string type?
 
 ## control
 
@@ -101,6 +104,8 @@ enum Message {
 let result = match item {
     // match certain item
     42 | 132 => 1,
+    // match with if
+    x if x < 4 => 3,
     // call-all and use the captured value
     other => other + 1
     // call-all and ignore
@@ -116,8 +121,10 @@ let result = match message {
     // call-all
     _ => 2
 }
+```
 
-// if-let: the following two part is equivalent
+```rust
+// if-let (while-let): the following two part is equivalent
 let config_max = Some(3u8);
 match config_max {
   Some(max) => println!("The maximum is configured to be {}", max),
@@ -135,6 +142,19 @@ if let Some(max) = config_max {
 - variable has only one owner
   - cannot `drop` after move -> no double free
   - cannot reference after move -> no dangling pointer
+  - scope: variable owner release when scope ends
+- move: operations 'consumes' by default (taking ownership)
+  - std::marker::Copy -> copy type is always copied?
+  - std::clone::Clone
+- borrow: keep original ownership by using reference
+  - reference lifetime `<'a>` or `&'a`
+  - reference coersion
+    - in which case, explicit lifetime might be necessary
+    - `fn add_with_lifetime<'a, 'b>(i: &'a i32, j:&'b i32) -> i32`
+- special thing
+  - destructuring
+  - partial move
+
 - one mutable reference or many immutable reference
   - `&` immutatable reference
   - `& mut` mutable reference
@@ -144,17 +164,20 @@ if let Some(max) = config_max {
   - get the referenced variable for changing its value?
   - `deref` trait
 
-- scope: variable owner release when scope ends
-- move: by default, transfer ownership when assignment or pass into function
-  - std::marker::Copy
-  - std::clone::Clone
-- borrow: keep original ownership by using reference
-  - reference lifetime `<'a>` or `&'a`
-  - reference coersion
-    - in which case, explicit lifetime might be necessary
-    - `fn add_with_lifetime<'a, 'b>(i: &'a i32, j:&'b i32) -> i32`
-
 https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html
+
+```rust
+// ref vs &
+ref x = 1;
+let x = &1;
+
+// & vs *
+let &y = x;
+let y = *x;
+```
+
+`&'static`
+
 
 ## statement, expression, function, method
 
@@ -176,9 +199,32 @@ https://doc.rust-lang.org/reference/expressions.html
   - `!` never type -> function never returns
 - method
   - `impl`
-- closure
-  - `|parameter| {}`
-  - `move`: force capture
+  - `self`
+  - `Self`: refer to current type
+- closure `|parameter| {}`
+  - capture: take varaible from current scope
+  - parameter: pass variable at the call site
+  - `move`: force copy or clone
+
+```
+Closures can capture variables:
+
+  by reference: &T
+  by mutable reference: &mut T
+  by value: T
+
+They preferentially capture variables by reference and only go lower when required.
+
+Depending on what is captured, closures can have the following types:
+
+  Fn: the closure uses the captured value by reference (&T)
+  FnMut: the closure uses the captured value by mutable reference (&mut T)
+  FnOnce: the closure uses the captured value by value (T)
+
+Depending on the closure paramter, we can determine what is passed at call site.
+
+ FnMut(&Self::Item) vs FnMut(Self::Item)
+```
 
 ## trait
 
@@ -189,24 +235,40 @@ https://doc.rust-lang.org/reference/expressions.html
 ## generic
 
 - function
-  - single upper case letters used in place of a type
   - `fn add(i: T, j: T) -> T`
+- `struct Wrapper<T>`
+- `impl<T> Wrapper<T>`
+- trait bound:
   - generic types can take traits which place constraints on the type
-  - `fn add<T: Add<Output = T>>(i: T, j: T) -> T`
-- struct
-- trait
+  - `fn print<T: std::fmt::Display>(i: T, j: T) -> T`
+  - or with the `where` clause https://doc.rust-lang.org/rust-by-example/generics/where.html
 
-  - `Option<T>`
-  - `Result<T, E>`
-  - `unwrap`, `unwarp_or_else`, `?`
+- `Option<T>`: Some(T), None
+- `Result<T, E>`: Ok(T), Err(E)
+  - `main` can return `Result`
+- `unwrap`: panic if unable to unwarp
+  - `unwarp_or_else`
+- `?` return if unable to unwarp
+- map_err: convert error to another type
+
+`::<T>` turbofish
 
 ## concurrent
 
 not thread safe type cannot cross thread boundary
 
-Box
-Rc, RefCell
-Arc, Mutex
+- `Box` smart heap pointer
+  - for dynamic size type or recursive type
+  - `dyn` for trait bound type
+- `Cell`, `RefCell`: manage mutability at multiple positions
+  - interior mutability?
+- `Arc` atomic reference count
+  - when cloned, the reference count is increased
+  - `Rc`
+- `Mutex` -> `MutexGuard`
+  - poisoned when a thread holding the lock panics
+    - further lock will have `Err` result
+    - `into_inner`
 
 ## macro
 
@@ -232,7 +294,16 @@ mod tests {
     #[should_panic]
 ```
 
-## carge
+## module
+
+- `mod`: private by default
+  - `pub`
+  - `use`: bring path into scope
+    - `use std::time::{self, SystemTime};`
+    - `use std::time::*;`
+    - `as`: rename
+
+## cargo
 
 ```
 cargo add
@@ -242,15 +313,7 @@ doc
 - `\\`: normal comment
 - `\\\`: document for the following block
 - `\\!`: document but for this file
-
-## module
-
-- `mod`: private by default
-  - `pub`
-  - `use`: bring path into scope
-    - `use std::time::{self, SystemTime};`
-    - `use std::time::*;`
-    - `as`: rename
+- crate feature `features = ["small_rng"]`
 
 ## lib
 
@@ -264,14 +327,6 @@ bindgen - generate rust ffi bindings to c library
 
 serde: de/serialization for any type
 Rayon, parallel iterator access?
-
-## collections
-
-```rust
-Vec<T>
-Vec::new();
-vec![]; // macro to construct list directly
-```
 
 ## todo
 
@@ -289,4 +344,11 @@ mimalloc
 dynamic dispatch?
 reflection?
 runtime assisted debug?
+
+std::iterators
+map: lazy evaluation -> no operation until accessed
+cloned
+chain
+FromIterator: iterators -> collections
+IntoIterator: collections -> iterators
 
