@@ -1,11 +1,11 @@
 ---
 layout: post
-title: 
+title:
 date: 2019-12-11 02:19
-category: 
-author: 
+category:
+author:
 tags: [lang]
-summary: 
+summary:
 ---
 
 ## go module
@@ -34,7 +34,7 @@ GOBIN - binary install dir
 ## command
 
 ```bash
-go run # build & run 
+go run # build & run
  --race # detect data race
 go generate # generate go code
 go build -ldflags="-s -w" hello.go # remove symbol table and debugging info
@@ -84,7 +84,7 @@ init()
 * `_`is used as a dummy variable
   * can suppress unused import and unused variable
   * `import _ "net/http/pprof"` for side effect
-* A `defer` statement defers the execution of a function until the surrounding function returns 
+* A `defer` statement defers the execution of a function until the surrounding function returns
   * ie: the surrounding `func`
   * `defer` runs in LIFO
 * make only works for map, slice, and channel
@@ -94,7 +94,7 @@ init()
 * `:=` will always shadow outer variable
 * `switch, select` has a default break after each case
   * `break`: exit from `for, switch, select`
-  * `continue`: continue from `for` 
+  * `continue`: continue from `for`
   * `fallthrough`: transfer control to next case, must be last statement in current case
 * `fmt` has special handling for some interface
   * https://godoc.org/fmt
@@ -171,7 +171,7 @@ func main() {
 	func(slice []string) {
 		slice[0] = "b"
 		slice[1] = "b"
-		slice = append(slice, "a") // reallocate 
+		slice = append(slice, "a") // reallocate
 		fmt.Print(slice) // bba
 	}(slice)
 	fmt.Print(cap(slice))
@@ -213,7 +213,7 @@ func main() {
   * and to avoid waiting with `default`
   * receive from a closed channel yields zero value
   * a nil channel is never ready for comm
-  * select give no priority over order of case 
+  * select give no priority over order of case
 
 ## sync
 
@@ -237,10 +237,10 @@ func main() {
   * [conversion](https://golang.org/ref/spec#Conversions)
 * assertion only works on interface to get its actual underlying type.
 * [type identity](https://golang.org/ref/spec#Type_identity)
-  * Named type: 
+  * Named type:
     * int / string / etc + type declaration
     * type name must match to be identical
-  * Unnamed type: 
+  * Unnamed type:
     * array / slice / map
     * they are only a description of structure
     * match as long as underlying type match
@@ -251,7 +251,7 @@ func main() {
 tmp, ok = value.(typeName)
 // type switch
 switch str := value.(type) {
-  case typeName: 
+  case typeName:
 }
 ```
 
@@ -285,7 +285,7 @@ go test -bench=. # run all tests + benchmarks
 * compiler might eliminate function
   * always retrieve result to a package level variable
 
-## import 
+## import
 
 * internal:
   * > importable only by code in the directory tree rooted at the parent of "internal"
@@ -353,7 +353,7 @@ go test -bench=. # run all tests + benchmarks
     * if message are defined in several files, all source need to be included in this directory
   * `go_out` -> all generated file will be relative to this dir
   * `option go_package "full path";` generated into this path relative to go_out
-    * --go_out=$GOPATH: so that pb file becomes its own package for import 
+    * --go_out=$GOPATH: so that pb file becomes its own package for import
   * `go_opt=paths=source_relative` -> generated files are placed in output dir based on source's relative position vs proto_path
     * ignores go_package setting
 
@@ -381,3 +381,13 @@ gob
 wire
 gin
 tomb
+
+## string
+
+> A string holds arbitrary bytes.
+> A string literal, absent byte-level escapes, always holds valid UTF-8 sequences.
+> Those sequences represent Unicode code points, called runes.
+> No guarantee is made in Go that characters in strings are normalized.
+
+[string](https://go.dev/blog/strings)
+[normalization](https://blog.golang.org/normalization)
