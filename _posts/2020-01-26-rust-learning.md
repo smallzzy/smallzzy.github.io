@@ -38,8 +38,7 @@ https://doc.rust-lang.org/std/index.html
   - data type as suffix -> concrete type?
   - underscore to help readability
   - other base: `0b` `0o` `0x`
-- type cast:
-  - `as`
+- type cast `as`
 
 - tuple
   - `(i32, i32)`
@@ -98,13 +97,16 @@ there is no non-reference string type?
   - `'label` `break 'label`: break nested loop
 - `match`
   - need to cover all variants
+- `break`
+  - `break 'label`: break nested loop
+  - `loop` break can carry return value
 
 ```rust
 // switch case
 let result = match item {
     // match certain item
     42 | 132 => 1,
-    // match with if
+    // match with if, for additioanl condition
     x if x < 4 => 3,
     // call-all and use the captured value
     other => other + 1
@@ -121,6 +123,13 @@ let result = match message {
     // call-all
     _ => 2
 }
+
+// match
+let v: Vec<_> = s.split(',').collect();
+let (city, year, temp) = match &v[..] {
+    [city, year, temp] => (city.to_string(), year, temp),
+    _ => return Err(ParseClimateError::BadLen),
+};
 ```
 
 ```rust
@@ -204,9 +213,11 @@ https://doc.rust-lang.org/reference/expressions.html
   - `self`
   - `Self`: refer to current type
 - closure `|parameter| {}`
-  - capture: take varaible from current scope
-  - parameter: pass variable at the call site
-  - `move`: force copy or clone
+  - closure can `capture` varaible from current scope
+    - `move`: force move during capture
+  - parameter: variable to be expected at call site
+    - closure has its return type
+    - `return` `?` might not suit in closure
 
 ```
 Closures can capture variables:
@@ -234,6 +245,10 @@ Depending on the closure paramter, we can determine what is passed at call site.
   - Prefer Composition to Inheritance
   - if it quacks, it's a duck
 
+- default implemenation?
+- combine trait?
+- requried internal type?
+
 ## generic
 
 - function
@@ -244,14 +259,6 @@ Depending on the closure paramter, we can determine what is passed at call site.
   - generic types can take traits which place constraints on the type
   - `fn print<T: std::fmt::Display>(i: T, j: T) -> T`
   - or with the `where` clause https://doc.rust-lang.org/rust-by-example/generics/where.html
-
-- `Option<T>`: Some(T), None
-- `Result<T, E>`: Ok(T), Err(E)
-  - `main` can return `Result`
-- `unwrap`: panic if unable to unwarp
-  - `unwarp_or_else`
-- `?` return if unable to unwarp
-- map_err: convert error to another type
 
 `::<T>` turbofish
 
@@ -291,44 +298,12 @@ not thread safe type cannot cross thread boundary
   - `super`: refer to parent module
   - `crate`: refer to crate root
 
-## cargo
-
-```
-cargo add
-doc
-```
+### comment
 
 - `\\`: normal comment
 - `\\\`: document for the following block
 - `\\!`: document but for this file
-- crate feature `features = ["small_rng"]`
 
-## lib
+### Cargo.toml
 
-rust-analyzer
-clippy
-docs.rs
-future
-
-cbingen - generate c header for rust library
-bindgen - generate rust ffi bindings to c library
-
-serde: de/serialization for any type
-Rayon, parallel iterator access?
-
-## todo
-
-`bingen`
-`cbingen`
-
-dynamic dispatch?
-reflection?
-runtime assisted debug?
-
-std::iterators
-map: lazy evaluation -> no operation until accessed
-cloned
-chain
-FromIterator: iterators -> collections
-IntoIterator: collections -> iterators
-
+- enable feature for crate `features = ["small_rng"]`
