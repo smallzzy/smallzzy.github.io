@@ -164,6 +164,9 @@ if let Some(max) = config_max {
   - get the referenced variable for changing its value?
   - `deref` trait
 
+- interior mutability: internal state can be changed through shared reference
+  - `std::cell::UnsafeCell`
+
 https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html
 
 ```rust
@@ -177,7 +180,6 @@ let y = *x;
 ```
 
 `&'static`
-
 
 ## statement, expression, function, method
 
@@ -260,48 +262,34 @@ not thread safe type cannot cross thread boundary
 - `Box` smart heap pointer
   - for dynamic size type or recursive type
   - `dyn` for trait bound type
-- `Cell`, `RefCell`: manage mutability at multiple positions
-  - interior mutability?
+- `Cell`, `RefCell`: runtime borrow check for multiple reference
 - `Arc` atomic reference count
   - when cloned, the reference count is increased
   - `Rc`
-- `Mutex` -> `MutexGuard`
-  - poisoned when a thread holding the lock panics
+- `Mutex` -> `LockResult` -> `MutexGuard`
+  - Mutex will be poisoned when a thread holding the lock panics
     - further lock will have `Err` result
     - `into_inner`
+  - LockResult is unwarped in place to paic if lock failed
+  - MutexGuard is a RAII style guard
+    - `drop` to release the lock
+    - `Condvar`: reliquish while waiting, acquire when signaled
 
-## macro
+## crate & module
 
-- compiler can help generate code
-  - `println!`, `panic!`, `assert!`
-  - derive
-    https://doc.rust-lang.org/rust-by-example/trait/derive.html
-    https://doc.rust-lang.org/std/fmt/index.html
-
-
-- `#[cfg(test)]`
-- `if cfg!(debug_assertions) { … }`
-`#[test]` -> unit test / integration test #[cfg(test)]
-
-?
-
-```rust
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    #[should_panic]
-```
-
-## module
-
-- `mod`: private by default
-  - `pub`
+- crate can be one library or multiple binary
+  - dependency specified via `Cargo.toml`
+  - Or `--extern` when compiling
+- `mod`: control function scoping
+  - `pub()`: expose function to other path
   - `use`: bring path into scope
     - `use std::time::{self, SystemTime};`
     - `use std::time::*;`
     - `as`: rename
+- [path](https://doc.rust-lang.org/edition-guide/rust-2018/path-changes.html)
+  - `self`: refer to current module
+  - `super`: refer to parent module
+  - `crate`: refer to crate root
 
 ## cargo
 
@@ -329,14 +317,6 @@ serde: de/serialization for any type
 Rayon, parallel iterator access?
 
 ## todo
-
-`#[global_allocator]`
-jemalloc
-tcmalloc
-mimalloc
-
-`#[no_mangle]`
-`extern "C"`
 
 `bingen`
 `cbingen`
