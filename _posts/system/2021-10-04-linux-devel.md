@@ -1,11 +1,11 @@
 ---
 layout: post
-title: 
+title:
 date: 2021-10-04 02:00
-category: 
-author: 
+category:
+author:
 tags: []
-summary: 
+summary:
 ---
 
 ## logging level
@@ -20,7 +20,7 @@ summary:
   - one central location for services
   - can export to syslog
 
-## turn on kernel debug message 
+## turn on kernel debug message
 
 - change `console_loglevel`
   - `cat /proc/sys/kernel/printk`
@@ -40,7 +40,7 @@ summary:
   - same as `sysctl -a`
 - they can be change temporarily with `sysctl -w`
   - or permanently with `sysctl.conf`
-  - reload from config file with `sysctl --system` or `sysctl -p` 
+  - reload from config file with `sysctl --system` or `sysctl -p`
 
 ### module
 
@@ -48,3 +48,20 @@ summary:
   - `lsmod`, `modinfo`, `modprobe`
   - `/sys/module/<modules>/parameters/<param>`
 - permanently change with `echo "options <mod> <param>=<x>" >> /etc/modprobe.d/<>.conf`
+
+## memory system
+
+### high memory
+
+- Linux splits virtual memory into kernel and user space
+- For 32 bit system, kernel space cannot map the entire physical memory
+  - Part of kernel space map directly to physical memory (`ZONE_NORMAL`)
+  - Part of kernel space map to different part of physical memory when accessed (`ZONE_HIGHMEM`)
+  - For device memory, `ZONE_DMA`
+
+[Virtual Memory](https://lwn.net/Articles/75174/)
+
+### reserved memory
+
+[DMA](https://www.kernel.org/doc/Documentation/DMA-API-HOWTO.txt)
+[CMA](https://lwn.net/Articles/486301/)
