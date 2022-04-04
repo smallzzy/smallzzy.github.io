@@ -14,7 +14,7 @@ time +%s%3N
 
 ## file log
 
-LoggedFS: 
+LoggedFS:
 audit subsystem
 
 
@@ -100,7 +100,7 @@ plastigage
 klein instrument: k10a screen calibration
 astrodesign: screen signal generator
 
-adjustable current load 
+adjustable current load
 
 pc3000 acelab
 
@@ -122,29 +122,6 @@ r-tt: r studio
 
 bpainter
 
-## virtualization
-
-* kvm
-* XEN
-* qemu
-
-### libvirt
-
-- virtio: iommu
-- uefi: `edk2-ovmf`
-- virsh
-  - `net-list --all`
-  - `net-start`
-- virt-manager
-  - `usermod -aG libvirt <>`
-  - `libvirtd.service`
-
-https://wiki.archlinux.org/title/libvirt#Server
-
-* proxmox, ESXi, xcp-ng
-* KVM XEN
-* lxc lxd
-
 iso 11801
 
 ## mail
@@ -160,7 +137,7 @@ kexec-reboot
 
 crowbar circuit: over voltage protection
 two stage power transform: -> protection when single stage failed
-Spread_spectrum clock 
+Spread_spectrum clock
 
 https://help.magicplan.app/laser-distance-meters
 https://design.ui.com/
@@ -169,3 +146,12 @@ https://www.avermedia.com/us/product-detail/GC573
 https://www.liqid.com/products/liqid-elements/element-lqd4500-pcie-aic-ssd
 
 media pipe
+
+https://pcr.cloud-mercato.com/providers
+https://blogs.oracle.com/developers/post/how-to-set-up-and-run-a-really-powerful-free-minecraft-server-in-the-cloud
+https://stackoverflow.com/questions/62326988/cant-access-oracle-cloud-always-free-compute-http-port
+
+
+dynamic dispatch?
+reflection?
+runtime assisted debug?
