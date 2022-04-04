@@ -65,3 +65,8 @@ summary:
 
 [DMA](https://www.kernel.org/doc/Documentation/DMA-API-HOWTO.txt)
 [CMA](https://lwn.net/Articles/486301/)
+
+### pinned memory
+
+https://lwn.net/Articles/600502/
+https://lkml.org/lkml/2019/11/25/684
