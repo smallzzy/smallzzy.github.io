@@ -1,11 +1,11 @@
 ---
 layout: post
-title: 
+title:
 date: 2019-12-15 23:33
-category: 
-author: 
+category:
+author:
 tags: [os]
-summary: 
+summary:
 ---
 
 ## virtualization
@@ -34,10 +34,10 @@ turnaround time vs response time
    3. priority boost to help long running process
    4. prefer short jobs and i/o bound job
 * CFS
-   * run process with least progress (vruntime)
-   * physical run time (pruntime) determined by max slice, min slice, total # process
-   * virtual run time determined by pruntime and niceness
-* Heterogeneous multiprocessing 
+  * run process with least progress (vruntime)
+  * physical run time (pruntime) determined by max slice, min slice, total # process
+  * virtual run time determined by pruntime and niceness
+* Heterogeneous multiprocessing
   * big.Little
   * Cluster Migration: migrate between CPU clusters
   * CPU Migration: migrate between CPU pairs
@@ -50,7 +50,7 @@ turnaround time vs response time
   * internal: memory not fully utilized in one allocation
   * extermal: consecutive memory after usage
 * MMU: Memory Management Unit
-  * mapping virual address to physical 
+  * mapping virual address to physical
   * segementation
   * multiple level page table
     * no external frag -> fixed block size
