@@ -29,7 +29,7 @@ there is 4 components that is involved:
 
 - inclusion:
   - `...` sync recursively
-  - `\*` sync only files in current directory 
+  - `\*` sync only files in current directory
 - exclusion: `-`
 - Overlay: `+`
   - put file from certain dir over another existing file at another position
@@ -43,7 +43,7 @@ there is 4 components that is involved:
 - p4 does not actively check if files are modified
   - after you sync the file for the first time, p4 thinks you have it
     - even if we actually delete the file.
-    - use `-f` to force a resync 
+    - use `-f` to force a resync
   - but for files we do not want, removed from view is generally better
 - `-n`: dry run, check to see which files will be updated
 - `-q`: suppress normal output
@@ -72,7 +72,7 @@ p4 integ old new
 p4 delete old
 ```
 
-`p4 flush`: sync without file 
+`p4 flush`: sync without file
 
 ## p4 opened
 
@@ -96,7 +96,7 @@ p4 delete old
 - `p4 reopen` for moving files between changelist
 - `-u`: update a submitted changelist
 
-## p4 changes 
+## p4 changes
 
 - filter changelist on the server
   - will list out all changelist if no parameter is given
@@ -167,3 +167,4 @@ p4 have: see what is available in workspace
 
 `p4 filelog`: for file history
 `p4 annoate`: line by line changes
+`p4 describe -S <cl>`: view change in cl

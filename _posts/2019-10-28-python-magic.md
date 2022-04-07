@@ -1,11 +1,11 @@
 ---
 layout: post
-title: 
+title:
 date: 2019-10-28 17:13
-category: 
-author: 
+category:
+author:
 tags: [python]
-summary: 
+summary:
 ---
 
 ## `with`
@@ -17,7 +17,7 @@ OR
 
 `from contextlib import contextmanager`
 
-## __new__ vs __init__
+## `__new__` vs `__init__`
 
 - `__new(cls)__` is used to construct a object
   - used in factory pattern, one class can be used to construct different sub-class
@@ -31,10 +31,10 @@ OR
   - for `class D(B, C)`, that means D -> B -> A -> C -> A
   - then removing all dup except the last: D -> B -> C -> A
 - Which means that the base class needs to be designed to handle inheritance
-  - it might need to call `super` with arbitrary parameter 
+  - it might need to call `super` with arbitrary parameter
 - The other solution is to call `__init__` explicitly for each class.
 
-## __slots__ vs __dict__
+## `__slots__` vs `__dict__`
 
 - python attribute is usually stored in `__dict__` which use a lot of memory
 - it is possible to a static set of attribute in `__slots__`
@@ -57,10 +57,10 @@ def say_whee():
     print("Whee!")
 ```
 
-* notice that `say_whee` is passed into the decorator
-* the returned `wrapper` end up replacing the original function
-  * the function `__name__` is changed during the process
-* use `functools.wraps` to maintain the original `__name__`
+- notice that `say_whee` is passed into the decorator
+- the returned `wrapper` end up replacing the original function
+  - the function `__name__` is changed during the process
+- use `functools.wraps` to maintain the original `__name__`
 
 Moreover, parameter can be passed into the decorator.
 Which gets evaluated first before the decorator.
@@ -81,8 +81,8 @@ class A:
 
 def add_method(cls):
     def decorator(func):
-        @wraps(func) 
-        def wrapper(self, *args, **kwargs): 
+        @wraps(func)
+        def wrapper(self, *args, **kwargs):
             return func(*args, **kwargs)
         setattr(cls, func.__name__, wrapper)
         # Note we are not binding func, but wrapper which accepts self but does exactly the same as func
@@ -133,3 +133,10 @@ print(foo) # <function foo at {ADDRESS}>
 ## good decorator
 
 `from functools import cache, cached_property`: memorization
+
+## partial unpack
+
+```python
+colors = ['red', 'blue', 'green']
+red, blue, *other = colors
+```

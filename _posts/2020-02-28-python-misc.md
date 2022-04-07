@@ -1,17 +1,17 @@
 ---
 layout: post
-title: 
+title:
 date: 2020-02-28 17:08
-category: 
-author: 
+category:
+author:
 tags: [python]
-summary: 
+summary:
 ---
 
 ## basic
 
 * python float is usually implemented with c double: 64 bit
-* `.format` esacpe `{}` by doubling it, `{{` `}}` 
+* `.format` esacpe `{}` by doubling it, `{{` `}}`
   * use a `f'string {replace}'` in python3
 
 ## inplace operation
@@ -103,7 +103,7 @@ https://docs.python.org/3/using/cmdline.html
 
 ## edit conda environment
 
-* install conda with `-p <path>` 
+* install conda with `-p <path>`
 
 Create activate and deactivate file as suggested in [document](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#macos-and-linux).
 
@@ -148,7 +148,7 @@ sound/                        Top-level package
 > Since the name of the main module is always `__main__`,
 > modules intended for use as the main module of a Python application must always use absolute imports.
 
-### import at runtime 
+### import at runtime
 
 `my_module = importlib.import_module('os.path')`
 
@@ -161,14 +161,14 @@ setup(
     # custom building step
     # listed in distutils.command
     cmdclass={},
-    # external modules to build 
+    # external modules to build
     ext_modules=[]
 )
 ```
 
 a good example for [cmake+setup.py](https://github.com/pybind/cmake_example/blob/master/setup.py)
 
-## package 
+## package
 
 schedule
 queue.work_done() queue.join()
