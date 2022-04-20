@@ -28,6 +28,8 @@ iostat
 # network stat
 sar -n DEV
 sar -n TCP,ETCP
+# show process with thread id
+ps -T -p <pid>
 ```
 
 [netflix](https://netflixtechblog.com/netflix-at-velocity-2015-linux-performance-tools-51964ddb81cf)

@@ -51,6 +51,15 @@ summary:
 
 ## memory system
 
+lsmem -> physical address hole?
+/sys/devices/system/memory -> snapshot of allocated memory
+memory block size??
+
+### io port vs memory mapped io
+
+/proc/iomem
+/proc/ioport
+
 ### high memory
 
 - Linux splits virtual memory into kernel and user space
@@ -68,5 +77,14 @@ summary:
 
 ### pinned memory
 
-https://lwn.net/Articles/600502/
+[pinned memory](https://lwn.net/Articles/600502/)
 https://lkml.org/lkml/2019/11/25/684
+
+[hugepage](https://lwn.net/Articles/379748/)
+https://www.kernel.org/doc/html/latest/vm/hwpoison.html
+
+## symbol address
+
+/proc/kallsyms
+/boot/System.map
+/proc/sys/kernel/kptr_restrict

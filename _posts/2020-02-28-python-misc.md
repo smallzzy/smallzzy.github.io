@@ -10,20 +10,20 @@ summary:
 
 ## basic
 
-* python float is usually implemented with c double: 64 bit
-* `.format` esacpe `{}` by doubling it, `{{` `}}`
-  * use a `f'string {replace}'` in python3
+- python float is usually implemented with c double: 64 bit
+- `.format` esacpe `{}` by doubling it, `{{` `}}`
+  - use a `f'string {replace}'` in python3
 
 ## inplace operation
 
-* `__add__` vs `__iadd__`
-  * `a = b + c` vs `b += c`
-* note that new PyObject is created when operation is not inplace
+- `__add__` vs `__iadd__`
+  - `a = b + c` vs `b += c`
+- note that new PyObject is created when operation is not inplace
 
 ## asyncio
 
-* move blocking function to another process:
-  * [run_in_executor](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.loop.run_in_executor)
+- move blocking function to another process:
+  - [run_in_executor](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.loop.run_in_executor)
 
 ## debug
 
@@ -58,10 +58,10 @@ debugpy.breakpoint()
 
 ### indexing
 
-* `Ellipsis` expands to the number of : objects needed for the selection tuple to index all dimensions.
-* Each `newaxis` object in the selection tuple serves to expand the dimensions of the resulting selection by one unit-length dimension
-  * `newaxis` is a alias of `None`
-* operation on certain axis means to increment index along that axis.
+- `Ellipsis` expands to the number of : objects needed for the selection tuple to index all dimensions.
+- Each `newaxis` object in the selection tuple serves to expand the dimensions of the resulting selection by one unit-length dimension
+  - `newaxis` is a alias of `None`
+- operation on certain axis means to increment index along that axis.
 
 ```python
 >>> x = np.array([[[1],[2],[3]], [[4],[5],[6]]])
@@ -82,28 +82,16 @@ array([[1, 2, 3],
 - Lining up the sizes of the trailing axes according to the broadcast rules, will shows if arrays are compatible
 - Dimensions with size 1 are stretched or “copied” to match the other
 
-## pybind
-
-py::object hold reference to pyobject
-py::handle does not reference
-
-_a -> user defined literal
-
-return value policy
-keepalive
-capsule
-https://pybind11.readthedocs.io/en/stable/advanced/functions.html#python-objects-as-arguments
-
 ## env
 
-* override python malloc at cmd: `PYTHONMALLOC=malloc`
-  * the regular pymalloc seems to cause false positive for valgrind
+- override python malloc at cmd: `PYTHONMALLOC=malloc`
+  - the regular pymalloc seems to cause false positive for valgrind
 
 https://docs.python.org/3/using/cmdline.html
 
 ## edit conda environment
 
-* install conda with `-p <path>`
+- install conda with `-p <path>`
 
 Create activate and deactivate file as suggested in [document](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#macos-and-linux).
 
@@ -152,21 +140,32 @@ sound/                        Top-level package
 
 `my_module = importlib.import_module('os.path')`
 
-## setup.py
+## extending python
 
-```python
-setup(
-    name='egg file name',
-    packages=['package name'], # find_packages()
-    # custom building step
-    # listed in distutils.command
-    cmdclass={},
-    # external modules to build
-    ext_modules=[]
-)
+There are multiple ways to extend python.
+
+1. ctypes: Load library and map python types to C when calling
+   1. [find_library](https://docs.python.org/3/library/ctypes.html#finding-shared-libraries)
+2. cffi: Generate function interface based on source code?
+3. [extension module](https://docs.python.org/3/extending/extending.html): specific to Cython, let library register itself
+   1. pybind11 is a very convenient wrapper around this interface
+   2. [module search path](https://docs.python.org/3/tutorial/modules.html#the-module-search-path)
+   3. [site](https://docs.python.org/3/library/site.html)
+
+### pybind11
+
+py::object hold reference to pyobject
+py::handle does not reference
+
 ```
-
-a good example for [cmake+setup.py](https://github.com/pybind/cmake_example/blob/master/setup.py)
+# links to follow
+https://github.com/pybind/cmake_example/blob/master/setup.py
+https://pybind11.readthedocs.io/en/stable/advanced/cast/strings.html
+https://pybind11.readthedocs.io/en/stable/advanced/cast/stl.html?highlight=bytes%20to%20vector#making-opaque-types
+https://pybind11.readthedocs.io/en/stable/advanced/functions.html#return-value-policies
+https://pybind11.readthedocs.io/en/stable/advanced/misc.html?highlight=py%3A%3Afunction#global-interpreter-lock-gil
+https://pybind11.readthedocs.io/en/stable/faq.html
+```
 
 ## package
 
@@ -174,3 +173,9 @@ schedule
 queue.work_done() queue.join()
 
 trio?
+
+python-config --cflags: do we need this to be binary compatible?
+--ldflags: do we need this at all?
+--includes : seems to be helpful
+
+https://docs.python.org/3/distutils/setupscript.html#installing-package-data

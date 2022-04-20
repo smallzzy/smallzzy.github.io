@@ -170,6 +170,19 @@ This flag will show the shadowing as a warning.
 - `gcc -E -Wp,-v -xc /dev/null`: print what the include path is
   - https://stackoverflow.com/questions/17939930/finding-out-what-the-gcc-include-path-is
 
+## makefile
+
+```makefile
+FILES := $(shell ...)  # expand now; FILES is now the result of $(shell ...)
+FILES = $(shell ...)   # expand later: FILES holds the syntax $(shell ...)
+
+FILES != ... # same as FILES := $(shell ...)
+
+all:
+    # once inside of a indented block, each line is run by a separate shell
+    FILES="$(shell ls)"; echo $$FILES
+```
+
 ## todo
 
 ```
@@ -183,3 +196,9 @@ sized-deallocation
 coverage
 
 -dM : generate a list of ‘#define’ directives for all the macros defined during the execution of the preprocessor, including predefined macros
+
+
+-Wl,--no-undefined
+does not work with weak symbol?
+
+-Wl,--no-allow-shlib-undefined
