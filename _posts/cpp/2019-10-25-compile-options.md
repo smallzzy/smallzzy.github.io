@@ -35,12 +35,10 @@ https://gcc.gnu.org/onlinedocs/gcc/Option-Index.html#Option-Index
 
 ## reduce binary size
 
-function remove:
-
-- mark with: `-ffunction-sections -fdata-sections`
-- remove with: `-Wl,--gc-sections`
-
-remove rtti `-fno-rtti`
+- function remove:
+  - mark with: `-ffunction-sections -fdata-sections`
+  - remove with: `-Wl,--gc-sections`
+- remove rtti `-fno-rtti`
 
 ## performance flags
 
@@ -197,8 +195,9 @@ coverage
 
 -dM : generate a list of ‘#define’ directives for all the macros defined during the execution of the preprocessor, including predefined macros
 
-
 -Wl,--no-undefined
 does not work with weak symbol?
 
 -Wl,--no-allow-shlib-undefined
+
+https://gcc.gnu.org/onlinedocs/libstdc++/manual/parallel_mode_using.html
