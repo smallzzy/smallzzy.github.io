@@ -104,6 +104,23 @@ export LD_LIBRARY_PATH=$(echo ${LD_LIBRARY_PATH} | sed -e 's|<value>:\?||')
 
 ## module / package
 
+[module definition](https://docs.python.org/3/glossary.html#term-module)
+
+> Module serves as an organizational unit of Python code. Modules have a namespace containing arbitrary Python objects. Modules are loaded into Python by the process of importing.
+
+[import system](https://docs.python.org/3/reference/import.html)
+
+> Python has only one type of module object, and all modules are of this type, regardless of whether the module is implemented in Python, C, or something else. To help organize modules and provide a naming hierarchy, Python has a concept of packages.
+> It’s important to keep in mind that all packages are modules, but not all modules are packages.
+
+- `import <>`: import a module into local namespace
+- `from <> import <>`:
+  - find the module specified in the `from` clause
+  - import the `attribute` with that name
+    - attribute can be a function, class or variable
+
+### sample package
+
 ```txt
 sound/                        Top-level package
     __init__.py               Initialize the sound package
@@ -118,19 +135,18 @@ sound/                        Top-level package
 ```
 
 1. The `__init__.py` files are required to make Python treat directories containing the file as packages.
-2. Users of the package can import individual modules from the package.
-3. when using `from package import item`,
-   the item can be either a submodule (or subpackage) of the package,
-   or some other name defined in the package
-4. When using `import item.subitem.subsubitem`,
-   each item except for the last must be a package.
-   the last item can be a module or a package but cannot be some other name defined in the package.
-5. Submodule can import its sublings via:
-   1. absolute import: `from sound.effects import echo`
-   2. relative import (ex for surround.py):
+2. Absolute imports: import start from the toplevel pacakge
+   1. may use either the `import <>` or `from <> import <>` syntax
+   2. ex `from sound.effects import echo`
+3. Relative import:
+   1. may only use the form `from <> import <>`
+      1. > import XXX.YYY.ZZZ should expose XXX.YYY.ZZZ as a usable expression, but .moduleY is not a valid expression
+   2. > Two or more leading dots indicate a relative import to the parent(s) of the current package, one level per dot after the first
+   3. ex for surround.py
       1. `from . import echo`
       2. `from .. import formats`
       3. `from ..formats import wavwrite`
+4. consideration for `main`
 
 > relative imports are based on the name of the current module.
 > Since the name of the main module is always `__main__`,
@@ -179,3 +195,5 @@ python-config --cflags: do we need this to be binary compatible?
 --includes : seems to be helpful
 
 https://docs.python.org/3/distutils/setupscript.html#installing-package-data
+
+python3 -m sysconfig | less
