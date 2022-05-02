@@ -1,11 +1,11 @@
 ---
 layout: post
-title: 
+title:
 date: 2019-12-10 00:14
-category: 
-author: 
+category:
+author:
 tags: [cpp]
-summary: 
+summary:
 ---
 
 ![]({{site.img_url}}/cpp_init_forest.gif)
@@ -34,7 +34,7 @@ summary:
 ### zero initiailization
 
 > 1) If T is a scalar type, the object's initial value is the integral constant zero **explicitly converted** to T.
-> 2) If T is an non-union class type, all base classes and non-static data members are zero-initialized, 
+> 2) If T is an non-union class type, all base classes and non-static data members are zero-initialized,
 > and all padding is initialized to zero bits. The constructors, if any, are ignored.
 > 3) If T is a union type, the first non-static named data member is zero-initialized and all padding is initialized to zero bits.
 > 4) If T is array type, each element is zero-initialized.
@@ -54,7 +54,7 @@ summary:
 
 ### value initialization
 
-> This is the initialization performed when an object is constructed with an empty initializer. 
+> This is the initialization performed when an object is constructed with an empty initializer.
 
 > 1) if T is a class type with no default constructor or with a user-provided or deleted default constructor,
 > the object is default-initialized;
@@ -89,7 +89,7 @@ The effects of default initialization are:
 
 * If T is an aggregate type, **aggregate initialization** is performed.
 * Otherwise, if the **braced-init-list is empty** and T is a class type with a default constructor, value-initialization is performed.
-* Otherwise, if T is a specialization of std::initializer_list, the T object is direct-initialized or copy-initialized, depending on context, 
+* Otherwise, if T is a specialization of std::initializer_list, the T object is direct-initialized or copy-initialized, depending on context,
   from a prvalue of the same type initialized from (until C++17) the braced-init-list.
 * Otherwise, the constructors of T are considered, in two phases:
   * All constructors that take std::initializer_list as the only argument, or as the first argument if the remaining arguments have default values, are examined, and **matched by overload resolution against a single argument of type std::initializer_list**
@@ -104,14 +104,14 @@ The effects of default initialization are:
   * function argument contains initializer_list
   * ranged for loop
 * this is different from `constructor initializer list`:
-  * which refers to `b()` in `a(): b() {}` 
+  * which refers to `b()` in `a(): b() {}`
 * for `vector<vector<int>> a; a.emplace_back(...)`
   * `...` != `{1, 2}` fail compilation
     * forward cannot handle auto initializer_list construction?
   * `...` == `vector<int>{1, 2}` will trigger a move
   * `...` == `initializer_list<int>{1, 2}` will contruct inplace
 
-## initialization order 
+## initialization order
 
 ### class
 
@@ -133,7 +133,7 @@ In the same compilation unit, it is the same order as definition.
 
 ## static and const class member
 
-* `static` means that variable will be shared, which can still be changed in runtime. 
+* `static` means that variable will be shared, which can still be changed in runtime.
   * Thus, require a storage space and cannot be defined in a header file
   * (c++17 has inline variable)
 * `const` means that the value cannot change **after creation**
@@ -150,10 +150,5 @@ In the same compilation unit, it is the same order as definition.
 ## todo
 
 ## aggregate initialization
-
-## copy elision
-
-RVO
-NRVO
 
 dynamic non-local
