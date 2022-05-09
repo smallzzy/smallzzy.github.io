@@ -12,6 +12,12 @@ git
 uncrustify clang-format?
 drmemory
 
+## static analysis
+
+coverity
+sonarlint
+https://rules.sonarsource.com/cpp
+
 ## hex editor
 
 okteta
@@ -71,7 +77,7 @@ kicad
 CoolTerm
 dbeaver
 flashrom
-netbox: infastructure 
+netbox: infastructure
 goby?
 process lasso
 
