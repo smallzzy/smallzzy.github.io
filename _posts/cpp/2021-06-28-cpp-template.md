@@ -97,6 +97,7 @@ A base declaration + a recursive template
 - the base declaration can be a template specialization
 - the recursion is resolved at compile time
   - va_ macros will resolve at runtime
+  - this expansion continues until some base declaration is reached. it might cause compiler to run out of memory
 - empty base optimization
   - base class of size 0 will be optimized away (with some limitation)
   - `clang -cc1 -fdump-record-layouts`
