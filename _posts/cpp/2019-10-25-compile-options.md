@@ -60,6 +60,8 @@ https://gcc.gnu.org/onlinedocs/gcc/Option-Index.html#Option-Index
 Dereferencing a pointer with incompatible type is a UB.
 More details [here](https://gist.github.com/shafik/848ae25ee209f698763cffee272a58f8)
 
+https://en.cppreference.com/w/cpp/memory/shared_ptr/pointer_cast
+
 memcpy, bit_cast, union, aggregate?
 
 ## frame-pointer
@@ -170,6 +172,11 @@ This flag will show the shadowing as a warning.
 
 ## makefile
 
+make has a very stupid relationship with tabs.
+All actions of every rule are identified by tabs.
+And, no, four spaces don't make a tab. Only a tab makes a tab.
+
+
 ```makefile
 FILES := $(shell ...)  # expand now; FILES is now the result of $(shell ...)
 FILES = $(shell ...)   # expand later: FILES holds the syntax $(shell ...)
@@ -179,6 +186,15 @@ FILES != ... # same as FILES := $(shell ...)
 all:
     # once inside of a indented block, each line is run by a separate shell
     FILES="$(shell ls)"; echo $$FILES
+```
+
+```makefile
+# print all variables
+test:
+    $(foreach var,$(.VARIABLES),$(info $(var) = $($(var))))
+
+# print
+$(MAKECMDGOALS)
 ```
 
 ## todo

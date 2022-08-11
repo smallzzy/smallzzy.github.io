@@ -14,11 +14,11 @@ summary:
 
 ## debug
 
-- debugfs: /etc/kernel/debug
+- debugfs: `mount -t debugfs none /sys/kernel/debug`
 
 ## tracing
 
-- tracefs: /etc/kernel/tracing
+- tracefs: /sys/kernel/tracing
   - [tracepoint](https://www.kernel.org/doc/Documentation/trace/tracepoints.txt)
     - a hook to call `probe` at runtime
     - represent as `subsystem:event` in `available_events`
@@ -72,3 +72,15 @@ GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT crashkernel=384M-:128M"
 ```
 
 [kexec-reboot](https://github.com/error10/kexec-reboot)
+
+## apei
+
+https://www.kernel.org/doc/Documentation/acpi/apei/einj.txt
+
+CONFIG_ACPI_APEI_EINJ = m
+modprobe einj
+
+## KASLR / ASLR
+
+https://www.kernel.org/doc/html/latest/vm/page_migration.html
+https://0xax.gitbooks.io/linux-insides/content/Booting/linux-bootstrap-6.html
