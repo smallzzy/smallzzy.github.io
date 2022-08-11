@@ -89,8 +89,6 @@ IP suite (OSI)
 - the modules are usually backward-compatible
 - switch need to support breakout to split QSFP into SFP
 
-[infiniband data rate](https://en.wikipedia.org/wiki/InfiniBand)
-
 ### fiber
 
 - connector
@@ -262,7 +260,7 @@ IP suite (OSI)
   - retain vlan tag otherwise, (`allowed vlan`)
   - native vlan and allowed vlan need to match for both router
     - otherwise, it might only work asymmetrically
-    - many routers have a native vlan of 1, which cannot even be changed. 
+    - many routers have a native vlan of 1, which cannot even be changed.
 - instead of configure vlan group on every device, configure on one device and propagte
   - GARP -> MRP
   - GMRP -> MMRP
@@ -287,7 +285,7 @@ IP suite (OSI)
   - `smcroute`
 - Multicast router
   - implement on router, handle multicast request from client
-  - Rendovous Point 
+  - Rendovous Point
     - points to core router, which learns all multicast grouping
     - so that edge router only need to care about a subset.
 - IGMP snooping: implement on switch, make sure that port that is not in a multicast group receive nothing
