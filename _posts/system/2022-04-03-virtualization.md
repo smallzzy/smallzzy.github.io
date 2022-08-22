@@ -35,3 +35,37 @@ https://wiki.archlinux.org/title/libvirt#Server
 
 - proxmox, ESXi, xcp-ng
 - lxc lxd
+
+
+http://www.elaske.com/unraid-pcie-and-iommu-groups/
+
+
+## qemu emulation
+
+```
+This page describes how to setup and use QEMU user emulation in a "transparent" fashion, allowing execution of non-native target executables just like native ones (i.e. ./program).
+
+In this text, "target" means the system being emulated, and "host" means the system where QEMU is running.
+```
+
+https://wiki.debian.org/QemuUserEmulation
+
+apt install qemu binfmt-support qemu-user-static
+update-binfmts --display
+update-binfmts --enable
+
+### apt source list
+
+ubuntu uses different address for different architecture
+
+```
+deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy main restricted universe multiverse
+deb [arch=amd64,i386] deb http://archive.ubuntu.com/ubuntu/ jammy main restricted universe multiverse
+```
+
+### docker
+
+https://www.stereolabs.com/docs/docker/building-arm-container-on-x86/
+https://github.com/multiarch/qemu-user-static
+
+`docker run -it --name=steamcmd --platform amd64 cm2network/steamcmd bash`
