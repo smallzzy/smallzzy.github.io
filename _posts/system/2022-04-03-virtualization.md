@@ -36,11 +36,13 @@ https://wiki.archlinux.org/title/libvirt#Server
 - proxmox, ESXi, xcp-ng
 - lxc lxd
 
-
 http://www.elaske.com/unraid-pcie-and-iommu-groups/
 
+## qemu
 
-## qemu emulation
+## system emulation `qemu-system`
+
+## user emulation `qemu-static`
 
 ```
 This page describes how to setup and use QEMU user emulation in a "transparent" fashion, allowing execution of non-native target executables just like native ones (i.e. ./program).
@@ -69,3 +71,16 @@ https://www.stereolabs.com/docs/docker/building-arm-container-on-x86/
 https://github.com/multiarch/qemu-user-static
 
 `docker run -it --name=steamcmd --platform amd64 cm2network/steamcmd bash`
+
+## box86 / box64
+
+https://box86.org/2022/03/box86-box64-vs-qemu-vs-fex-vs-rosetta2/
+
+## rosetta
+
+https://apple.stackexchange.com/questions/407731/how-does-rosetta-2-work
+https://ss64.com/osx/lipo.html
+
+why 16k page size?
+how does huge tlb get handled
+sysconf(_SC_PAGESIZE)
