@@ -2,10 +2,10 @@
 layout: post
 title: CUDA GPU Configuration
 date: 2019-09-26 12:06
-category: 
-author: 
+category:
+author:
 tags: [gpu]
-summary: 
+summary:
 ---
 
 ## installation
@@ -83,14 +83,7 @@ Exchange data between GPUs.
 
 Should be supported by the CUDA driver
 
-### RDMA
-
-Used for multi-node data sharing across network, such as infiniband.
-
-MOFED driver -> [Mellanox OpenFabrics Enterprise Distribution](https://www.mellanox.com/page/software_overview_ib)
-
-Some basic [info1](https://www.rohitzambre.com/blog/2018/2/9/for-the-rdma-novice-libfabric-libibverbs-infiniband-ofed-mofed)
-[info2](https://shelbyt.github.io/rdma-explained-1.html)
+### rdma
 
 ### storage
 

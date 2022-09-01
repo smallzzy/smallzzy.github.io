@@ -2,31 +2,31 @@
 layout: post
 title: Symbol, Linkage, Visibility
 date: 2019-12-05 10:43
-category: 
-author: 
+category:
+author:
 tags: [compile]
-summary: 
+summary:
 ---
 
 This post aims to help understanding the problem of symbol missing or conflict that appears during the compilation process.
 
-## linkage in c / cpp
+## [linkage in c / cpp](https://en.cppreference.com/w/cpp/language/storage_duration)
 
 A translation unit refers to an implementation file (c/cpp) and all included headers.
 
-* When internal linkage, that symbol is only visible to that translation unit.
-  * `static` keyword / anonymous namespace force internal linkage.
-* When external linkage, that symbol can used in other translation unit.
-  * `extern` force  external linkage.
+- When internal linkage, that symbol is only visible to that translation unit.
+  - `static` keyword / anonymous namespace force internal linkage.
+- When external linkage, that symbol can used in other translation unit.
+  - `extern` force external linkage.
 
 By default,
 
-* Non-const global variables have external linkage
-* `const` global variables have internal linkage
-* Functions have external linkage
-* `inline`
-  * no external linkage in ISO C
-  * external linkage in GNU C & ISO C++
+- Non-const global variables have external linkage
+- `const` global variables have internal linkage
+- Functions have external linkage
+- `inline`
+  - no external linkage in ISO C
+  - external linkage in GNU C & ISO C++
 
 Linkage can affect symbol generation.
 So, it will have an impact on visibility.
@@ -34,50 +34,50 @@ But its capability is limited across multiple sources.
 
 ### static keyword
 
-> When used in a declaration of a class member, it declares a static member. 
-> When used in a declaration of an object, it specifies static storage duration (except if accompanied by thread_local). 
+> When used in a declaration of a class member, it declares a static member.
+> When used in a declaration of an object, it specifies static storage duration (except if accompanied by thread_local).
 > When used in a declaration at namespace scope, it specifies internal linkage.
 
 ### decleration
 
 > Extern decleration suggests that the decleration is made outside of function scope.
 
-> A tentative definition is a declaration that may or may not act as a definition. 
+> A tentative definition is a declaration that may or may not act as a definition.
 > If an actual external definition is found earlier or later in the same translation unit,
 > then the tentative definition just acts as a declaration
 
 > Unlike the extern declarations, which don't change the linkage of an identifier if a previous declaration established it,
 > tentative definitions may disagree in linkage with another declaration of the same identifier.
 > If two declarations for the same identifier are in scope and have different linkage,
-> the behavior is **undefined**. 
+> the behavior is **undefined**.
 
 ## linkage to symbol
 
-* external linkage will become global symbol.
-  * symbol can become strong or weak
-* internal linkage will become local symbol.
-  * usually have HIDDEN visibility
+- external linkage will become global symbol.
+  - symbol can become strong or weak
+- internal linkage will become local symbol.
+  - usually have HIDDEN visibility
 
 ## symobl visibility for linking
 
 global symbol has five level of visibility:
 
-* EXTERNAL: defined elsewhere
-* DEFAULT: can be directly referenced, can be preempted
-* PROTECTED: can be directly referenced, cannot be preempted
-* HIDDEN: cannot directly referenced
-* INTERNAL: cannot be directly or indirectly reference
+- EXTERNAL: defined elsewhere
+- DEFAULT: can be directly referenced, can be preempted
+- PROTECTED: can be directly referenced, cannot be preempted
+- HIDDEN: cannot directly referenced
+- INTERNAL: cannot be directly or indirectly reference
 
 ## compilation
 
 A translation unit will be compiled into one object file.
 Which can:
 
-* expect symbol from other object: `EXTERNAL`
-  * ex, function in header, `extern` variable
-* provide symbol:
-  * for other object: `DEFAULT`
-  * only for itself: `HIDDEN`
+- expect symbol from other object: `EXTERNAL`
+  - ex, function in header, `extern` variable
+- provide symbol:
+  - for other object: `DEFAULT`
+  - only for itself: `HIDDEN`
 
 Visibility does not prevent symbol from being generated,
 but instructs the linker if symbol cannot be used externally.
@@ -85,9 +85,9 @@ Note that only linker will care about visibility.
 
 In `nm`:
 
-* `EXTERNAL` is `U`.
-* `DEFAULT` is `T`.
-* `HIDDEN` is `t`.
+- `EXTERNAL` is `U`.
+- `DEFAULT` is `T`.
+- `HIDDEN` is `t`.
 
 ### static library
 
@@ -134,11 +134,11 @@ Note:
 > If more than one library happens to define the same symbol,
 > only the first definition applies
 
-* a duplicated symbol does not trigger an error at linking time
-  * function interposition: `malloc`
-* that means a library can call unexpected function from other object
-  * `-symbolic`: force binding to internal function
-    * also disable the use of `extern` variable
+- a duplicated symbol does not trigger an error at linking time
+  - function interposition: `malloc`
+- that means a library can call unexpected function from other object
+  - `-symbolic`: force binding to internal function
+    - also disable the use of `extern` variable
 
 ## linking order
 
@@ -150,15 +150,15 @@ Linker will look at all the files from left to right in the command line.
    2. `--undefined`: which tells linker some specific symbols will be missing.
    3. `--whole-archive`: force the entire library to be linked
 
-* by default, the linker will add a DT_NEEDED tag for each dynamic library mentioned on the command line,
+- by default, the linker will add a DT_NEEDED tag for each dynamic library mentioned on the command line,
   regardless of whether the library is actually needed or not. `--no-as-needed`
 
 ## changing visibility
 
 With shared library, we wish to change visibility of symbol so that:
 
-* only necessary function are exposed, reducing the risk of abi problem
-* avoid symbol collision
+- only necessary function are exposed, reducing the risk of abi problem
+- avoid symbol collision
 
 ### marco on Windows
 
@@ -173,22 +173,22 @@ We can use `-fvisibility=hidden` during linking to change default visibility
 
 ### scripts
 
-* With version script (Linux) or def file (Windows), we choose what symbol to keep
-* the script can be used degenerately and only choose exposed symbols.
+- With version script (Linux) or def file (Windows), we choose what symbol to keep
+- the script can be used degenerately and only choose exposed symbols.
 
 ## static lib
 
 With static lib, we wish to constraint symbol generation on end result.
 
-* `single object pre-link`: mac only solution.
-  * It will enable linking on the static lib.
-  * And it will hide library internal symbols
-* `--exclude-libs` can be used to hide all symbols in a static library
-* `strip` the unnecessary symbol if necessary symbols are known
-  * might affect internal symbols
-* `ar -x` extract object file from static library
-  * The object will be linked with proper visibility
-  * every object will be linked
+- `single object pre-link`: mac only solution.
+  - It will enable linking on the static lib.
+  - And it will hide library internal symbols
+- `--exclude-libs` can be used to hide all symbols in a static library
+- `strip` the unnecessary symbol if necessary symbols are known
+  - might affect internal symbols
+- `ar -x` extract object file from static library
+  - The object will be linked with proper visibility
+  - every object will be linked
 
 ### objcopy
 
@@ -200,10 +200,10 @@ Op Note -> objcopy
 
 If there are two conflicting symbols, the conflicted symbol might:
 
-* trigger nothing if the symbol is defined in shared library
-  * In which case, you might get unintented behavior
-* not be included if that object is not included
-* trigger multiple definition if object is imported via another function.
+- trigger nothing if the symbol is defined in shared library
+  - In which case, you might get unintented behavior
+- not be included if that object is not included
+- trigger multiple definition if object is imported via another function.
 
 Possible solution:
 
@@ -214,17 +214,25 @@ Possible solution:
 
 ## Reference
 
-* [library order in static linking](https://eli.thegreenplace.net/2013/07/09/library-order-in-static-linking/)
-* [internal and external linkage](http://www.goldsborough.me/c/c++/linker/2016/03/30/19-34-25-internal_and_external_linkage_in_c++/)
-* [C++ visibility](https://gcc.gnu.org/wiki/Visibility)
-* [mac symbol hiding](https://stackoverflow.com/questions/3276474/symbol-hiding-in-static-libraries-built-with-xcode)
-* [How to write shared libraries](https://akkadia.org/drepper/dsohowto.pdf)
-* [Good Practices in Library Design, Implementation, and Maintenance](https://akkadia.org/drepper/goodpractice.pdf)
-* [share library symbol conflict](https://holtstrom.com/michael/blog/post/437/Shared-Library-Symbol-Conflicts-%28on-Linux%29.html)
-* [Inside story on shared library](https://cseweb.ucsd.edu/~gbournou/CSE131/the_inside_story_on_shared_libraries_and_dynamic_loading.pdf)
-* [visibility](https://scc.ustc.edu.cn/zlsc/chinagrid/intel/compiler_c/main_cls/GUID-1A0B049C-078E-4AD6-8815-07982E4D7735.htm)
+- [library order in static linking](https://eli.thegreenplace.net/2013/07/09/library-order-in-static-linking/)
+- [internal and external linkage](http://www.goldsborough.me/c/c++/linker/2016/03/30/19-34-25-internal_and_external_linkage_in_c++/)
+- [C++ visibility](https://gcc.gnu.org/wiki/Visibility)
+- [mac symbol hiding](https://stackoverflow.com/questions/3276474/symbol-hiding-in-static-libraries-built-with-xcode)
+- [How to write shared libraries](https://akkadia.org/drepper/dsohowto.pdf)
+- [Good Practices in Library Design, Implementation, and Maintenance](https://akkadia.org/drepper/goodpractice.pdf)
+- [share library symbol conflict](https://holtstrom.com/michael/blog/post/437/Shared-Library-Symbol-Conflicts-%28on-Linux%29.html)
+- [Inside story on shared library](https://cseweb.ucsd.edu/~gbournou/CSE131/the_inside_story_on_shared_libraries_and_dynamic_loading.pdf)
+- [visibility](https://scc.ustc.edu.cn/zlsc/chinagrid/intel/compiler_c/main_cls/GUID-1A0B049C-078E-4AD6-8815-07982E4D7735.htm)
 
 ## todo
 
-* [static library conflict](https://stackoverflow.com/questions/6940384/how-to-deal-with-symbol-collisions-between-statically-linked-libraries)
-* [conflict demo](https://labjack.com/news/simple-cpp-symbol-visibility-demo)
+- [static library conflict](https://stackoverflow.com/questions/6940384/how-to-deal-with-symbol-collisions-between-statically-linked-libraries)
+- [conflict demo](https://labjack.com/news/simple-cpp-symbol-visibility-demo)
+
+- there was two interesting case
+
+- zhihu, 单例模式跨dll?
+- singleton with reference count???
+  - use static member + including class everywhere
+  - binary size?
+  - symbol resolution?
