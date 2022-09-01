@@ -105,6 +105,9 @@ thread:
 * if fork() run all threads, there will be no dead lock
 * what is spawn()?
 
+https://gist.github.com/nicowilliams/a8a07b0fc75df05f684c23c18d7db234
+https://www.microsoft.com/en-us/research/publication/a-fork-in-the-road/
+
 ### event based concurrency
 
 * model every step as a non-blocking event.
