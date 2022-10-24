@@ -62,7 +62,7 @@ ubuntu uses different address for different architecture
 
 ```
 deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy main restricted universe multiverse
-deb [arch=amd64,i386] deb http://archive.ubuntu.com/ubuntu/ jammy main restricted universe multiverse
+deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ jammy main restricted universe multiverse
 ```
 
 ### docker
