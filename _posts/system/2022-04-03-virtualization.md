@@ -65,6 +65,19 @@ deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy main restricted univ
 deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ jammy main restricted universe multiverse
 ```
 
+### debian repackage
+
+```bash
+dpkg-deb -x xx.deb xx/
+dpkg-deb --control xx.deb xx/DEBIAN
+# modify control file
+dpkg-deb -b xx yy.deb
+
+# yum provides
+apt-file update
+apt-file search
+```
+
 ### docker
 
 https://www.stereolabs.com/docs/docker/building-arm-container-on-x86/

@@ -48,18 +48,21 @@ turnaround time vs response time
 
 * internal vs external fragmentation
   * internal: memory not fully utilized in one allocation
-  * extermal: consecutive memory after usage
+  * external: no consecutive memory after usage
 * MMU: Memory Management Unit
-  * mapping virual address to physical
-  * segementation
-  * multiple level page table
+  * mapping virual address to physical address
+  * segementation: allocate by using offset + length
+  * page table:
+    * multiple level page table
     * no external frag -> fixed block size
 * TLB: Translation lookaside buffer
-  * store recent page table
+  * store recent page table result
   * content addressable memory
   * partial tlb replacement
-    * kernel do not need swap
+    * global bit in TLB + Process Context ID
+    * kernel do not need be swapped
   * hugetlb
+* memory controller: each mc identifies its own physical address
 
 ## concurrency
 
