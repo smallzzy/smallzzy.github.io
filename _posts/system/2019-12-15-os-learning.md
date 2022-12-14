@@ -55,13 +55,13 @@ turnaround time vs response time
   * page table:
     * multiple level page table
     * no external frag -> fixed block size
-* TLB: Translation lookaside buffer
-  * store recent page table result
-  * content addressable memory
-  * partial tlb replacement
-    * global bit in TLB + Process Context ID
-    * kernel do not need be swapped
-  * hugetlb
+  * TLB: Translation lookaside buffer
+    * store recent page table result
+    * content addressable memory
+    * partial tlb replacement
+      * global bit in TLB + Process Context ID
+      * kernel do not need be swapped
+    * hugetlb
 * memory controller: each mc identifies its own physical address
 
 ## concurrency

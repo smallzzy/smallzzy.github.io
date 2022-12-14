@@ -91,10 +91,10 @@ https://unix.stackexchange.com/questions/247209/how-to-use-cgroups-to-limit-all-
   - `cat / echo` `/proc/irq/92/smp_affinity`
 - irqbalance
 
-> Irqbalance identifies the highest volume interrupt sources, 
-> and isolates them to a single CPU, 
-> so that load is spread as much as possible over an entire processor set, 
-> while minimizing cache hit rates for irq handlers. 
+> Irqbalance identifies the highest volume interrupt sources,
+> and isolates them to a single CPU,
+> so that load is spread as much as possible over an entire processor set,
+> while minimizing cache hit rates for irq handlers.
 
 - mellanox recommands to map each interrupt to a different cpu and only one cpu
   - `mlnx_tune`

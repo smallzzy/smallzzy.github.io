@@ -167,6 +167,7 @@ This flag will show the shadowing as a warning.
 - `-print-file-name`: print file path to certain file
   - very helpful when use library from gcc
 - `--sysroot`: change gcc base folder for searching headers
+  `-print-sysroot`: print current sysroot
 - `gcc -E -Wp,-v -xc /dev/null`: print what the include path is
   - https://stackoverflow.com/questions/17939930/finding-out-what-the-gcc-include-path-is
 

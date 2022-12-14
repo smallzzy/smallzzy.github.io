@@ -15,10 +15,22 @@ summary:
 - type 2 hypervisor: virtual machine
   - QEMU, VMWare, VirtualBox
 
-## iommu
+## IOMMU vs MMU
 
-Each guest os will have it own vitual address mapping.
-To coordinate different virtual address mapping, we need to use IOMMU.
+- MMU stores Virtual Address to Physical Address mapping.
+  - Similarly for IOMMU, allow process to access device address directly?
+- PCIe endpoint -> PCIe Root Port -> IOMMU -> System Memory <- MMU <- CPU
+  - Intel IOMMU
+  - ARM SMMU
+
+## PCIe ATS
+
+- Address translation is shifted from CPU IOMMU to Device IOMMU (ex. GMMU for GPUs)
+
+Bus address?
+or Device address?
+is it used per process?
+what is used before iommu?
 
 ## libvirt
 
