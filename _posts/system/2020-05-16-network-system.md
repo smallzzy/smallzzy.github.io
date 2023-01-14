@@ -28,6 +28,8 @@ summary:
 - ethtool: check interface status, including negotiated speed
   - `-m`: read eeprom info
   - `-t`: self test
+  - `-S`: interface status
+  - `-i`: firmware version
 
 - netstat: check socket binding
   - -t (tcp), -u (udp), -x (unix)
@@ -50,7 +52,6 @@ summary:
   - `unmanaged-devices`
   - `*/NetworkManager/conf.d/`
 - netplan
-  - https://netplan.io/examples/
 
 ## networking suite
 
@@ -376,6 +377,8 @@ Representational state transfer (REST) is a style to design api.
 - cacheability
 - layered system
 - code on demand
+
+
 
 ## todo
 

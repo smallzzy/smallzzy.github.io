@@ -1,20 +1,22 @@
 ---
 layout: post
-title: 
+title:
 date: 2020-11-24 02:37
-category: 
-author: 
+category:
+author:
 tags: []
-summary: 
+summary:
 ---
 
-* PXE is provided by
-  * a DHCP server which hand out BOOTP paramter
-  * a tftp server which serve the files
+- Preboot Execution Environment (PXE) server compose of the following
+  - a DHCP server which hands out BOOTP paramter
+  - a TFTP server which serves Network Bootstrap Program (NBP)
+  - another server which serves file system
+    - usually NFS
 
 ## dnsmasq
 
-```
+```bash
 # network config
 interface=<if>
 
@@ -37,9 +39,9 @@ tftp-root=/srv/tftp
 
 ## boot server
 
-* give client a boot file
-  * `pxelinux.0`
-* pxelinux then proceed with
-  * `pxelinux.cfg`
-  * `kernel + initramfs`
-  * `ldlinux`?
+- give client a boot file
+  - `pxelinux.0`
+- pxelinux then proceed with
+  - `pxelinux.cfg`
+  - `kernel + initramfs`
+  - `ldlinux`?
