@@ -10,15 +10,31 @@ summary:
 
 ## InfiniBand (IB) component
 
-- IB switch
 - Subnet Manager (SM)
-  - Master + Standby
-- network hosts
+  - master SM provide centralized routing management
+  - all other SM are consider standy
+- node: any managed entity: switch, HCA, etc
+  - IB switch
   - host channel adapter (HCA)
+  - SM communicate with a software `agent` on each node, and configure the connection
 - gateway: IB to ethernet
-- router: between multiple IB subnet
+- router: connect between multiple IB subnets
 
 [infiniband data rate](https://en.wikipedia.org/wiki/InfiniBand)
+
+## infiniband packet
+
+LRH + GRH + BTH + ETH + Payload   + ICRC + VCRC
+ 8     40    12   Var   256-4096      4      2
+                      ^Upper Layer^
+          ^ Transport Layer       ^
+    ^ Network Layer               ^
+^ Link Layer                                  ^
+
+- LRH: routing within a Subnet
+- GRH(optional): routing between subnet
+- ICRC: cover all fields that does not change as the packet traverses the fabric
+  - ICRC coverage will change with GRH
 
 ## failover
 
