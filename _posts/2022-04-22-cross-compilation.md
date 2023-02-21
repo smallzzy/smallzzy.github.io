@@ -21,10 +21,11 @@ gcc -print-file-name=libc.so
 > while preventing it from propagating events to that master.
 
 ```bash
+# /etc/resolv.conf
 mount -t proc /proc proc/
 mount -t sysfs /sys sys/
 mount --rbind /dev dev/
 mount --make-rslave dev/
-# chroot
+# chroot <root path> <binary>
 umount --recursive proc sys dev
 ```
