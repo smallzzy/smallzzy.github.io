@@ -185,16 +185,9 @@ stripe width = number of data disks * stride
 https://serverfault.com/questions/796460/partition-table-on-one-disk-from-raid-always-equal-to-partition-table-configured
 https://serverfault.com/questions/619862/should-i-partition-a-raid-or-just-create-a-file-system-on-it
 
+VROC - VMD
+
 ## file system
-
-https://danluu.com/deconstruct-files/
-https://danluu.com/filesystem-errors/
-
-https://news.ycombinator.com/item?id=24258444
-
-https://stackoverflow.com/questions/2009063/are-disk-sector-writes-atomic
-
-https://www.bswd.com/FMS12/FMS12-Rudoff.pdf
 
 `du -sch .[!.]* *`: show file size including hidden
 `ncdu`: show file size in command line, easier than `du -h`
