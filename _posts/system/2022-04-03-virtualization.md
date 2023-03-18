@@ -99,13 +99,23 @@ https://github.com/multiarch/qemu-user-static
 
 ## box86 / box64
 
+https://github.com/ptitSeb/box64
 https://box86.org/2022/03/box86-box64-vs-qemu-vs-fex-vs-rosetta2/
+
+mkdir build;
+cd build;
+cmake .. -DARM_DYNAREC=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DPAGE64K=ON;
+make -j$(nproc)
+
+-- Installing: /usr/local/bin/box64
+-- Installing: /etc/binfmt.d/box64.conf
+-- Installing: /usr/lib/x86_64-linux-gnu/libstdc++.so.5
+-- Installing: /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+-- Installing: /usr/lib/x86_64-linux-gnu/libgcc_s.so.1
+-- Installing: /usr/lib/x86_64-linux-gnu/libpng12.so.0
+-- Installing: /etc/box64.box64rc
 
 ## rosetta
 
 https://apple.stackexchange.com/questions/407731/how-does-rosetta-2-work
 https://ss64.com/osx/lipo.html
-
-why 16k page size?
-how does huge tlb get handled
-sysconf(_SC_PAGESIZE)
