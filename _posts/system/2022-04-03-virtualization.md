@@ -57,16 +57,14 @@ http://www.elaske.com/unraid-pcie-and-iommu-groups/
 ## user emulation `qemu-static`
 
 ```
+https://wiki.debian.org/QemuUserEmulation
+
 This page describes how to setup and use QEMU user emulation in a "transparent" fashion, allowing execution of non-native target executables just like native ones (i.e. ./program).
 
 In this text, "target" means the system being emulated, and "host" means the system where QEMU is running.
 ```
 
-https://wiki.debian.org/QemuUserEmulation
-
-apt install qemu binfmt-support qemu-user-static
-update-binfmts --display
-update-binfmts --enable
+`apt install qemu binfmt-support qemu-user-static`
 
 ### apt source list
 
@@ -99,6 +97,8 @@ https://github.com/multiarch/qemu-user-static
 
 ## box86 / box64
 
+instead of emulating everything. instead try to interpret function calls and runs with system native library
+
 https://github.com/ptitSeb/box64
 https://box86.org/2022/03/box86-box64-vs-qemu-vs-fex-vs-rosetta2/
 
@@ -106,6 +106,7 @@ mkdir build;
 cd build;
 cmake .. -DARM_DYNAREC=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DPAGE64K=ON;
 make -j$(nproc)
+sudo make install
 
 -- Installing: /usr/local/bin/box64
 -- Installing: /etc/binfmt.d/box64.conf
@@ -114,6 +115,21 @@ make -j$(nproc)
 -- Installing: /usr/lib/x86_64-linux-gnu/libgcc_s.so.1
 -- Installing: /usr/lib/x86_64-linux-gnu/libpng12.so.0
 -- Installing: /etc/box64.box64rc
+
+### update-binfmts vs systemd-binfmt
+
+These are two conflicting ways of interacting with kernel binfmt
+
+```bash
+# update-binfmts
+/usr/share/binfmts/
+update-binfmts --display
+update-binfmts --enable
+
+# systemd-binfmt
+/etc/binfmt.d/
+/usr/lib/systemd/systemd-binfmt --cat-config
+```
 
 ## rosetta
 
