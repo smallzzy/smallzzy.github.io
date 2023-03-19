@@ -111,6 +111,22 @@ podman run -d \
    -v /mnt/download/qbt_downloads/:/downloads \
    qbittorrentofficial/qbittorrent-nox:latest
 
+podman run -d \
+    --name aria2-pro \
+    --log-opt max-size=1m \
+    -e PUID=0 \
+    -e PGID=0 \
+    -e UMASK_SET=022 \
+    -e RPC_SECRET=zbY5eRBWWATXe8j56cR6 \
+    -e RPC_PORT=6800 \
+    -e LISTEN_PORT=6888 \
+    -p 6800:6800 \
+    -p 6888:6888 \
+    -p 6888:6888/udp \
+    -v /mnt/download/aria2-config:/config \
+    -v /mnt/download/aria2-downloads:/downloads \
+    p3terx/aria2-pro
+
 # generate podman service to be run at first login
 podman generate systemd --name qbittorrent-nox > ~/.config/systemd/user/qbt.service
 systemctl enable --user qbt.service

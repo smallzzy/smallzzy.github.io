@@ -8,44 +8,41 @@ tags: []
 summary:
 ---
 
-## expectation
+## expectation of raid
 
-data read is exactly the same as data written
+data read is exactly the same as data written i.e.
 
-i.e. correct errors even when the drive itself does not report it
+Within one device, the block is fully writted or not exist at all. (write should be atomic)
 
--> can drive detect errors?
+Between several devices, the data should match up with the parity.
 
 ## the issue at hand
 
-1. device missing (ex. due to failure)
+1. device failure
    1. need to build redundency such that file can be re-constructed. (mirror or parity)
 2. bit rot: meaning that the disk contect is changed
-   1. need to perfrom some form of checks to make sure data read is correct
+   1. this is usually checked internal by using ecc within a sector
 3. write hole: if parity and data has a discrepency, who is correct?
-   1. this can happend due to a power loss or a *bit rot*
+   1. this can happend due to a power loss where the write does not happen
+   2. or a certain copy is corrupted due to bit rot
 
-## bit rot
-
-1. can a disk know that if has a rotten bit?
-   1. ecc within a sector
-      1. how is this even exposed?
-   2. if a drive is out of sync with the array, it can still contain a good ecc
-      1. can this happen in nomral condition??
-2. can the software know that if there is a rotten bit
-   1. parity should be checked on each read ? performance hit?
-   2. 520 byte sector so that 8 bytes are used for parity
-      1. enterprise disks usually has this function but much more expansive
-   3. filesystem level checksum block? zfs?
-
-## write hole
+### power loss
 
 1. battery backed device
 2. write intent log: log the action before doing it
+   1. a re-scan later can make sure that all actions are perfromed
+
+### corrupted copy
+
+1. if a drive is out of sync with the array, the disk can contain a good ecc so that it cannot *report* a error by itself
+2. for the software to detect inconsitency, there needs to be parity data on the stripe level
+   1. 520 byte sector so that 8 bytes are used for parity
+      1. enterprise disks usually has this function but much more expansive
+   2. filesystem level checksum block? zfs?
 
 ## reference
 
-https://www.youtube.com/watch?v=l55GfAwa8RI
+https://www.youtube.com/watch?v=l55GfAwa8RI -> this video is really talking about write hole
 
 https://superuser.com/questions/1031069/hdd-ssd-physical-sector-size-if-metadata-is-included
 
