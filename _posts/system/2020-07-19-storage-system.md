@@ -323,3 +323,25 @@ set esp on?
 https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/What_are_the_NFS_mount_options_for_databases_on_NetApp
 
 https://dev.mysql.com/doc/refman/8.0/en/disk-issues.html
+
+## iops vs bandwidth
+
+command queue depth?
+i/o locking
+
+## nvme
+
+memory only transport -> mmio in pcie
+vs needing software translation -> sata adaptor
+
+## nvmeof
+
+allow message based transport
+which can leverage existing protocol
+
+- message only - fibre channel
+- rdma:
+  - command / response with message
+  - data with memory?
+
+ovs over dpdk
