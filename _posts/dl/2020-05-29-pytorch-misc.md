@@ -1,11 +1,11 @@
 ---
 layout: post
-title: 
+title:
 date: 2020-05-29 19:52
-category: 
-author: 
+category:
+author:
 tags: []
-summary: 
+summary:
 ---
 
 ## print precision
@@ -77,7 +77,7 @@ https://github.com/Stonesjtu/pytorch_memlab
 
 https://github.com/pytorch/pytorch/blob/master/torch/nn/parallel/data_parallel.py
 
-> In each forward, `module` is **replicated** on each device, 
+> In each forward, `module` is **replicated** on each device,
 > so any updates to the running module in `forward` will be lost.
 
 > **in-place** updates to the parameters or buffers on ``device[0]`` will be recorded
@@ -95,3 +95,10 @@ https://github.com/pytorch/pytorch/blob/master/torch/nn/parallel/distributed.py
 2. cannot resize existing paramter because it has require_grad state
 3. replace `.data` is the way to go
    1. initialize on multiple gpu might be problematic?
+
+
+install pytorch through conda
+python launch.py
+
+libnvrtc??
+https://github.com/pytorch/pytorch/issues/97041
