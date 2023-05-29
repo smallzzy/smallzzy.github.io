@@ -53,6 +53,22 @@ summary:
   - `*/NetworkManager/conf.d/`
 - netplan
 
+## setup forarding
+
+```bash
+# temporarily
+sudo sysctl -w net.ipv4.ip_forward=1
+sudo iptables -t nat -A POSTROUTING -o eno1 -j MASQUERADE
+
+sudo iptables -t nat -L
+
+# persistantly
+# Uncomment the below line in/etc/sysctl.d/99-sysctl.conf
+net.ipv4.ip_forward=1
+
+apt-get install -y iptables-persistent
+```
+
 ## networking suite
 
 IP suite (OSI)
