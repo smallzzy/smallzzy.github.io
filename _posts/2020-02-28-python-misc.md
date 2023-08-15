@@ -197,3 +197,8 @@ python-config --cflags: do we need this to be binary compatible?
 https://docs.python.org/3/distutils/setupscript.html#installing-package-data
 
 python3 -m sysconfig | less
+
+https://pypi.org/project/accelerate/
+
+simple http server
+`python3 -m http.server 8000`

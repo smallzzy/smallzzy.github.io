@@ -157,7 +157,10 @@ https://www.kernel.org/doc/html/latest/admin-guide/sysfs-rules.html
 ### proc
 
 - `/proc` decribes running information for each process
-  - `cpuinfo`, `meminfo`
+  - `cpuinfo`
+  - `meminfo`
+    - slabtop
+    - pmap
   - `iomem`, `ioport`
 - device tree:
   - `/proc/device-tree/`
@@ -171,3 +174,5 @@ https://www.kernel.org/doc/html/latest/admin-guide/sysfs-rules.html
 ## reference
 
 [Linux Specfication](https://refspecs.linuxfoundation.org/)
+
+[Interactive Linux Kernel Map](https://makelinux.github.io/kernel/map/)
