@@ -69,6 +69,13 @@ https://www.mankier.com/1/stress-ng
 `munin` and `cacti`
 `pcm`
 
+## perf
+
+https://github.com/intel/pcm
+
+https://github.com/intel/perfmon
+
+
 ## cpu pin
 
 NUMA node is common on server.

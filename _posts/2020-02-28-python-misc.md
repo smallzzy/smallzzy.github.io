@@ -14,6 +14,8 @@ summary:
 - `.format` esacpe `{}` by doubling it, `{{` `}}`
   - use a `f'string {replace}'` in python3
 
+http://bokeh.org/
+
 ## inplace operation
 
 - `__add__` vs `__iadd__`
@@ -202,3 +204,6 @@ https://pypi.org/project/accelerate/
 
 simple http server
 `python3 -m http.server 8000`
+
+https://nuitka.net/doc/user-manual.html
+

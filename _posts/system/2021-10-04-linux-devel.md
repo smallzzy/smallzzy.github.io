@@ -44,6 +44,7 @@ summary:
 
 ### module
 
+- `depmod`: update module dependency map
 - dynamic module:
   - `lsmod`, `modinfo`, `modprobe`
   - `/sys/module/<modules>/parameters/<param>`
