@@ -74,22 +74,41 @@ sudo ldconfig
 
 ## GPUDirect
 
-GPU direct is a technology to help data transmission to gpu.
+GPU direct is a technology to help data transmission on gpu.
 Its official website is [here](https://developer.nvidia.com/gpudirect)
 
-### P2P
+availbility depends on PCIe topology
 
-Exchange data between GPUs.
+### P2P - GPU to GPU
+
+Exchange data between GPUs directly without CPU intervention.
 
 Should be supported by the CUDA driver
 
-### rdma
+P2P can also operate over Nvlink
+
+https://github.com/NVIDIA/nvbandwidth
+
+### rdma - GPU to NIC
+
+GPU register itself into OFED via PeerDirect client
+
+https://enterprise-support.nvidia.com/s/article/howto-implement-peerdirect-client-using-mlnx-ofed
+
+Driver support
+nvidia-peermem
+
+https://download.nvidia.com/XFree86/Linux-x86_64/470.141.03/README/nvidia-peermem.html
+
+historically, supported by nv_peer_mem
 
 ### storage
 
-Exchange data between GPU and disk?
+Exchange data between GPU and disk. Basically, let GPU understand certain file system.
 
 https://developer.nvidia.com/blog/gpudirect-storage/
+
+https://docs.nvidia.com/gpudirect-storage/api-reference-guide/index.html
 
 ## NvLink
 
@@ -162,6 +181,8 @@ ExecStart=/bin/sh -c "nvidia-smi -pm 1 && nvidia-smi -pl <PL>"
 [Install]
 WantedBy=multi-user.target
 ```
+
+-> gdrdrv service is keeping the nvidia-persistenced process runing
 
 ### overclock
 
