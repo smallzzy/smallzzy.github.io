@@ -55,8 +55,8 @@ summary:
 
 ### nvme
 
-- Supported LBA Sizes: `smartctl -a /dev/`
-- change LBA size: `nvme format /dev/nvme1n1 -l 1`
+- Supported LBA Sizes: `sudo nvme id-ns -H <DEV>`
+- change LBA size: `sudo nvme format --lbaf=1 /DEVICE`
 
 https://tinyapps.org/docs/nvme-secure-erase.html
 
