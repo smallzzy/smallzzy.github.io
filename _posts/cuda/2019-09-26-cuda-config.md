@@ -79,6 +79,10 @@ Its official website is [here](https://developer.nvidia.com/gpudirect)
 
 availbility depends on PCIe topology
 
+GPU direct requires disable ACS and IOMMU
+
+https://docs.nvidia.com/gpudirect-storage/best-practices-guide/index.html
+
 ### P2P - GPU to GPU
 
 Exchange data between GPUs directly without CPU intervention.
@@ -96,7 +100,7 @@ GPU register itself into OFED via PeerDirect client
 https://enterprise-support.nvidia.com/s/article/howto-implement-peerdirect-client-using-mlnx-ofed
 
 Driver support
-nvidia-peermem
+nvidia-peermem will register GPU into OFED when loaded
 
 https://download.nvidia.com/XFree86/Linux-x86_64/470.141.03/README/nvidia-peermem.html
 
