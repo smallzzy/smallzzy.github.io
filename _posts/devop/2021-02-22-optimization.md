@@ -57,7 +57,9 @@ iperf
 fio
 stress: cpu
 
-[fio on google cloud](https://cloud.google.com/compute/docs/disks/benchmarking-pd-performance)
+sudo fio --name=write_throughput --directory=$TEST_DIR --numjobs=16 --size=10G --time_based --runtime=5m --ramp_time=2s --ioengine=libaio --direct=1 --verify=0 --bs=1M --iodepth=64 --rw=write --group_reporting=1 --iodepth_batch_submit=64 --iodepth_batch_complete_max=64
+
+[fio on google cloud](https://cloud.google.com/compute/docs/disks/benchmarking-pd-performance-linux)
 https://www.mankier.com/1/stress-ng
 
 ## monitor
@@ -91,6 +93,9 @@ The performance for certain workload might tank if it operates on a remote NUMA 
   - `--cpuset-cpus <core-list>`
 
 https://unix.stackexchange.com/questions/247209/how-to-use-cgroups-to-limit-all-processes-except-whitelist-to-a-single-cpu
+
+- /sys/devices/system/memory/memory156200/node18
+- /sys/bus/node/devices
 
 ### interrupt
 
