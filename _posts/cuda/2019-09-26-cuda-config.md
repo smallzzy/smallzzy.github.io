@@ -81,7 +81,7 @@ availbility depends on PCIe topology
 
 GPU direct requires disable ACS and IOMMU
 
-https://docs.nvidia.com/gpudirect-storage/best-practices-guide/index.html
+https://docs.nvidia.com/gpudirect-storage/configuration-guide/index.html
 
 ### P2P - GPU to GPU
 

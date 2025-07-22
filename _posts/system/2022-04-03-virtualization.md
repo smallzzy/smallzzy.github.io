@@ -15,17 +15,31 @@ summary:
 - type 2 hypervisor: virtual machine
   - QEMU, VMWare, VirtualBox
 
+## ACS (Access Control Service)
+
+
 ## IOMMU vs MMU
 
-- MMU stores Virtual Address to Physical Address mapping.
-  - Similarly for IOMMU, allow process to access device address directly?
 - PCIe endpoint -> PCIe Root Port -> IOMMU -> System Memory <- MMU <- CPU
   - Intel IOMMU
   - ARM SMMU
+- MMU stores Virtual Address to Physical Address mapping
+- IOMMU allows DMA-capable devices to access system memory
+  - note that IOMMU has groups, and each group has its own mapping table
+  - however, multiple devices in the same IOMMU group means that they cannot be individually isolated for virtualization
+
+### ACS override patch
+
+- there is a patch in linux to override ACS (Access Control Service)
+- by using ACS, it mimics the behavior of splitting device into multiple IOMMU groups.
+- but on hardware level, the IOMMU group is still shared so DMA attack is still possible
 
 ## PCIe ATS
 
 - Address translation is shifted from CPU IOMMU to Device IOMMU (ex. GMMU for GPUs)
+- device can send translation request to IOMMU, IOMMU is supposted to return the RWX permission for the request
+  - the following request can be sent with translated address
+  - however, what if malicious device send fake translated address?
 
 Bus address?
 or Device address?
