@@ -28,23 +28,47 @@ summary:
   - note that IOMMU has groups, and each group has its own mapping table
   - however, multiple devices in the same IOMMU group means that they cannot be individually isolated for virtualization
 
-### ACS override patch
+### fun fact: ACS override patch
 
 - there is a patch in linux to override ACS (Access Control Service)
 - by using ACS, it mimics the behavior of splitting device into multiple IOMMU groups.
 - but on hardware level, the IOMMU group is still shared so DMA attack is still possible
 
-## PCIe ATS
+## PCIe address translation service (ATS)
+
+- when pcie devices found caching a memory translation is beneficial, it can perform ATS requset to TA (translating agent) to retrieve the translation.
+  - PCIe devices will store the result in its own cache (ATC)
 
 - Address translation is shifted from CPU IOMMU to Device IOMMU (ex. GMMU for GPUs)
 - device can send translation request to IOMMU, IOMMU is supposted to return the RWX permission for the request
   - the following request can be sent with translated address
   - however, what if malicious device send fake translated address?
 
+### security
+
+https://cloud.google.com/blog/products/gcp/fuzzing-pci-express-security-in-plaintext
+
+The most interesting challenge here is protecting against PCIe's Address Translation Services (ATS).
+Using this feature, any device can claim it's using an address that's already been translated, and thus bypass IOMMU translation.
+
+https://www.intel.com/content/www/us/en/pci-express/pci-sig-sr-iov-primer-sr-iov-technology-paper.html
+
+Access Control Services (ACS) provides a mechanism by which a Peer-to-Peer PCIe transaction can be forced to go up through the PCIe Root Complex.
+ACS can be thought of as a kind of gate-keeper - preventing unauthorized (P2P)transactions from occurring
+
+https://www.intel.com/content/dam/develop/external/us/en/documents/intel-whitepaper-using-iommu-for-dma-protection-in-uefi-820238.pdf
+
+IOMMU is suggested to be used for limiting device access to system memory. Thus limiting the DMA attack.
+Note that the whitepaper suggests to let IOMMU kick in at very early stage.
+
+### note
+
+note that ACS and IOMMU can be modified to allow DMA for improved performance on trustworthy devices. But the method is platform specific.
+It is easier to just disable them for performance.
+
 Bus address?
 or Device address?
 is it used per process?
-what is used before iommu?
 
 ## libvirt
 
